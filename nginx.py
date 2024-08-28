@@ -1,4 +1,5 @@
 import requests
+from uuid import uuid4
 
 class NginxInteractor:
     def __init__(self, host, port):
@@ -13,4 +14,7 @@ class NginxInteractor:
         }
 
         return requests.post(url, json=data).json()
+
         
+if __name__ == "__main__":
+    pass

@@ -1,4 +1,5 @@
 import docker
+import random
 from nginx import NginxInteractor
 
 class Deploy:
@@ -11,15 +12,18 @@ class Deploy:
         self.network = self.init_network(network_name)
 
     def create_container(self, user_id, subdomain):
+        subdomain = f"{subdomain}{random.randint(1111,9999)}"
         container = self.client.containers.run(
             self.image,
             detach=True,
             tty=True,
+            name="dudebro-server",
             labels={"user_id": user_id, "subdomain": subdomain},
-            network=self.network
+            network=self.network_name
         )
 
-        self.get_container_ip(container)
+        container_ip = self.get_container_ip(container)
+        res = self.nginx.create_subdomain(subdomain, container_ip)
 
         return container
     
@@ -29,7 +33,7 @@ class Deploy:
         network_settings = container.attrs['NetworkSettings']
         ip_address = network_settings['Networks'][self.network_name]['IPAddress']
 
-        print(f"Container IP Address: {ip_address}")
+        return ip_address
     
     def init_network(self, network_name):
         try:
@@ -62,8 +66,8 @@ class Deploy:
         return False
 
 if __name__ == "__main__":
-    dep = Deploy(image="debian", nginx_host="localhost", nginx_port="5002")
-    dep.create_container("123", "glorp")
+    dep = Deploy(image="debian:dude-slim-baked", nginx_host="localhost", nginx_port="5002")
+    dep.create_container("123", "scoopus")
     # x = dep.get_user_containers("123")
     # for i in x:
     #     print(i.id)
