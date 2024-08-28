@@ -12,11 +12,12 @@ class Deploy:
         self.network = self.init_network(network_name)
 
     def create_container(self, user_id, subdomain):
-        subdomain = f"{subdomain}{random.randint(1111,9999)}"
+        #subdomain = f"{subdomain}{str(random.randint(1111,9999))}"
         container = self.client.containers.run(
             self.image,
             detach=True,
             tty=True,
+            # ports={"49494/tcp":49494},
             name="dudebro-server",
             labels={"user_id": user_id, "subdomain": subdomain},
             network=self.network_name
@@ -67,7 +68,7 @@ class Deploy:
 
 if __name__ == "__main__":
     dep = Deploy(image="debian:dude-slim-baked", nginx_host="localhost", nginx_port="5002")
-    dep.create_container("123", "scoopus")
+    dep.create_container("123", "anotherone")
     # x = dep.get_user_containers("123")
     # for i in x:
     #     print(i.id)

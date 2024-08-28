@@ -3,6 +3,8 @@ import os
 from jinja2 import Template
 from dotenv import load_dotenv
 import subprocess
+from uuid import uuid4
+import requests
 
 nginx_conf_dir = '/etc/nginx/sites-available'
 nginx_enabled_dir = '/etc/nginx/sites-enabled'
@@ -43,13 +45,49 @@ class DudeServer:
         create_response = requests.post(url, headers=headers, json=data)
         if create_response.status_code == 200:
             print(f'Record {subdomain}.{self.domain} created successfully.')
+            return True
         else:
             print(f'Failed to create record: {create_response.json()}')
+            return False
+
+    def create_srv_entry(self, subdomain, domain, target_record, port: int, proxied=False, weight:int=0, priority:int=0):
+        url = f'https://api.cloudflare.com/client/v4/zones/{self.zone_id}/dns_records'
+
+        headers = {
+            'Authorization': f'Bearer {self.api_key}',
+            'Content-Type': 'application/json',
+            'X-Auth-Email': self.email,
+            'X-Auth-Key': self.api_key,
+        }
+
+        data = {
+            'type': "SRV",
+            "name": f"_minecraft._tcp.{subdomain}.{domain}",
+            "service": "_minecraft",
+            "proto": "_tcp",
+            "data": {
+                "weight": weight,
+                "port": port,
+                "target": target_record,
+                "priority": priority,
+            },
+            'id': str(uuid4()),
+            'proxied': proxied,
+            'ttl': 1, #auto
+        }
+        print(data)
+        create_response = requests.post(url, headers=headers, json=data)
+        if create_response.status_code == 200:
+            print(f'Created successfully.')
+            return True
+        else:
+            print(f'Failed to create record: {create_response.json()}')
+            return False
 
     # Create a new Nginx configuration file
     def create_nginx_conf(self, subdomain, host):
         self.create_dns_entry(subdomain)
-        template = load_template(template_path)
+        template = self.load_template(template_path)
         config_content = template.render(subdomain=subdomain, host=host)
         conf_filename = f"{subdomain}.conf"
 
@@ -74,4 +112,6 @@ def create_subdomain():
     return jsonify({"status": "success", "subdomain": subdomain, "host": host})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5002)
+    # app.run(host='0.0.0.0', port=5002)
+    server = DudeServer()
+    server.create_srv_entry("glorp", "doesnickwork.com", "mine.doesnickwork.com", 40901, weight=5, priority=1)
