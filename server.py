@@ -16,9 +16,9 @@ def load_template(path):
         return Template(file.read())
 
 # Create a new Nginx configuration file
-def create_nginx_conf(subdomain, port):
+def create_nginx_conf(subdomain, host):
     template = load_template(template_path)
-    config_content = template.render(subdomain=subdomain, port=port)
+    config_content = template.render(subdomain=subdomain, host=host)
     conf_filename = f"{subdomain}.conf"
     
     conf_path = os.path.join(nginx_conf_dir, conf_filename)
@@ -39,18 +39,15 @@ def create_nginx_conf(subdomain, port):
         print(f"Error occurred: {e}")
         print("Configuration test or reload failed.")
 
-# Example usage
-# subdomain = 'example'
-# port = 8080
-# create_nginx_conf(subdomain, port)
-
 app = Flask(__name__)
 
 @app.route('/create_subdomain', methods=['POST'])
 def create_subdomain():
     data = request.json 
     subdomain = data.get('subdomain')
-    return jsonify({"status": "success", "subdomain": subdomain})
+    host = data.get('host')
+    create_nginx_conf(subdomain, host)
+    return jsonify({"status": "success", "subdomain": subdomain, "host": host})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
