@@ -1,32 +1,79 @@
 import docker
 import random
+import requests
+import os
+from uuid import uuid4
+from dotenv import load_dotenv
 from nginx import NginxInteractor
+from manager import User, Container
+
+# SQL
+from sqlalchemy import create_engine, Column, Integer, String, TIMESTAMP, ForeignKey
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy.sql import func
+
+Base = declarative_base()
 
 class Deploy:
-    def __init__(self, image, nginx_host, nginx_port, network_name:str="mc-network", timeout:int=5):
+    def __init__(self, image, network_name:str="mc-network", timeout:int=5):
+        load_dotenv()
         self.image = image
         self.timeout = timeout
-        self.nginx = NginxInteractor(nginx_host, nginx_port)
         self.client = docker.from_env()
         self.network_name = network_name
+
         self.network = self.init_network(network_name)
+        self.zone_id = os.getenv("ZONE_ID")
+        self.api_key = os.getenv("API_KEY")
+        self.domain = os.getenv("DOMAIN")
+        self.public_ip = os.getenv("PUBLIC_IP")
+        self.email = os.getenv("EMAIL")
+        self.default_domain = "doesnickwork.com"
+        self.default_target = "mine.doesnickwork.com"
+
+        self.sql_init()
+
+    def sql_init(self):
+        self.Base = declarative_base()
+        self.engine = create_engine('sqlite:///dudebro.db', echo=True)
+        self.Base.metadata.create_all(self.engine)
+        # Create a session
+        Session = sessionmaker(bind=self.engine)
+        self.session = Session()
 
     def create_container(self, user_id, subdomain):
-        #subdomain = f"{subdomain}{str(random.randint(1111,9999))}"
+        # Log all of this data in a DB
         container = self.client.containers.run(
             self.image,
             detach=True,
             tty=True,
-            # ports={"49494/tcp":49494},
             name="dudebro-server",
             labels={"user_id": user_id, "subdomain": subdomain},
             network=self.network_name
         )
 
-        container_ip = self.get_container_ip(container)
-        res = self.nginx.create_subdomain(subdomain, container_ip)
+        port = self.get_port()
+
+        new_container = Container(subdomain=subdomain, domain=self.default_domain, port=port, weight=0, priority=0, name="dudebro-server", userid=user_id)
+        self.session.add(new_container)
+        self.session.commit()
+
+        res = self.create_srv_entry(subdomain, self.default_domain, self.default_target, )
 
         return container
+    
+    def get_port(self):
+        user = self.session.query(Container).last()
+
+        if user:
+            containers = user.containers 
+            for container in containers:
+                print(container.name)
+        else:
+            print("User not found.")
+
+        return 1
     
     def get_container_ip(self, container):
         # Retrieve the container's IP address
@@ -35,6 +82,40 @@ class Deploy:
         ip_address = network_settings['Networks'][self.network_name]['IPAddress']
 
         return ip_address
+
+    def create_srv_entry(self, subdomain, domain, target_record, port: int, proxied=False, weight:int=0, priority:int=0):
+        url = f'https://api.cloudflare.com/client/v4/zones/{self.zone_id}/dns_records'
+
+        headers = {
+            'Authorization': f'Bearer {self.api_key}',
+            'Content-Type': 'application/json',
+            'X-Auth-Email': self.email,
+            'X-Auth-Key': self.api_key,
+        }
+
+        data = {
+            'type': "SRV",
+            "name": f"_minecraft._tcp.{subdomain}.{domain}",
+            "service": "_minecraft",
+            "proto": "_tcp",
+            "data": {
+                "weight": weight,
+                "port": port,
+                "target": target_record,
+                "priority": priority,
+            },
+            'id': str(uuid4()),
+            'proxied': proxied,
+            'ttl': 1, #auto
+        }
+        print(data)
+        create_response = requests.post(url, headers=headers, json=data)
+        if create_response.status_code == 200:
+            print(f'Created successfully.')
+            return True
+        else:
+            print(f'Failed to create record: {create_response.json()}')
+            return False
     
     def init_network(self, network_name):
         try:
@@ -67,8 +148,9 @@ class Deploy:
         return False
 
 if __name__ == "__main__":
-    dep = Deploy(image="debian:dude-slim-baked", nginx_host="localhost", nginx_port="5002")
-    dep.create_container("123", "anotherone")
+    dep = Deploy(image="debian:dude-slim-baked")
+    # dep.create_container("123", "anotherone")
+    dep.get_port()
     # x = dep.get_user_containers("123")
     # for i in x:
     #     print(i.id)
