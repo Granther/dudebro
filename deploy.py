@@ -8,7 +8,7 @@ from nginx import NginxInteractor
 from manager import User, Container
 
 # SQL
-from sqlalchemy import create_engine, Column, Integer, String, TIMESTAMP, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, TIMESTAMP, ForeignKey, desc
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.sql import func
@@ -23,7 +23,7 @@ class Deploy:
         self.client = docker.from_env()
         self.network_name = network_name
 
-        self.network = self.init_network(network_name)
+        #self.network = self.init_network(network_name)
         self.zone_id = os.getenv("ZONE_ID")
         self.api_key = os.getenv("API_KEY")
         self.domain = os.getenv("DOMAIN")
@@ -42,42 +42,52 @@ class Deploy:
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
 
+    def create_user(self, username, password):
+        new_user = User(username=username, password=password)
+        self.session.add(new_user)
+        self.session.commit()
+
+        id = self.session.query(User.id).filter_by(username=username, password=password).first()
+        return id.id
+
     def create_container(self, user_id, subdomain):
         # Log all of this data in a DB
+
+        port = self.get_port()
+        if not port:
+            raise RuntimeError("Error retrieving port")
+
         container = self.client.containers.run(
             self.image,
             detach=True,
             tty=True,
             name="dudebro-server",
-            labels={"user_id": user_id, "subdomain": subdomain},
-            network=self.network_name
+            labels={"user_id": str(user_id), "subdomain": subdomain}
+            #network=self.network_name
         )
-
-        port = self.get_port()
 
         new_container = Container(subdomain=subdomain, domain=self.default_domain, port=port, weight=0, priority=0, name="dudebro-server", userid=user_id)
         self.session.add(new_container)
         self.session.commit()
 
-        res = self.create_srv_entry(subdomain, self.default_domain, self.default_target, )
+        self.create_srv_entry(subdomain, self.default_domain, self.default_target, port)
 
         return container
     
     def get_port(self):
-        user = self.session.query(Container).last()
+        ports = self.session.query(Container.port).order_by(desc(Container.port)).first()
+        port = None
 
-        if user:
-            containers = user.containers 
-            for container in containers:
-                print(container.name)
+        if ports:
+            port = ports.port
+            print("port", port)
         else:
-            print("User not found.")
+            return False
 
-        return 1
+        return port + 1
     
     def get_container_ip(self, container):
-        # Retrieve the container's IP address
-        container.reload()  # Refresh container attributes
+        container.reload()
         network_settings = container.attrs['NetworkSettings']
         ip_address = network_settings['Networks'][self.network_name]['IPAddress']
 
@@ -148,9 +158,13 @@ class Deploy:
         return False
 
 if __name__ == "__main__":
-    dep = Deploy(image="debian:dude-slim-baked")
+    dep = Deploy(image="debian")
     # dep.create_container("123", "anotherone")
-    dep.get_port()
+    userid = dep.create_user(username="Grant", password="pass")
+    print("serid", userid)
+    cont = dep.create_container(userid, "helo")
+    x = dep.get_user_containers(3)
+    print(x)
     # x = dep.get_user_containers("123")
     # for i in x:
     #     print(i.id)

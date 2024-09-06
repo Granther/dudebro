@@ -12,77 +12,14 @@ template_path = 'subdomain_template.conf'
 
 class DudeServer:
     def __init__(self):
-        load_dotenv()
-        self.zone_id = os.getenv("ZONE_ID")
-        self.api_key = os.getenv("API_KEY")
-        self.domain = os.getenv("DOMAIN")
-        self.public_ip = os.getenv("PUBLIC_IP")
-        self.email = os.getenv("EMAIL")
+        pass
 
     # Load the Nginx configuration template
     def load_template(self, path):
         with open(path, 'r') as file:
             return Template(file.read())
 
-    def create_dns_entry(self, subdomain):
-        url = f'https://api.cloudflare.com/client/v4/zones/{self.zone_id}/dns_records'
-
-        headers = {
-            'Authorization': f'Bearer {self.api_key}',
-            'Content-Type': 'application/json',
-            'X-Auth-Email': self.email,
-            'X-Auth-Key': self.api_key,
-        }
-
-        data = {
-            'type': "A",
-            'name': f'{subdomain}.{self.domain}',
-            'content': self.public_ip,
-            'id': str(uuid4()),
-            'proxied': True,
-            'ttl': 1, #auto
-        }
-        create_response = requests.post(url, headers=headers, json=data)
-        if create_response.status_code == 200:
-            print(f'Record {subdomain}.{self.domain} created successfully.')
-            return True
-        else:
-            print(f'Failed to create record: {create_response.json()}')
-            return False
-
-    def create_srv_entry(self, subdomain, domain, target_record, port: int, proxied=False, weight:int=0, priority:int=0):
-        url = f'https://api.cloudflare.com/client/v4/zones/{self.zone_id}/dns_records'
-
-        headers = {
-            'Authorization': f'Bearer {self.api_key}',
-            'Content-Type': 'application/json',
-            'X-Auth-Email': self.email,
-            'X-Auth-Key': self.api_key,
-        }
-
-        data = {
-            'type': "SRV",
-            "name": f"_minecraft._tcp.{subdomain}.{domain}",
-            "service": "_minecraft",
-            "proto": "_tcp",
-            "data": {
-                "weight": weight,
-                "port": port,
-                "target": target_record,
-                "priority": priority,
-            },
-            'id': str(uuid4()),
-            'proxied': proxied,
-            'ttl': 1, #auto
-        }
-        print(data)
-        create_response = requests.post(url, headers=headers, json=data)
-        if create_response.status_code == 200:
-            print(f'Created successfully.')
-            return True
-        else:
-            print(f'Failed to create record: {create_response.json()}')
-            return False
+    def op
 
     # Create a new Nginx configuration file
     def create_nginx_conf(self, subdomain, host):
@@ -111,7 +48,22 @@ def create_subdomain():
     server.create_nginx_conf(subdomain, host)
     return jsonify({"status": "success", "subdomain": subdomain, "host": host})
 
+@app.route('/server_properties', methods=['POST', 'GET'])
+def server_properties():
+    pass
+    # If GET, send properties to mother, if POST, receieve properties and submit changes
+
+@app.route('/ops', methods=['POST', 'GET'])
+def ops():
+    pass
+    # Get current ops, update ops
+
+@app.route('/logs', methods=['POST'])
+def logs():
+    pass
+    # This is just the logs mo
+
+
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', port=5002)
-    server = DudeServer()
-    server.create_srv_entry("glorp", "doesnickwork.com", "mine.doesnickwork.com", 40901, weight=5, priority=1)
+    pass

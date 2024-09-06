@@ -34,3 +34,27 @@
 - Get IP
 - Set config in Nginx with IP and subdom
 - Give user subdom
+
+### Front End
+- Seems like most of the backend is written
+- Simple user creation
+- 1 container per user (check_num_own)
+- Interaction with backend
+
+### Interaction with MC server
+- Edit server.prop but in special mode. ie, cant edit port
+
+### To Do
+- Backend interaction to customize serer props
+- What else needs to be edited? 
+- Op/Deop players
+- View logs
+- Download and upload world
+
+### MC Dudebro Interactor Server
+- Runs on the container alongside the MC server
+- Mother server GETS and POSTs changes 
+
+### Changes that can be made
+- I'm just gonna assume that I can change files while the server is running without issues
+- 
