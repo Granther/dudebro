@@ -57,4 +57,6 @@
 
 ### Changes that can be made
 - I'm just gonna assume that I can change files while the server is running without issues
-- 
+
+### To Do
+- Make login/register
