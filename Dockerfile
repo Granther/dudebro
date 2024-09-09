@@ -1,7 +1,7 @@
 # Use the correct base image
 FROM debian:slim-dude
 
-RUN apt update && apt upgrade -y
+RUN apt update && apt upgrade -y && apt install tmux
 # Set the working directory
 WORKDIR /home/mc-server/
 
