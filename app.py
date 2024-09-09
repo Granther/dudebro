@@ -19,9 +19,28 @@ login_manager.login_message_category = 'info'
 
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    created = db.Column(db.TIMESTAMP, nullable=False, server_default=db.func.now())
     username = db.Column(db.String, unique=False, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
+    containers = db.relationship('Containers', backref='users', lazy=True)
+
+class Containers(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    created = db.Column(db.TIMESTAMP, nullable=False, server_default=db.func.now())
+    subdomain = db.Column(db.String, unique=True, nullable=False)
+    domain = db.Column(db.String, unique=False, nullable=False)
+    port = db.Column(db.Integer, unique=True, nullable=False)
+    priority = db.Column(db.Integer, unique=False, nullable=True)
+    weight = db.Column(db.Integer, unique=False, nullable=True)
+    priority = db.Column(db.Integer, unique=False, nullable=True)
+    name = db.Column(db.String, unique=False, nullable=False)
+    type = db.Column(db.String, unique=False, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+# Actually creates the database in ./instances, prob should only run in debug
+with app.app_context():
+    db.create_all()
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -39,6 +58,11 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+class ServerCreateForm(FlaskForm):
+    subdomain = StringField('Subdomain', validators=[DataRequired()])
+    name = StringField('Name', validators=[DataRequired()])
+    submit = SubmitField('Create')
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -78,12 +102,19 @@ def logout():
 @app.route("/home")
 @login_required
 def home():
-    return render_template("home.html")
+    servers = []
+    results = Users.query.filter_by(email=current_user.email).first()
+    return render_template("home.html", servers=servers)
 
-@app.route("/create")
+@app.route("/create", methods=['GET', 'POST'])
 @login_required
 def create():
-    return render_template("create.html")
+    form = ServerCreateForm()
+    if form.validate_on_submit():
+        container = Containers(subdomain=form.subdomain.data, name=form.name.data, )
+        return "<h1>Created!!</h1>"
+    
+    return render_template("create.html", title="Create", form=form)
 
 @app.route("/")
 def index():

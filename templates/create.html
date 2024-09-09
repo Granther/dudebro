@@ -2,10 +2,8 @@
 {% block content %}
     <form method="POST" action="">
         {{ form.hidden_tag() }}
-        <div>{{ form.email.label }} {{ form.email }}</div>
-        <div>{{ form.password.label }} {{ form.password }}</div>
-        <div>{{ form.remember.label }} {{ form.remember }}</div>
+        <div>{{ form.subdomain.label }} {{ form.subdomain }}</div>
+        <div>{{ form.name.label }} {{ form.name }}</div>
         <div>{{ form.submit() }}</div>
     </form>
-    <a href="{{url_for('register')}}">No account? Register here</a>
 {% endblock %}

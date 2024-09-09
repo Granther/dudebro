@@ -5,7 +5,7 @@ import os
 from uuid import uuid4
 from dotenv import load_dotenv
 from nginx import NginxInteractor
-from manager import User, Container
+from app import Users, Containers
 
 # SQL
 from sqlalchemy import create_engine, Column, Integer, String, TIMESTAMP, ForeignKey, desc
