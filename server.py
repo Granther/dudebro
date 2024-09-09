@@ -19,8 +19,6 @@ class DudeServer:
         with open(path, 'r') as file:
             return Template(file.read())
 
-    def op
-
     # Create a new Nginx configuration file
     def create_nginx_conf(self, subdomain, host):
         self.create_dns_entry(subdomain)

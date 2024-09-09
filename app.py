@@ -34,11 +34,6 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
-    # def validate_email(self, email):
-    #     user = Users.query.filter_by(email=email.data).first()
-    #     if user:
-    #         raise ValidationError('That email is taken. Please choose a different one.')
-
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -47,11 +42,14 @@ class LoginForm(FlaskForm):
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    # if current_user.is_authenticated:
-    #     return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        email = Users.query.filter_by(email=form.email.data).first()
+        if email:
+            flash('Register Unsuccessful. Email already associated with account', 'danger')
+            return render_template("register.html", title='Register', form=form)
+
         user = Users(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
@@ -61,8 +59,6 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    # if current_user.is_authenticated:
-    #     return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = Users.query.filter_by(email=form.email.data).first()
@@ -91,6 +87,9 @@ def create():
 
 @app.route("/")
 def index():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+    
     return render_template("index.html")
 
 if __name__ == '__main__':
