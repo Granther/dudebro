@@ -20,7 +20,6 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-# Actually creates the database in ./instances, prob should only run in debug
 with app.app_context():
     db.create_all()
 
@@ -81,6 +80,10 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route("/home")
 @login_required
 def home():
@@ -100,8 +103,8 @@ def create():
 
 @app.route("/")
 def index():
-    if not current_user.is_authenticated:
-        return redirect(url_for('login'))
+    # if not current_user.is_authenticated:
+    #     return redirect(url_for('login'))
     
     return render_template("index.html")
 
