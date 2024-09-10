@@ -5,14 +5,13 @@ import os
 from uuid import uuid4
 from dotenv import load_dotenv
 from nginx import NginxInteractor
-from app import Users, Containers
-
-from db_factory import db
-from models import Containers
+# from app import Users, Containers
 
 class Deploy:
-    def __init__(self, image, network_name:str="mc-network", timeout:int=5):
+    def __init__(self, image, Containers, db, network_name:str="mc-network", timeout:int=5):
         load_dotenv()
+        self.db = db
+        self.Containers = Containers
         self.image = image
         self.timeout = timeout
         self.client = docker.from_env()
@@ -27,7 +26,7 @@ class Deploy:
         self.default_domain = "doesnickwork.com"
         self.default_target = "mine.doesnickwork.com"
 
-        self.sql_init()
+        # self.sql_init()
 
     # def sql_init(self):
     #     self.Base = declarative_base()
@@ -61,16 +60,16 @@ class Deploy:
             #network=self.network_name
         )
 
-        new_container = Containers(subdomain=subdomain, domain=self.default_domain, port=port, weight=0, priority=0, name="dudebro-server", userid=user_id)
-        db.session.add(new_container)
-        db.session.commit()
+        new_container = self.Containers(subdomain=subdomain, domain=self.default_domain, port=port, weight=0, priority=0, name="dudebro-server", userid=user_id)
+        self.db.session.add(new_container)
+        self.db.session.commit()
 
         self.create_srv_entry(subdomain, self.default_domain, self.default_target, port)
 
         return container
     
     def get_port(self):
-        ports = db.session.query(Containers.port).order_by(db.desc(Containers.port)).first()
+        ports = self.db.session.query(self.Containers.port).order_by(self.db.desc(self.Containers.port)).first()
         port = None
 
         if ports:

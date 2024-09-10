@@ -9,6 +9,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 
 from db_factory import db
 from models import Users, Containers
+from deploy import Deploy
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'glorp'
@@ -22,6 +23,8 @@ login_manager.login_message_category = 'info'
 
 with app.app_context():
     db.create_all()
+
+deploy = Deploy(image="debian", db=db, Containers=Containers)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -88,7 +91,12 @@ def about():
 @login_required
 def home():
     servers = []
-    results = Users.query.filter_by(email=current_user.email).first()
+    results = Users.query.filter_by(email=current_user.email)
+
+    for item in results:
+        print(item)
+
+    
     return render_template("home.html", servers=servers)
 
 @app.route("/create", methods=['GET', 'POST'])
@@ -96,7 +104,7 @@ def home():
 def create():
     form = ServerCreateForm()
     if form.validate_on_submit():
-        container = Containers(subdomain=form.subdomain.data, name=form.name.data, )
+        deploy.create_container(user_id=current_user.id, subdomain=form.subdomain.data)
         return "<h1>Created!!</h1>"
     
     return render_template("create.html", title="Create", form=form)
@@ -105,7 +113,6 @@ def create():
 def index():
     # if not current_user.is_authenticated:
     #     return redirect(url_for('login'))
-    
     return render_template("index.html")
 
 if __name__ == '__main__':
