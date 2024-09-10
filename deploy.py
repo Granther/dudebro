@@ -7,13 +7,8 @@ from dotenv import load_dotenv
 from nginx import NginxInteractor
 from app import Users, Containers
 
-# SQL
-from sqlalchemy import create_engine, Column, Integer, String, TIMESTAMP, ForeignKey, desc
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship
-from sqlalchemy.sql import func
-
-Base = declarative_base()
+from db_factory import db
+from models import Containers
 
 class Deploy:
     def __init__(self, image, network_name:str="mc-network", timeout:int=5):
@@ -34,21 +29,21 @@ class Deploy:
 
         self.sql_init()
 
-    def sql_init(self):
-        self.Base = declarative_base()
-        self.engine = create_engine('sqlite:///dudebro.db', echo=True)
-        self.Base.metadata.create_all(self.engine)
-        # Create a session
-        Session = sessionmaker(bind=self.engine)
-        self.session = Session()
+    # def sql_init(self):
+    #     self.Base = declarative_base()
+    #     self.engine = create_engine('sqlite:///dudebro.db', echo=True)
+    #     self.Base.metadata.create_all(self.engine)
+    #     # Create a session
+    #     Session = sessionmaker(bind=self.engine)
+    #     self.session = Session()
 
-    def create_user(self, username, password):
-        new_user = User(username=username, password=password)
-        self.session.add(new_user)
-        self.session.commit()
+    # def create_user(self, username, password):
+    #     new_user = Users(username=username, password=password)
+    #     self.session.add(new_user)
+    #     self.session.commit()
 
-        id = self.session.query(User.id).filter_by(username=username, password=password).first()
-        return id.id
+    #     id = self.session.query(Users.id).filter_by(username=username, password=password).first()
+    #     return id.id
 
     def create_container(self, user_id, subdomain):
         # Log all of this data in a DB
@@ -66,16 +61,16 @@ class Deploy:
             #network=self.network_name
         )
 
-        new_container = Container(subdomain=subdomain, domain=self.default_domain, port=port, weight=0, priority=0, name="dudebro-server", userid=user_id)
-        self.session.add(new_container)
-        self.session.commit()
+        new_container = Containers(subdomain=subdomain, domain=self.default_domain, port=port, weight=0, priority=0, name="dudebro-server", userid=user_id)
+        db.session.add(new_container)
+        db.session.commit()
 
         self.create_srv_entry(subdomain, self.default_domain, self.default_target, port)
 
         return container
     
     def get_port(self):
-        ports = self.session.query(Container.port).order_by(desc(Container.port)).first()
+        ports = db.session.query(Containers.port).order_by(db.desc(Containers.port)).first()
         port = None
 
         if ports:
