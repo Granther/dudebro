@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        
+        <div>{{ form.allow_flight.label }} {{ form.allow_flight }}</div>
+        <div>{{ form.allow_nether.label }} {{ form.allow_nether }}</div>
+        <div>{{ form.difficulty.label }} {{ form.difficulty }}</div>
+        <div>{{ form.enforce_whitelist.label }} {{ form.enforce_whitelist }}</div>
+        <div>{{ form.gamemode.label }} {{ form.gamemode }}</div>
+        <div>{{ form.hardcore.label }} {{ form.hardcore }}</div>
+        <div>{{ form.level_name.label }} {{ form.level_name }}</div>
+        <div>{{ form.level_seed.label }} {{ form.level_seed }}</div>
+        <div>{{ form.level_type.label }} {{ form.level_type }}</div>
+        <div>{{ form.max_players.label }} {{ form.max_players }}</div>
+        <div>{{ form.motd.label }} {{ form.motd }}</div>
+        <div>{{ form.pvp.label }} {{ form.pvp }}</div>
+        <div>{{ form.simulation_distance.label }} {{ form.simulation_distance }}</div>
+        <div>{{ form.view_distance.label }} {{ form.view_distance }}</div>
+        <div>{{ form.white_list.label }} {{ form.white_list }}</div>
+        
+        <div>{{ form.submit() }}</div>
+    </form>
+{% endblock %}

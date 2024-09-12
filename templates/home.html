@@ -29,7 +29,10 @@
         </div>
     </nav>
     <main>
-        <a href="{{url_for('create')}}" class="text-white">Create</a>
+        <a href="{{url_for('create')}}" class="text-black">Create</a>
+        {% for server in servers %}
+        <a href="{{url_for('server', subdomain=server.subdomain)}}" class="text-black">{{server.subdomain}}</a>
+        {% endfor %}
     </main>
 </body>
 </html>

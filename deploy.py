@@ -2,10 +2,12 @@ import docker
 import random
 import requests
 import os
+import shutil
 from uuid import uuid4
 from dotenv import load_dotenv
 from nginx import NginxInteractor
 # from app import Users, Containers
+from properties import set_property
 
 class Deploy:
     def __init__(self, image, Containers, db, network_name:str="mc-network", timeout:int=5):
@@ -44,23 +46,41 @@ class Deploy:
     #     id = self.session.query(Users.id).filter_by(username=username, password=password).first()
     #     return id.id
 
+    # def create_volume(self, container_uuid, user_id, subdomain):
+    #     volume = self.client.volumes.create(
+    #         name=container_uuid, 
+    #         labels={"user_id": str(user_id), "subdomain": subdomain}
+    #     )
+
+    #     return volume
+
     def create_container(self, user_id, subdomain):
         # Log all of this data in a DB
+        uuid = str(uuid4())
+        path = f"/home/grant/dudebro/{uuid}"
+        shutil.copytree("./minecraft", path)
+
+        name = f"dude_{subdomain}-{uuid}"
 
         port = self.get_port()
         if not port:
             raise RuntimeError("Error retrieving port")
 
+        if not set_property("server-port", port):
+            print("Error setting port property")
+
         container = self.client.containers.run(
             self.image,
             detach=True,
             tty=True,
-            name="dudebro-server",
-            labels={"user_id": str(user_id), "subdomain": subdomain}
-            #network=self.network_name
+            ports={f"{port}/tcp":port},
+            volumes={path: {"bind": "/minecraft", "mode": "rw"}},
+            name=name,
+            labels={"user_id": str(user_id), "subdomain": subdomain, "uuid": uuid},
+            network=self.network_name
         )
 
-        new_container = self.Containers(subdomain=subdomain, domain=self.default_domain, port=port, weight=0, priority=0, name="dudebro-server", userid=user_id)
+        new_container = self.Containers(uuid=uuid, subdomain=subdomain, domain=self.default_domain, port=port, weight=0, priority=0, name=name, user_id=user_id)
         self.db.session.add(new_container)
         self.db.session.commit()
 
@@ -70,13 +90,16 @@ class Deploy:
     
     def get_port(self):
         ports = self.db.session.query(self.Containers.port).order_by(self.db.desc(self.Containers.port)).first()
+        print(ports)
         port = None
 
         if ports:
             port = ports.port
             print("port", port)
+        # No ports in Containers
         else:
-            return False
+            port = 1025
+            print("port", port)
 
         return port + 1
     
@@ -150,6 +173,8 @@ class Deploy:
         if self.get_status(cid) == "running":
             return True
         return False
+
+
 
 if __name__ == "__main__":
     dep = Deploy(image="debian")

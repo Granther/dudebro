@@ -4,12 +4,13 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 
 from db_factory import db
 from models import Users, Containers
 from deploy import Deploy
+from properties import Properties
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'glorp'
@@ -25,6 +26,7 @@ with app.app_context():
     db.create_all()
 
 deploy = Deploy(image="debian", db=db, Containers=Containers)
+properties = Properties("server.properties")
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -47,6 +49,29 @@ class ServerCreateForm(FlaskForm):
     subdomain = StringField('Subdomain', validators=[DataRequired()])
     name = StringField('Name', validators=[DataRequired()])
     submit = SubmitField('Create')
+
+class ServerPropertiesForm(FlaskForm):
+    allow_flight = SelectField("allow_flight", choices=[("false", "false"), ("true", "true")])
+    allow_nether = SelectField("allow_nether", choices=[("false", "false"), ("true", "true")])
+    difficulty = SelectField("difficulty", choices=[("hard", "hard"), ("easy", "easy"), ("peaceful", "peaceful")])
+    enforce_whitelist = SelectField("enforce_whitelist", choices=[("false", "false"), ("true", "true")])
+    gamemode = SelectField("gamemode", choices=[("creative", "creative"), ("survival", "survival")])
+    hardcore = SelectField("hardcore", choices=[("false", "false"), ("true", "true")])
+    level_name = StringField("level_name")
+    level_seed = StringField("level_seed")
+    level_type = StringField("level_type")
+    max_players = IntegerField("max_players")
+    motd = StringField("motd")
+    pvp = SelectField("pvp", choices=[("false", "false"), ("true", "true")])
+    # query55port = StringField("query.port")
+    # rcon55password = StringField("rcon.password")
+    # rcon55port = StringField("rcon.port")
+    # server_port = StringField("server_port")
+    simulation_distance = IntegerField("simulation_distance")
+    view_distance = IntegerField("view_distance")
+    white_list = SelectField("white_list", choices=[("false", "false"), ("true", "true")])
+
+    submit = SubmitField('Save')
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -91,13 +116,45 @@ def about():
 @login_required
 def home():
     servers = []
-    results = Users.query.filter_by(email=current_user.email)
+    results = Users.query.filter_by(email=current_user.email).first()
 
-    for item in results:
-        print(item)
+    if results:
+        containers = results.containers
+        for item in containers:
+            servers.append(item)
 
-    
     return render_template("home.html", servers=servers)
+
+@app.route("/home/<subdomain>")
+@login_required
+def server(subdomain):
+    return render_template("server.html")
+
+@app.route("/edit/<subdomain>", methods=['POST', 'GET'])
+@login_required
+def edit(subdomain):
+    form = ServerPropertiesForm()
+    props = properties.read_server_properties()
+
+    if request.method == 'GET':
+        for key, val in props.items():
+            try:
+                key = key.replace("-", "_")
+                getattr(form, key).data = val
+            except:
+                pass
+
+    if form.validate_on_submit():
+        for key, val in props.items():
+            try:
+                props[key] = getattr(form, key.replace("-", "_")).data 
+            except:
+                pass
+
+        properties.write_server_properties(props)
+        return redirect(url_for('home'))
+
+    return render_template("edit.html", form=form)
 
 @app.route("/create", methods=['GET', 'POST'])
 @login_required
