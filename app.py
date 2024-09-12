@@ -1,8 +1,10 @@
+import logging
+import os
+
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
-
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
@@ -27,6 +29,19 @@ with app.app_context():
 
 deploy = Deploy(image="debian", db=db, Containers=Containers)
 properties = Properties("server.properties")
+
+logger = logging.getLogger(__name__)
+log_level = os.getenv("LOG_LEVEL")
+logger.setLevel(log_level)
+
+console_handler = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+console_handler.setFormatter(formatter)
+logger.addHandler(console_handler)
+
+file_handler = logging.FileHandler(os.path.join(os.getenv("LOGS_DIR"), f"{log_level}.log"))
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -123,12 +138,14 @@ def home():
         for item in containers:
             servers.append(item)
 
+    logger.info(servers)
+
     return render_template("home.html", servers=servers)
 
 @app.route("/home/<subdomain>")
 @login_required
 def server(subdomain):
-    return render_template("server.html")
+    return render_template("server.html", subdomain=subdomain)
 
 @app.route("/edit/<subdomain>", methods=['POST', 'GET'])
 @login_required
@@ -161,15 +178,18 @@ def edit(subdomain):
 def create():
     form = ServerCreateForm()
     if form.validate_on_submit():
-        deploy.create_container(user_id=current_user.id, subdomain=form.subdomain.data)
-        return "<h1>Created!!</h1>"
+        try:
+            deploy.create_container(user_id=current_user.id, subdomain=form.subdomain.data)
+            flash("Successfully created server", "success")
+            return redirect(url_for('home'))
+        except Exception as e:
+            flash(f"Exception occured when creating server: {e}","danger")
+            return redirect(url_for('home'))
     
     return render_template("create.html", title="Create", form=form)
 
 @app.route("/")
 def index():
-    # if not current_user.is_authenticated:
-    #     return redirect(url_for('login'))
     return render_template("index.html")
 
 if __name__ == '__main__':

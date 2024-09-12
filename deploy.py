@@ -1,12 +1,14 @@
-import docker
 import random
 import requests
 import os
+import logging
 import shutil
+
 from uuid import uuid4
 from dotenv import load_dotenv
+import docker
+
 from nginx import NginxInteractor
-# from app import Users, Containers
 from properties import set_property
 
 class Deploy:
@@ -19,84 +21,87 @@ class Deploy:
         self.client = docker.from_env()
         self.network_name = network_name
 
-        #self.network = self.init_network(network_name)
+        self.network = self.init_network(network_name)
         self.zone_id = os.getenv("ZONE_ID")
         self.api_key = os.getenv("API_KEY")
         self.domain = os.getenv("DOMAIN")
         self.public_ip = os.getenv("PUBLIC_IP")
         self.email = os.getenv("EMAIL")
-        self.default_domain = "doesnickwork.com"
-        self.default_target = "mine.doesnickwork.com"
+        self.target_fqdn = os.getenv("TARGET_FQDN")
 
-        # self.sql_init()
+        self.logger = logging.getLogger(__name__)
+        log_level = os.getenv("LOG_LEVEL")
+        self.logger.setLevel(log_level)
 
-    # def sql_init(self):
-    #     self.Base = declarative_base()
-    #     self.engine = create_engine('sqlite:///dudebro.db', echo=True)
-    #     self.Base.metadata.create_all(self.engine)
-    #     # Create a session
-    #     Session = sessionmaker(bind=self.engine)
-    #     self.session = Session()
+        console_handler = logging.StreamHandler()
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        console_handler.setFormatter(formatter)
+        self.logger.addHandler(console_handler)
 
-    # def create_user(self, username, password):
-    #     new_user = Users(username=username, password=password)
-    #     self.session.add(new_user)
-    #     self.session.commit()
+        file_handler = logging.FileHandler(os.path.join(os.getenv("LOGS_DIR"), f"{log_level}.log"))
+        file_handler.setFormatter(formatter)
+        self.logger.addHandler(file_handler)
 
-    #     id = self.session.query(Users.id).filter_by(username=username, password=password).first()
-    #     return id.id
+    def create_container(self, user_id: int, subdomain: str):
+        try:
+            uuid = str(uuid4())
+            path = self._create_instance_dir(uuid)
 
-    # def create_volume(self, container_uuid, user_id, subdomain):
-    #     volume = self.client.volumes.create(
-    #         name=container_uuid, 
-    #         labels={"user_id": str(user_id), "subdomain": subdomain}
-    #     )
+            port = self._get_port()
+            if not port:
+                error = "Error retrieving port"
+                self.logger.critical(error)
+                raise RuntimeError(error)
 
-    #     return volume
+            if not set_property("server-port", port):
+                error = "Error setting port property in server.properties"
+                self.logger.critical(error)
+                raise RuntimeError(error)
 
-    def create_container(self, user_id, subdomain):
-        # Log all of this data in a DB
-        uuid = str(uuid4())
-        path = f"/home/grant/dudebro/{uuid}"
-        shutil.copytree("./minecraft", path)
+            name = f"dude_{subdomain}-{uuid}"
+            container = self.client.containers.run(
+                self.image,
+                detach=True,
+                tty=True,
+                ports={f"{port}/tcp":port},
+                volumes={path: {"bind": "/minecraft", "mode": "rw"}},
+                name=name,
+                labels={"user_id": str(user_id), "subdomain": subdomain, "uuid": uuid},
+                network=self.network_name
+            )
 
-        name = f"dude_{subdomain}-{uuid}"
+            new_container = self.Containers(uuid=uuid, subdomain=subdomain, domain=self.domain, port=port, weight=0, priority=0, name=name, user_id=user_id)
+            self.db.session.add(new_container)
+            self.db.session.commit()
 
-        port = self.get_port()
-        if not port:
-            raise RuntimeError("Error retrieving port")
+            self._create_srv_entry(subdomain, self.domain, self.target_fqdn, port)
 
-        if not set_property("server-port", port):
-            print("Error setting port property")
+            return container
 
-        container = self.client.containers.run(
-            self.image,
-            detach=True,
-            tty=True,
-            ports={f"{port}/tcp":port},
-            volumes={path: {"bind": "/minecraft", "mode": "rw"}},
-            name=name,
-            labels={"user_id": str(user_id), "subdomain": subdomain, "uuid": uuid},
-            network=self.network_name
-        )
+        except RuntimeError as e:
+            self.logger.critical(str(e), exc_info=True)
+            raise
 
-        new_container = self.Containers(uuid=uuid, subdomain=subdomain, domain=self.default_domain, port=port, weight=0, priority=0, name=name, user_id=user_id)
-        self.db.session.add(new_container)
-        self.db.session.commit()
+        except Exception as e:
+            self.logger.error(f"Unexpected error in create_container: {e}", exc_info=True)
+            raise RuntimeError("An unexpected error occurred while creating the container.")
+ 
+    def _create_instance_dir(self, uuid: str):
+        try:
+            path = os.path.join(os.getenv("INSTANCES_DIR"), uuid)
+            shutil.copytree("./minecraft", path)
+            return path
+        except (OSError, shutil.error) as e:
+            self.logger.error(f"Failed to create instance directory: {e}", exc_info=True)
+            return None
 
-        self.create_srv_entry(subdomain, self.default_domain, self.default_target, port)
-
-        return container
-    
-    def get_port(self):
+    def _get_port(self):
         ports = self.db.session.query(self.Containers.port).order_by(self.db.desc(self.Containers.port)).first()
-        print(ports)
         port = None
 
         if ports:
             port = ports.port
             print("port", port)
-        # No ports in Containers
         else:
             port = 1025
             print("port", port)
@@ -110,7 +115,7 @@ class Deploy:
 
         return ip_address
 
-    def create_srv_entry(self, subdomain, domain, target_record, port: int, proxied=False, weight:int=0, priority:int=0):
+    def _create_srv_entry(self, subdomain, domain, target_record, port: int, proxied=False, weight:int=0, priority:int=0):
         url = f'https://api.cloudflare.com/client/v4/zones/{self.zone_id}/dns_records'
 
         headers = {

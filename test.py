@@ -63,17 +63,17 @@
 # else:
 #     print("User not found.")
 
-import configparser
+# import configparser
 
-def read_server_properties(file_path):
-    config = configparser.ConfigParser(allow_no_value=True)
-    with open(file_path, 'r') as f:
-        file_content = '[dummy_section]\n' + f.read()
-    config.read_string(file_content)
+# def read_server_properties(file_path):
+#     config = configparser.ConfigParser(allow_no_value=True)
+#     with open(file_path, 'r') as f:
+#         file_content = '[dummy_section]\n' + f.read()
+#     config.read_string(file_content)
     
-    server_properties = {key: value for key, value in config['dummy_section'].items()}
+#     server_properties = {key: value for key, value in config['dummy_section'].items()}
     
-    return server_properties
+#     return server_properties
 
-properties = read_server_properties('server.properties')
-print(properties)
+# properties = read_server_properties('server.properties')
+# print(properties)

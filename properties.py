@@ -27,14 +27,14 @@ class Properties():
             return False
 
     def set_property(self, key, value):
-    server_props = self.read_server_properties()
-    item = server_props.get(key, False)
+        server_props = self.read_server_properties()
+        item = server_props.get(key, False)
 
-    if item:
-        server_props[key] = value
-        return self.write_server_properties(server_props)
-    else:
-        return properties
+        if item:
+            server_props[key] = value
+            return self.write_server_properties(server_props)
+        else:
+            return properties
 
 def set_property(key, value):
     properties = Properties('server.properties')

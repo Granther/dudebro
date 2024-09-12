@@ -1,0 +1,122 @@
+2024-09-12 16:10:08,430 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5005
+ * Running on http://192.168.1.173:5005
+2024-09-12 16:10:08,430 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-09-12 16:10:08,431 - werkzeug - INFO -  * Restarting with stat
+2024-09-12 16:10:08,860 - werkzeug - WARNING -  * Debugger is active!
+2024-09-12 16:10:08,861 - werkzeug - INFO -  * Debugger PIN: 395-213-270
+2024-09-12 16:10:32,022 - werkzeug - INFO -  * Detected change in '/home/grant/dudebro/deploy.py', reloading
+2024-09-12 16:10:32,123 - werkzeug - INFO -  * Restarting with stat
+2024-09-12 17:17:26,923 - deploy - ERROR - Unexpected error in create_container: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_Hello-cf83ca92-21e8-4c12-a139-1686ad176d17: Bad Request ("create ./instances/cf83ca92-21e8-4c12-a139-1686ad176d17: "./instances/cf83ca92-21e8-4c12-a139-1686ad176d17" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path")
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.46/containers/create?name=dude_Hello-cf83ca92-21e8-4c12-a139-1686ad176d17
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 61, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 876, in run
+    container = self.create(image=image, command=command,
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 935, in create
+    resp = self.client.api.create_container(**create_kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 440, in create_container
+    return self.create_container_from_config(config, name, platform)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 457, in create_container_from_config
+    return self._result(res, True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 281, in _result
+    self._raise_for_status(response)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_Hello-cf83ca92-21e8-4c12-a139-1686ad176d17: Bad Request ("create ./instances/cf83ca92-21e8-4c12-a139-1686ad176d17: "./instances/cf83ca92-21e8-4c12-a139-1686ad176d17" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path")
+2024-09-12 17:19:47,758 - deploy - ERROR - Unexpected error in create_container: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_hhh-07186da5-973b-4d46-8d42-718ebfbaa371: Bad Request ("create ./instances/07186da5-973b-4d46-8d42-718ebfbaa371: "./instances/07186da5-973b-4d46-8d42-718ebfbaa371" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path")
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.46/containers/create?name=dude_hhh-07186da5-973b-4d46-8d42-718ebfbaa371
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 61, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 876, in run
+    container = self.create(image=image, command=command,
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 935, in create
+    resp = self.client.api.create_container(**create_kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 440, in create_container
+    return self.create_container_from_config(config, name, platform)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 457, in create_container_from_config
+    return self._result(res, True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 281, in _result
+    self._raise_for_status(response)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_hhh-07186da5-973b-4d46-8d42-718ebfbaa371: Bad Request ("create ./instances/07186da5-973b-4d46-8d42-718ebfbaa371: "./instances/07186da5-973b-4d46-8d42-718ebfbaa371" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path")
+2024-09-12 17:20:04,233 - deploy - ERROR - Unexpected error in create_container: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_gg-67a62c15-8f9f-403c-b67e-b80d69d4a662: Bad Request ("create instances/67a62c15-8f9f-403c-b67e-b80d69d4a662: "instances/67a62c15-8f9f-403c-b67e-b80d69d4a662" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path")
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.46/containers/create?name=dude_gg-67a62c15-8f9f-403c-b67e-b80d69d4a662
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 61, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 876, in run
+    container = self.create(image=image, command=command,
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 935, in create
+    resp = self.client.api.create_container(**create_kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 440, in create_container
+    return self.create_container_from_config(config, name, platform)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 457, in create_container_from_config
+    return self._result(res, True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 281, in _result
+    self._raise_for_status(response)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_gg-67a62c15-8f9f-403c-b67e-b80d69d4a662: Bad Request ("create instances/67a62c15-8f9f-403c-b67e-b80d69d4a662: "instances/67a62c15-8f9f-403c-b67e-b80d69d4a662" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path")
+2024-09-12 17:25:54,114 - deploy - ERROR - Unexpected error in create_container: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_efefe-dfd6689f-6218-4c9b-8237-aae48f847f37: Bad Request ("create ./dfd6689f-6218-4c9b-8237-aae48f847f37: "./dfd6689f-6218-4c9b-8237-aae48f847f37" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path")
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.46/containers/create?name=dude_efefe-dfd6689f-6218-4c9b-8237-aae48f847f37
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 61, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 876, in run
+    container = self.create(image=image, command=command,
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 935, in create
+    resp = self.client.api.create_container(**create_kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 440, in create_container
+    return self.create_container_from_config(config, name, platform)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 457, in create_container_from_config
+    return self._result(res, True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 281, in _result
+    self._raise_for_status(response)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_efefe-dfd6689f-6218-4c9b-8237-aae48f847f37: Bad Request ("create ./dfd6689f-6218-4c9b-8237-aae48f847f37: "./dfd6689f-6218-4c9b-8237-aae48f847f37" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path")
