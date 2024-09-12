@@ -1,7 +1,6 @@
 import random
 import requests
 import os
-import logging
 import shutil
 
 from uuid import uuid4
@@ -10,6 +9,7 @@ import docker
 
 from nginx import NginxInteractor
 from properties import set_property
+from logger import create_logger
 
 class Deploy:
     def __init__(self, image, Containers, db, network_name:str="mc-network", timeout:int=5):
@@ -29,18 +29,7 @@ class Deploy:
         self.email = os.getenv("EMAIL")
         self.target_fqdn = os.getenv("TARGET_FQDN")
 
-        self.logger = logging.getLogger(__name__)
-        log_level = os.getenv("LOG_LEVEL")
-        self.logger.setLevel(log_level)
-
-        console_handler = logging.StreamHandler()
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        console_handler.setFormatter(formatter)
-        self.logger.addHandler(console_handler)
-
-        file_handler = logging.FileHandler(os.path.join(os.getenv("LOGS_DIR"), f"{log_level}.log"))
-        file_handler.setFormatter(formatter)
-        self.logger.addHandler(file_handler)
+        self.logger = create_logger(__name__)
 
     def create_container(self, user_id: int, subdomain: str):
         try:
@@ -53,7 +42,7 @@ class Deploy:
                 self.logger.critical(error)
                 raise RuntimeError(error)
 
-            if not set_property("server-port", port):
+            if not set_property(uuid, "server-port", port):
                 error = "Error setting port property in server.properties"
                 self.logger.critical(error)
                 raise RuntimeError(error)

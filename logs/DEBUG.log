@@ -1,1 +1,40 @@
 2024-09-12 17:38:40,564 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>]
+2024-09-12 17:39:57,609 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>]
+2024-09-12 17:40:05,238 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>]
+2024-09-12 18:02:38,722 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>]
+2024-09-12 18:02:48,317 - deploy - ERROR - Unexpected error in create_container: name 'path' is not defined
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 45, in create_container
+    if not set_property(uuid, "server-port", port):
+  File "/home/grant/dudebro/properties.py", line 45, in set_property
+    properties = Properties()
+  File "/home/grant/dudebro/properties.py", line 11, in __init__
+    self.logger.debug(f"Created new Properties at path: {path}")
+NameError: name 'path' is not defined
+2024-09-12 18:02:48,340 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>]
+2024-09-12 18:06:19,076 - properties - DEBUG - Created new Properties
+2024-09-12 18:06:19,679 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-12 18:07:11,548 - properties - DEBUG - Created new Properties
+2024-09-12 18:07:30,404 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-12 18:07:41,617 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-12 18:09:01,705 - __main__ - INFO - []
+2024-09-12 18:09:50,073 - properties - DEBUG - Created new Properties
+2024-09-12 18:09:53,579 - properties - DEBUG - Created new Properties
+2024-09-12 18:13:35,266 - properties - DEBUG - Created new Properties
+2024-09-12 18:13:35,654 - properties - DEBUG - Created new Properties
+2024-09-12 18:14:08,360 - properties - DEBUG - Created new Properties
+2024-09-12 18:14:09,856 - properties - DEBUG - Created new Properties
+2024-09-12 18:14:15,384 - properties - DEBUG - Created new Properties
+2024-09-12 18:14:18,897 - properties - DEBUG - Created new Properties
+2024-09-12 18:14:19,360 - __main__ - INFO - []
+2024-09-12 18:14:22,927 - __main__ - INFO - []
+2024-09-12 18:14:31,613 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-12 18:15:46,968 - properties - DEBUG - Created new Properties
+2024-09-12 18:20:37,967 - properties - DEBUG - Created new Properties
+2024-09-12 18:20:38,371 - properties - DEBUG - Created new Properties
+2024-09-12 18:21:03,158 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-12 18:21:16,114 - properties - DEBUG - Created new Properties
+2024-09-12 18:21:28,714 - properties - DEBUG - Created new Properties
+2024-09-12 18:21:43,119 - properties - DEBUG - Created new Properties
+2024-09-12 18:21:43,518 - properties - DEBUG - Created new Properties
+2024-09-12 18:21:45,030 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]

@@ -13,6 +13,7 @@ from db_factory import db
 from models import Users, Containers
 from deploy import Deploy
 from properties import Properties
+from logger import create_logger
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'glorp'
@@ -27,21 +28,10 @@ login_manager.login_message_category = 'info'
 with app.app_context():
     db.create_all()
 
+properties = Properties()
 deploy = Deploy(image="debian", db=db, Containers=Containers)
-properties = Properties("server.properties")
 
-logger = logging.getLogger(__name__)
-log_level = os.getenv("LOG_LEVEL")
-logger.setLevel(log_level)
-
-console_handler = logging.StreamHandler()
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-console_handler.setFormatter(formatter)
-logger.addHandler(console_handler)
-
-file_handler = logging.FileHandler(os.path.join(os.getenv("LOGS_DIR"), f"{log_level}.log"))
-file_handler.setFormatter(formatter)
-logger.addHandler(file_handler)
+logger = create_logger(__name__)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -87,6 +77,25 @@ class ServerPropertiesForm(FlaskForm):
     white_list = SelectField("white_list", choices=[("false", "false"), ("true", "true")])
 
     submit = SubmitField('Save')
+
+def user_can_access(id:int, subdomain: str):
+    results = Users.query.filter_by(id=id).first().containers
+
+    if results:
+        for container in results:
+            if subdomain == container.subdomain:
+                return True
+        
+    return False
+
+def reached_creation_limit(id: int):
+    results = Users.query.filter_by(id=id).first().containers
+
+    if results:  
+        if len(results) >= int(os.getenv("MAX_SERVERS_PER_USER")):
+            return True
+    
+    return False
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -145,13 +154,22 @@ def home():
 @app.route("/home/<subdomain>")
 @login_required
 def server(subdomain):
-    return render_template("server.html", subdomain=subdomain)
+    if not user_can_access(id=current_user.id, subdomain=subdomain):
+        flash("Sorry, you cannot access that page", "danger")
+        return redirect(url_for('home'))
 
+    return render_template("server.html", subdomain=subdomain)
+    
 @app.route("/edit/<subdomain>", methods=['POST', 'GET'])
 @login_required
 def edit(subdomain):
+    if not user_can_access(id=current_user.id, subdomain=subdomain):
+        flash("Sorry, you cannot access that page", "danger")
+        return redirect(url_for('home'))
+
     form = ServerPropertiesForm()
-    props = properties.read_server_properties()
+    results = Containers.query.filter_by(subdomain=subdomain).first()
+    props = properties.read_server_properties(results.uuid)
 
     if request.method == 'GET':
         for key, val in props.items():
@@ -168,7 +186,7 @@ def edit(subdomain):
             except:
                 pass
 
-        properties.write_server_properties(props)
+        properties.write_server_properties(results.uuid, props)
         return redirect(url_for('home'))
 
     return render_template("edit.html", form=form)
@@ -176,6 +194,10 @@ def edit(subdomain):
 @app.route("/create", methods=['GET', 'POST'])
 @login_required
 def create():
+    if reached_creation_limit(id=current_user.id):
+        flash("Sorry, you have reached the maximum number of servers you can create", "danger")
+        return redirect(url_for('home'))        
+
     form = ServerCreateForm()
     if form.validate_on_submit():
         try:

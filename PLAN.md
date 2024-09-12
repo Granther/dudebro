@@ -59,4 +59,4 @@
 - I'm just gonna assume that I can change files while the server is running without issues
 
 ### To Do
-- Make login/register
+- Make access control, every logged in user can access every subdom
