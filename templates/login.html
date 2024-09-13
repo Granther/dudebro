@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="bg-gray-900 text-white font-sans h-screen flex items-center justify-center">
+<div class="bg-gray-900 text-white font-sans mt-10 flex items-center justify-center">
     <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
         <h2 class="text-3xl font-bold mb-6 text-center">Welcome Back, Bro!</h2>
         <p class="text-center mb-6">Log in to your Dudebro Hosting account to get back to your server.</p>
         <form class="space-y-6" action="" method="POST">
             {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
             <div>
-              <label for="email" class="block text-md font-medium leading-6 text-white">Email address</label>
+              <label for="email" class="block text-md font-medium leading-6 text-white">{{ form.email.label }}</label>
               <div class="mt-1">
                 {{ form.email }}              
               </div>
@@ -15,10 +16,19 @@
       
             <div>
               <div class="flex items-center justify-between">
-                <label for="password" class="block text-md font-medium leading-6 text-white">Password</label>
+                <label for="password" class="block text-md font-medium leading-6 text-white">{{ form.password.label }}</label>
               </div>
               <div class="mt-1">
                 {{ form.password }}              
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between">
+                <label for="remember" class="block text-md font-medium leading-6 text-white">{{ form.remember.label }}</label>
+              </div>
+              <div class="mt-1">
+                {{ form.remember }}              
               </div>
             </div>
       
@@ -32,5 +42,7 @@
     </div>
 </div>
 {% endblock %}
+
+
 
 

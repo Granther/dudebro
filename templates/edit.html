@@ -1,25 +1,135 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
 
 {% block content %}
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        
-        <div>{{ form.allow_flight.label }} {{ form.allow_flight }}</div>
-        <div>{{ form.allow_nether.label }} {{ form.allow_nether }}</div>
-        <div>{{ form.difficulty.label }} {{ form.difficulty }}</div>
-        <div>{{ form.enforce_whitelist.label }} {{ form.enforce_whitelist }}</div>
-        <div>{{ form.gamemode.label }} {{ form.gamemode }}</div>
-        <div>{{ form.hardcore.label }} {{ form.hardcore }}</div>
-        <div>{{ form.level_name.label }} {{ form.level_name }}</div>
-        <div>{{ form.level_seed.label }} {{ form.level_seed }}</div>
-        <div>{{ form.level_type.label }} {{ form.level_type }}</div>
-        <div>{{ form.max_players.label }} {{ form.max_players }}</div>
-        <div>{{ form.motd.label }} {{ form.motd }}</div>
-        <div>{{ form.pvp.label }} {{ form.pvp }}</div>
-        <div>{{ form.simulation_distance.label }} {{ form.simulation_distance }}</div>
-        <div>{{ form.view_distance.label }} {{ form.view_distance }}</div>
-        <div>{{ form.white_list.label }} {{ form.white_list }}</div>
-        
-        <div>{{ form.submit() }}</div>
-    </form>
+    <style>
+        /* Hide arrows for number input fields */
+        input.number-input {
+        -moz-appearance: textfield; /* Firefox */
+        }
+
+        input.number-input::-webkit-inner-spin-button,
+        input.number-input::-webkit-outer-spin-button {
+        -webkit-appearance: none; /* Chrome, Safari, Edge */
+        margin: 0;
+        }
+    </style>
+    <div class="flex flex-col justify-center">
+        <div class="flex flex-row bg-cover bg-gray-900 space-x-3 justify-center">
+            <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full m-6 mb-auto">
+                <h2 class="text-3xl font-bold mb-6 text-center">Status</h2>
+                <h1 id="status-tag" class="text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"></h1>
+            </div>
+            <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-lg w-full m-6">
+                <h2 class="text-3xl font-bold mb-6 text-center">Actions</h2>
+                <button id="restart-btn" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300">
+                    Restart
+                </button>
+                <button id="shutdown-btn" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300">
+                    Shutdown
+                </button>
+                <button id="start-btn" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300">
+                    Start
+                </button>
+            </div>
+        </div>
+        <div class="flex flex-row bg-cover bg-gray-900 space-x-3 justify-center">
+            <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full m-6 mb-auto">
+                <h2 class="text-3xl font-bold mb-6 text-center">Server Properties</h2>
+                <form class="space-y-3" action="" method="POST">
+                    {{ form.hidden_tag() }}
+                
+                    <div>{{ form.allow_flight.label }} = {{ form.allow_flight }}</div>
+                    <div>{{ form.allow_nether.label }} = {{ form.allow_nether }}</div>
+                    <div>{{ form.difficulty.label }} = {{ form.difficulty }}</div>
+                    <div>{{ form.enforce_whitelist.label }} = {{ form.enforce_whitelist }}</div>
+                    <div>{{ form.gamemode.label }} = {{ form.gamemode }}</div>
+                    <div>{{ form.hardcore.label }} = {{ form.hardcore }}</div>
+                    <div>{{ form.level_name.label }} = {{ form.level_name }}</div>
+                    <div>{{ form.level_seed.label }} = {{ form.level_seed }}</div>
+                    <div>{{ form.level_type.label }} = {{ form.level_type }}</div>
+                    <div>{{ form.max_players.label }} = {{ form.max_players }}</div>
+                    <div>{{ form.motd.label }} = {{ form.motd }}</div>
+                    <div>{{ form.pvp.label }} = {{ form.pvp }}</div>
+                    <div>{{ form.simulation_distance.label }} = {{ form.simulation_distance }}</div>
+                    <div>{{ form.view_distance.label }} = {{ form.view_distance }}</div>
+                    <div>{{ form.white_list.label }} = {{ form.white_list }}</div>
+                    
+                    <div class="pt-3">{{ form.submit() }}</div>
+                </form>
+            </div>
+            <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-lg w-full m-6">
+                <h2 class="text-3xl font-bold mb-6 text-center">Actions</h2>
+                <form class="space-y-6" action="" method="POST">
+                    {{ form.hidden_tag() }}
+                
+                    <div>{{ form.allow_flight.label }} {{ form.allow_flight }}</div>
+                    <div>{{ form.allow_nether.label }} {{ form.allow_nether }}</div>
+                    <div>{{ form.difficulty.label }} {{ form.difficulty }}</div>
+                    <div>{{ form.enforce_whitelist.label }} {{ form.enforce_whitelist }}</div>
+                    <div>{{ form.gamemode.label }} {{ form.gamemode }}</div>
+                    <div>{{ form.hardcore.label }} {{ form.hardcore }}</div>
+                    <div>{{ form.level_name.label }} {{ form.level_name }}</div>
+                    <div>{{ form.level_seed.label }} {{ form.level_seed }}</div>
+                    <div>{{ form.level_type.label }} {{ form.level_type }}</div>
+                    <div>{{ form.max_players.label }} {{ form.max_players }}</div>
+                    <div>{{ form.motd.label }} {{ form.motd }}</div>
+                    <div>{{ form.pvp.label }} {{ form.pvp }}</div>
+                    <div>{{ form.simulation_distance.label }} {{ form.simulation_distance }}</div>
+                    <div>{{ form.view_distance.label }} {{ form.view_distance }}</div>
+                    <div>{{ form.white_list.label }} {{ form.white_list }}</div>
+                    
+                    <div>{{ form.submit() }}</div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        restart_btn = document.getElementById("restart-btn")
+        shutdown_btn = document.getElementById("shutdown-btn")
+        start_btn = document.getElementById("start-btn")
+        status_tag = document.getElementById("status-tag")
+
+        restart_btn.addEventListener("click", function(event) {
+            console.log("clicked restart")
+        });
+
+        shutdown_btn.addEventListener("click", function(event) {
+            console.log("clicked shutdown")
+        });
+
+        function disable_ui() {
+            restart_btn.disabled = true;  
+            start_btn.disabled = true;  
+            shutdown_btn.disabled = true; 
+        }
+
+        function get_status() {
+            fetch(`{{url_for('get_status', subdomain=subdomain)}}`, {
+            }).then(response => response.json()).then(data => {
+                set_status_ui(data.status)
+                status_tag.innerHTML = data.show;
+                status_tag.classList.add(data.color);
+            }).catch(error => console.error('Error', error));
+        }
+
+        function set_status_ui(status) {
+            if (status == "unknown") {
+                disable_ui()
+            }
+
+            if (status == "exited") {
+                restart_btn.disabled = false;  
+                start_btn.disabled = false;  
+                shutdown_btn.disabled = true; 
+            }
+
+            if (status == "running") {
+                restart_btn.disabled = true;  
+                start_btn.disabled = true;  
+                shutdown_btn.disabled = false;  
+            }
+        }
+
+        get_status()
+    </script>
 {% endblock %}

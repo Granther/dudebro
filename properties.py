@@ -8,7 +8,6 @@ class Properties():
     def __init__(self):
         load_dotenv()
         self.logger = create_logger(__name__)
-        self.logger.debug(f"Created new Properties")
 
     def read_server_properties(self, uuid: str):
         path = os.path.join(os.getenv("INSTANCES_DIR"), f"{uuid}/server.properties")

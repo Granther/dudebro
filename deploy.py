@@ -144,8 +144,18 @@ class Deploy:
         except docker.errors.NotFound:
             return self.client.networks.create(network_name, driver="bridge")
 
-    def get_user_containers(self, user_id):
-        return self.client.containers.list(all=True, filters={"label": f"user_id={user_id}"})
+    def get_user_containers(self, user_id:str=None, subdomain:str=None, uuid:str=None):
+        filter = {"label": ""}
+        if user_id:
+            filter["label"] = f"user_id={user_id}"
+        elif subdomain:
+            filter["label"] = f"subdomain={subdomain}"
+        elif uuid:
+            filter["label"] = f"uuid={uuid}"
+        else:
+            return False
+
+        return self.client.containers.list(all=True, filters=filter)
     
     def stop_user_container(self, user_id, cid):
         if self.does_user_own(user_id, cid) and self.is_running(cid):

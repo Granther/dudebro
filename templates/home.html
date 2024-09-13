@@ -4,32 +4,86 @@
 
 {% block list %}
 <li>
-    <a href="{{url_for('about')}}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
+    <a href="{{url_for('home')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Account</a>
 </li>
 <li>
-    <a href="{{url_for('logout')}}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Logout</a>
+    <a href="{{url_for('about')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
+</li>
+<li>
+    <a href="{{url_for('logout')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Logout</a>
 </li>
 {% endblock %}
 
-{% block main %}
-<a href="{{url_for('create')}}" class="text-black">Create</a>
-{% for server in servers %}
-<a href="{{url_for('server', subdomain=server.subdomain)}}" class="text-black">{{server.subdomain}}</a><br>
-{% endfor %}
+{% block content %}
+    <section class="py-12 bg-gray-900">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-4xl font-bold mb-8">Servers</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                {% for server in servers %}
+                <a href="{{ url_for('server', subdomain=server.subdomain) }}" class="text-black">
+                    <div class="feature bg-gray-700 py-6 rounded-lg shadow-md hover:bg-sky-500 flex items-center justify-center aspect-w-1 aspect-h-1">
+                        <span class="text-lg font-medium">{{ server.subdomain }}</span>
+                    </div>
+                </a>
+                {% endfor %}
+                <a href="{{ url_for('create') }}" class="text-black">
+                    <div class="feature bg-gray-600 p-6 rounded-lg shadow-md hover:bg-sky-500 flex items-center justify-center aspect-w-1 aspect-h-1">
+                        <span class="text-4xl font-bold">+</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
 
-<div class="container mt-4">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    
-    {% block content %}
-    {% endblock %}
-</div>
+
+    <section class="py-12 bg-gray-800">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-4xl font-bold mb-8">Account Info</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <a href="{{url_for('logout')}}" class="text-black">
+                    <div class="feature bg-gray-700 p-6 rounded-lg shadow-md hover:bg-sky-500">
+                        <span>Logout</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+  <!-- <section class="py-12 bg-gray-900">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="text-4xl font-bold mb-8">Totally Chill Pricing</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="price bg-gray-800 p-6 rounded-lg shadow-md">
+          <h4 class="text-2xl font-semibold mb-4">Basic Bro</h4>
+          <p class="text-lg mb-6">$5/month</p>
+          <ul class="mb-6">
+            <li>- 1 GB RAM</li>
+            <li>- 10 Slots</li>
+            <li>- Instant Setup</li>
+          </ul>
+          <a href="#" class="bg-blue-500 text-white py-2 px-6 rounded-full font-bold hover:bg-blue-600 transition duration-300">Sign Up</a>
+        </div>
+        <div class="price bg-gray-800 p-6 rounded-lg shadow-md">
+          <h4 class="text-2xl font-semibold mb-4">Dude Pro</h4>
+          <p class="text-lg mb-6">$15/month</p>
+          <ul class="mb-6">
+            <li>- 4 GB RAM</li>
+            <li>- 50 Slots</li>
+            <li>- Priority Support</li>
+          </ul>
+          <a href="#" class="bg-blue-500 text-white py-2 px-6 rounded-full font-bold hover:bg-blue-600 transition duration-300">Sign Up</a>
+        </div>
+        <div class="price bg-gray-800 p-6 rounded-lg shadow-md">
+          <h4 class="text-2xl font-semibold mb-4">Epic Legend</h4>
+          <p class="text-lg mb-6">$25/month</p>
+          <ul class="mb-6">
+            <li>- 8 GB RAM</li>
+            <li>- Unlimited Slots</li>
+            <li>- Dedicated Support Bro</li>
+          </ul>
+          <a href="#" class="bg-blue-500 text-white py-2 px-6 rounded-full font-bold hover:bg-blue-600 transition duration-300">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </section> -->
 {% endblock %}

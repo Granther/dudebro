@@ -1,7 +1,7 @@
 import logging
 import os
 
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
@@ -23,6 +23,7 @@ db.init_app(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
+login_manager.login_message = None
 login_manager.login_message_category = 'info'
 
 with app.app_context():
@@ -37,6 +38,9 @@ logger = create_logger(__name__)
 def load_user(user_id):
     return Users.query.get(int(user_id))
 
+server_props_render = {"class": "bg-gray-900 text-white px-2 py-1 rounded-md"}
+server_props_render_int = {"class": "bg-gray-900 text-white px-2 py-1 rounded-md w-16 number-input"}
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
     email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
@@ -45,7 +49,13 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Sign Up', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
+    email = StringField('Email', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
+    password = PasswordField('Password', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
+    remember = BooleanField('Remember Me')
+    submit = SubmitField('Login', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
+
+class OpPlayerForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
@@ -56,27 +66,27 @@ class ServerCreateForm(FlaskForm):
     submit = SubmitField('Create')
 
 class ServerPropertiesForm(FlaskForm):
-    allow_flight = SelectField("allow_flight", choices=[("false", "false"), ("true", "true")])
-    allow_nether = SelectField("allow_nether", choices=[("false", "false"), ("true", "true")])
-    difficulty = SelectField("difficulty", choices=[("hard", "hard"), ("easy", "easy"), ("peaceful", "peaceful")])
-    enforce_whitelist = SelectField("enforce_whitelist", choices=[("false", "false"), ("true", "true")])
-    gamemode = SelectField("gamemode", choices=[("creative", "creative"), ("survival", "survival")])
-    hardcore = SelectField("hardcore", choices=[("false", "false"), ("true", "true")])
-    level_name = StringField("level_name")
-    level_seed = StringField("level_seed")
-    level_type = StringField("level_type")
-    max_players = IntegerField("max_players")
-    motd = StringField("motd")
-    pvp = SelectField("pvp", choices=[("false", "false"), ("true", "true")])
+    allow_flight = SelectField("allow_flight", choices=[("false", "false"), ("true", "true")], render_kw=server_props_render)
+    allow_nether = SelectField("allow_nether", choices=[("false", "false"), ("true", "true")], render_kw=server_props_render)
+    difficulty = SelectField("difficulty", choices=[("hard", "hard"), ("easy", "easy"), ("peaceful", "peaceful")], render_kw=server_props_render)
+    enforce_whitelist = SelectField("enforce_whitelist", choices=[("false", "false"), ("true", "true")], render_kw=server_props_render)
+    gamemode = SelectField("gamemode", choices=[("creative", "creative"), ("survival", "survival")], render_kw=server_props_render)
+    hardcore = SelectField("hardcore", choices=[("false", "false"), ("true", "true")], render_kw=server_props_render)
+    level_name = StringField("level_name", render_kw=server_props_render)
+    level_seed = StringField("level_seed", render_kw=server_props_render)
+    level_type = StringField("level_type", render_kw=server_props_render)
+    max_players = IntegerField("max_players", render_kw=server_props_render_int)
+    motd = StringField("motd", render_kw=server_props_render)
+    pvp = SelectField("pvp", choices=[("false", "false"), ("true", "true")], render_kw=server_props_render)
     # query55port = StringField("query.port")
     # rcon55password = StringField("rcon.password")
     # rcon55port = StringField("rcon.port")
     # server_port = StringField("server_port")
-    simulation_distance = IntegerField("simulation_distance")
-    view_distance = IntegerField("view_distance")
-    white_list = SelectField("white_list", choices=[("false", "false"), ("true", "true")])
+    simulation_distance = IntegerField("simulation_distance", render_kw=server_props_render_int)
+    view_distance = IntegerField("view_distance", render_kw=server_props_render_int)
+    white_list = SelectField("white_list", choices=[("false", "false"), ("true", "true")], render_kw=server_props_render)
 
-    submit = SubmitField('Save')
+    submit = SubmitField('Save', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
 
 def user_can_access(id:int, subdomain: str):
     results = Users.query.filter_by(id=id).first().containers
@@ -118,6 +128,7 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
+        print("validated")
         user = Users.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
@@ -125,6 +136,9 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
+    # elif not form.validate_on_submit():
+    #     flash('Login Unsuccessful. Please check email and password', 'danger')
+
     return render_template('login.html', title='Login', form=form)
 
 @app.route("/logout")
@@ -146,8 +160,6 @@ def home():
         containers = results.containers
         for item in containers:
             servers.append(item)
-
-    logger.info(servers)
 
     return render_template("home.html", servers=servers)
 
@@ -189,7 +201,7 @@ def edit(subdomain):
         properties.write_server_properties(results.uuid, props)
         return redirect(url_for('home'))
 
-    return render_template("edit.html", form=form)
+    return render_template("edit.html", form=form, subdomain=subdomain)
 
 @app.route("/create", methods=['GET', 'POST'])
 @login_required
@@ -209,6 +221,31 @@ def create():
             return redirect(url_for('home'))
     
     return render_template("create.html", title="Create", form=form)
+
+def _get_container_status(subdomain: str):
+    states = [{"status": "running", "show": "Running", "color": "bg-green-500"},
+                {"status": "exited", "show": "Stopped", "color": "bg-red-500"}]
+
+    containers = deploy.get_user_containers(subdomain=subdomain)
+    status = deploy.get_status(containers[0].id)
+
+    for state in states:
+        if state['status'] == status:
+            return state
+
+    return False
+
+@app.route("/get_status/<subdomain>", methods=['GET', 'POST'])
+def get_status(subdomain):
+    if request.method == "GET":
+        status = _get_container_status(subdomain)
+
+        print(status)
+
+        if status:
+            return jsonify(status)
+
+    return jsonify({"status": "unknown", "show": "Unknown", "color": "bg-gray-500"})
 
 @app.route("/")
 def index():
