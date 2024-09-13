@@ -38,3 +38,57 @@ NameError: name 'path' is not defined
 2024-09-12 18:21:43,119 - properties - DEBUG - Created new Properties
 2024-09-12 18:21:43,518 - properties - DEBUG - Created new Properties
 2024-09-12 18:21:45,030 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-13 00:37:06,466 - properties - DEBUG - Created new Properties
+2024-09-13 00:37:06,876 - properties - DEBUG - Created new Properties
+2024-09-13 00:37:23,003 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-13 01:00:00,884 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-13 01:01:48,177 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-13 01:02:22,213 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-13 01:03:03,960 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-13 01:03:28,638 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-13 01:03:55,416 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-13 01:04:29,301 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-13 01:04:39,600 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-13 01:08:42,577 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-13 01:12:21,630 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-13 01:12:38,383 - __main__ - INFO - [<Containers 1>, <Containers 2>, <Containers 3>, <Containers 4>, <Containers 5>, <Containers 6>, <Containers 7>]
+2024-09-13 02:02:08,608 - properties - DEBUG - Created new Properties
+2024-09-13 02:02:09,011 - properties - DEBUG - Created new Properties
+2024-09-13 02:02:54,786 - properties - DEBUG - Created new Properties
+2024-09-13 02:06:39,793 - properties - DEBUG - Created new Properties
+2024-09-13 02:06:54,388 - properties - DEBUG - Created new Properties
+2024-09-13 02:13:46,541 - properties - DEBUG - Created new Properties
+2024-09-13 02:13:54,065 - properties - DEBUG - Created new Properties
+2024-09-13 02:13:55,550 - properties - DEBUG - Created new Properties
+2024-09-13 02:14:55,438 - properties - DEBUG - Created new Properties
+2024-09-13 02:14:56,919 - properties - DEBUG - Created new Properties
+2024-09-13 02:16:15,915 - properties - DEBUG - Created new Properties
+2024-09-13 02:16:52,633 - properties - DEBUG - Created new Properties
+2024-09-13 02:17:04,053 - properties - DEBUG - Created new Properties
+2024-09-13 02:17:04,441 - properties - DEBUG - Created new Properties
+2024-09-13 02:17:56,388 - properties - DEBUG - Created new Properties
+2024-09-13 02:17:56,777 - properties - DEBUG - Created new Properties
+2024-09-13 02:18:24,455 - properties - DEBUG - Created new Properties
+2024-09-13 02:18:26,962 - properties - DEBUG - Created new Properties
+2024-09-13 02:18:41,544 - properties - DEBUG - Created new Properties
+2024-09-13 02:19:06,191 - properties - DEBUG - Created new Properties
+2024-09-13 02:19:50,959 - properties - DEBUG - Created new Properties
+2024-09-13 02:20:01,513 - properties - DEBUG - Created new Properties
+2024-09-13 02:20:11,076 - properties - DEBUG - Created new Properties
+2024-09-13 02:20:13,564 - properties - DEBUG - Created new Properties
+2024-09-13 02:20:38,197 - properties - DEBUG - Created new Properties
+2024-09-13 02:27:52,399 - properties - DEBUG - Created new Properties
+2024-09-13 02:27:52,806 - properties - DEBUG - Created new Properties
+2024-09-13 02:29:04,772 - properties - DEBUG - Created new Properties
+2024-09-13 02:29:10,315 - properties - DEBUG - Created new Properties
+2024-09-13 02:29:34,966 - properties - DEBUG - Created new Properties
+2024-09-13 02:29:43,500 - properties - DEBUG - Created new Properties
+2024-09-13 02:29:47,998 - properties - DEBUG - Created new Properties
+2024-09-13 02:29:52,500 - properties - DEBUG - Created new Properties
+2024-09-13 02:30:25,212 - properties - DEBUG - Created new Properties
+2024-09-13 02:30:29,737 - properties - DEBUG - Created new Properties
+2024-09-13 02:30:35,263 - properties - DEBUG - Created new Properties
+2024-09-13 02:30:39,798 - properties - DEBUG - Created new Properties
+2024-09-13 02:30:50,377 - properties - DEBUG - Created new Properties
+2024-09-13 02:34:06,130 - properties - DEBUG - Created new Properties
+2024-09-13 02:34:13,667 - properties - DEBUG - Created new Properties

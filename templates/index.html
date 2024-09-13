@@ -1,50 +1,107 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Dudebro</title>
-</head>
-<body class="bg-gray-900">
-    <nav class="bg-gray-800">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Dudebro Hosting</span>
-        </a>
-        <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
-            <span class="sr-only">Open main menu</span>
-            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-            </svg>
-        </button>
-        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 dark:border-gray-700">
-            <li>
-                <a href="{{url_for('home')}}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Account</a>
-            </li>
-            <li>
-                <a href="{{url_for('about')}}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
-            </li>
-            <!-- <li>
-                <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
-            </li>
-            <li>
-                <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
-            </li> -->
-            <!-- <li>
-                <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Account</a>
-            </li> -->
-            <li>
-                <a href="{{url_for('logout')}}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Logout</a>
-            </li>
-            </ul>
+{% extends 'base.html' %}
+
+{% block title %}DudeBro{% endblock %}
+
+{% block list %}
+<li>
+    <a href="{{url_for('home')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Account</a>
+</li>
+<li>
+    <a href="{{url_for('about')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
+</li>
+<li>
+    <a href="{{url_for('logout')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Logout</a>
+</li>
+{% endblock %}
+
+{% block content %}
+  <section class="hero bg-cover bg-center h-screen flex items-center justify-center blur-md">
+    <div class="bg-black bg-opacity-70 p-10 rounded-lg shadow-lg text-center max-w-2xl">
+      <h2 class="text-5xl font-extrabold mb-4">Need a server Bro?</h2>
+      <p class="text-xl mb-6">Dudebro Hosting has got your back with simple, easy, and fast server hosting dude!</p>
+      <a href="{{url_for('home')}}" class="bg-green-500 text-white py-3 px-8 rounded-full font-bold text-lg hover:bg-green-600 transition duration-300">Get Started</a>
+    </div>
+  </section>
+
+  <section class="py-12 bg-gray-800">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="text-4xl font-bold mb-8">Do you need Dudebro?</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="feature bg-gray-700 p-6 rounded-lg shadow-md">
+          <h4 class="text-2xl font-semibold mb-4">In the East Coast USA?</h4>
+          <p>Ping/Latency to the server will be lower if you and your friends are located on the East Coast of the US</p>
         </div>
+        <div class="feature bg-gray-700 p-6 rounded-lg shadow-md">
+          <h4 class="text-2xl font-semibold mb-4">Less than 5 players max?</h4>
+          <p>Our service is targeted towards small, fast, reliable servers. Only use us if you need a server for a few friends</p>
         </div>
-    </nav>
-    <main class="flex w-full">
-        <h1 class="text-white">We have servers </h1>
-    </main>
-</body>
-</html>
+        <div class="feature bg-gray-700 p-6 rounded-lg shadow-md">
+          <h4 class="text-2xl font-semibold mb-4">Just want to play Vanilla?</h4>
+          <p>This is a Vanilla ONLY hosting service, we ONLY host vanilla servers. Due to this our servers perform very good</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-gray-000">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="text-4xl font-bold mb-8">Dudebro Hosting is free right now</h3>
+      <div class="grid grid-cols-1 justify-center md:grid-cols-4 gap-8">
+        <div class="feature bg-gray-700 p-6 rounded-lg shadow-md">
+          <h4 class="text-2xl font-semibold mb-4">Why?</h4>
+          <p>In order to test the capability of our infrastructure and hosting capability</p>
+        </div>
+        <div class="feature bg-gray-700 p-6 rounded-lg shadow-md">
+          <h4 class="text-2xl font-semibold mb-4">Hows the performance?</h4>
+          <p>Its great! Not many people use this service, so the performance remains very good</p>
+        </div>
+        <div class="feature bg-gray-700 p-6 rounded-lg shadow-md">
+          <h4 class="text-2xl font-semibold mb-4">How about safety?</h4>
+          <p>We don't currently offer any backups, although, you may download your World. So no need to worry about losing progress</p>
+        </div>
+        <div class="feature bg-gray-700 p-6 rounded-lg shadow-md">
+            <h4 class="text-2xl font-semibold mb-4">More Help?</h4>
+            <p>Contact us on Discord <a>here</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="py-12 bg-gray-900">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="text-4xl font-bold mb-8">Totally Chill Pricing</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="price bg-gray-800 p-6 rounded-lg shadow-md">
+          <h4 class="text-2xl font-semibold mb-4">Basic Bro</h4>
+          <p class="text-lg mb-6">$5/month</p>
+          <ul class="mb-6">
+            <li>- 1 GB RAM</li>
+            <li>- 10 Slots</li>
+            <li>- Instant Setup</li>
+          </ul>
+          <a href="#" class="bg-blue-500 text-white py-2 px-6 rounded-full font-bold hover:bg-blue-600 transition duration-300">Sign Up</a>
+        </div>
+        <div class="price bg-gray-800 p-6 rounded-lg shadow-md">
+          <h4 class="text-2xl font-semibold mb-4">Dude Pro</h4>
+          <p class="text-lg mb-6">$15/month</p>
+          <ul class="mb-6">
+            <li>- 4 GB RAM</li>
+            <li>- 50 Slots</li>
+            <li>- Priority Support</li>
+          </ul>
+          <a href="#" class="bg-blue-500 text-white py-2 px-6 rounded-full font-bold hover:bg-blue-600 transition duration-300">Sign Up</a>
+        </div>
+        <div class="price bg-gray-800 p-6 rounded-lg shadow-md">
+          <h4 class="text-2xl font-semibold mb-4">Epic Legend</h4>
+          <p class="text-lg mb-6">$25/month</p>
+          <ul class="mb-6">
+            <li>- 8 GB RAM</li>
+            <li>- Unlimited Slots</li>
+            <li>- Dedicated Support Bro</li>
+          </ul>
+          <a href="#" class="bg-blue-500 text-white py-2 px-6 rounded-full font-bold hover:bg-blue-600 transition duration-300">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </section> -->
+{% endblock %}
