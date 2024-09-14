@@ -94,3 +94,163 @@ NameError: name 'path' is not defined
 2024-09-13 02:34:13,667 - properties - DEBUG - Created new Properties
 2024-09-13 02:36:35,452 - properties - DEBUG - Created new Properties
 2024-09-13 02:36:35,837 - properties - DEBUG - Created new Properties
+2024-09-13 20:54:44,791 - __main__ - INFO - Deleting container attached to subdomain: rizzy
+2024-09-13 21:03:45,570 - __main__ - INFO - Deleting container attached to subdomain: rizzy
+2024-09-13 21:04:07,102 - __main__ - INFO - Deleting container attached to subdomain: rizzy
+2024-09-13 21:04:40,100 - __main__ - INFO - Deleting container attached to subdomain: rizzy
+2024-09-13 21:07:06,359 - __main__ - INFO - Deleting container attached to subdomain: rizzy
+2024-09-13 21:07:30,739 - __main__ - INFO - Deleting container attached to subdomain: rizzy
+2024-09-13 21:07:37,999 - __main__ - INFO - Deleting container attached to subdomain: rizzy
+2024-09-13 21:07:58,232 - __main__ - INFO - Deleting container attached to subdomain: rizzy
+2024-09-13 21:11:25,316 - __main__ - INFO - Deleting container attached to subdomain: uuuu
+2024-09-13 21:12:26,181 - __main__ - INFO - Deleting container attached to subdomain: aaa
+2024-09-13 21:12:32,185 - deploy - ERROR - Unexpected error in create_container: 400 Client Error for http+docker://localhost/v1.46/containers/8d3f509af814b0326c65a18a251aff8af140a46b2e648e86ad0868d6fb5617a3/start: Bad Request ("failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "./minecraft/start.sh": stat ./minecraft/start.sh: no such file or directory: unknown")
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.46/containers/8d3f509af814b0326c65a18a251aff8af140a46b2e648e86ad0868d6fb5617a3/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 51, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.46/containers/8d3f509af814b0326c65a18a251aff8af140a46b2e648e86ad0868d6fb5617a3/start: Bad Request ("failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "./minecraft/start.sh": stat ./minecraft/start.sh: no such file or directory: unknown")
+2024-09-13 21:18:05,077 - __main__ - INFO - Deleting container attached to subdomain: bbbb
+2024-09-13 21:22:12,057 - __main__ - INFO - Deleting container attached to subdomain: testt
+2024-09-14 03:13:23,708 - deploy - ERROR - Unexpected error in create_container: 'Response' object has no attribute 'result'
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 66, in create_container
+    self._create_srv_entry(subdomain, self.domain, self.target_fqdn, port)
+  File "/home/grant/dudebro/deploy.py", line 135, in _create_srv_entry
+    self.logger.debug(create_response.result.id)
+AttributeError: 'Response' object has no attribute 'result'
+2024-09-14 03:15:06,086 - __main__ - INFO - Deleting container attached to subdomain: granty
+2024-09-14 03:15:12,350 - deploy - DEBUG - {'result': {'id': 'f067de547e5f4d6fbc1b10315fdccab0', 'zone_id': '4f4cc0443f12350a60c966f89cb7aecf', 'zone_name': 'doesnickwork.com', 'name': '_minecraft._tcp.gunbg.doesnickwork.com', 'type': 'SRV', 'content': '0 1026 mine.doesnickwork.com', 'priority': 0, 'proxiable': False, 'proxied': False, 'ttl': 1, 'data': {'port': 1026, 'priority': 0, 'target': 'mine.doesnickwork.com', 'weight': 0}, 'settings': {}, 'meta': {'auto_added': False, 'managed_by_apps': False, 'managed_by_argo_tunnel': False}, 'comment': None, 'tags': [], 'created_on': '2024-09-14T07:15:12.290787Z', 'modified_on': '2024-09-14T07:15:12.290787Z'}, 'success': True, 'errors': [], 'messages': []}
+2024-09-14 03:16:15,582 - __main__ - INFO - Deleting container attached to subdomain: gunbg
+2024-09-14 03:16:20,927 - deploy - DEBUG - {'result': {'id': 'd542197c520bcd253314f157027d5b69', 'zone_id': '4f4cc0443f12350a60c966f89cb7aecf', 'zone_name': 'doesnickwork.com', 'name': '_minecraft._tcp.an.doesnickwork.com', 'type': 'SRV', 'content': '0 1026 mine.doesnickwork.com', 'priority': 0, 'proxiable': False, 'proxied': False, 'ttl': 1, 'data': {'port': 1026, 'priority': 0, 'target': 'mine.doesnickwork.com', 'weight': 0}, 'settings': {}, 'meta': {'auto_added': False, 'managed_by_apps': False, 'managed_by_argo_tunnel': False}, 'comment': None, 'tags': [], 'created_on': '2024-09-14T07:16:20.873442Z', 'modified_on': '2024-09-14T07:16:20.873442Z'}, 'success': True, 'errors': [], 'messages': []}
+2024-09-14 03:16:20,928 - deploy - DEBUG - d542197c520bcd253314f157027d5b69
+2024-09-14 03:21:59,076 - __main__ - INFO - Deleting container attached to subdomain: an
+2024-09-14 03:22:04,765 - deploy - DEBUG - {'result': {'id': '1c896421f12d764c0b2865222fad2e60', 'zone_id': '4f4cc0443f12350a60c966f89cb7aecf', 'zone_name': 'doesnickwork.com', 'name': '_minecraft._tcp.dddd.doesnickwork.com', 'type': 'SRV', 'content': '0 1026 mine.doesnickwork.com', 'priority': 0, 'proxiable': False, 'proxied': False, 'ttl': 1, 'data': {'port': 1026, 'priority': 0, 'target': 'mine.doesnickwork.com', 'weight': 0}, 'settings': {}, 'meta': {'auto_added': False, 'managed_by_apps': False, 'managed_by_argo_tunnel': False}, 'comment': None, 'tags': [], 'created_on': '2024-09-14T07:22:04.711327Z', 'modified_on': '2024-09-14T07:22:04.711327Z'}, 'success': True, 'errors': [], 'messages': []}
+2024-09-14 03:22:04,766 - deploy - DEBUG - 1c896421f12d764c0b2865222fad2e60
+2024-09-14 03:38:56,415 - deploy - DEBUG - Deleted successfully: d542197c520bcd253314f157027d5b69
+2024-09-14 03:39:22,507 - __main__ - INFO - Deleting container attached to subdomain: dddd
+2024-09-14 03:39:32,804 - deploy - DEBUG - {'result': {'id': '211a17afef4776e53b991dbca3523c8b', 'zone_id': '4f4cc0443f12350a60c966f89cb7aecf', 'zone_name': 'doesnickwork.com', 'name': '_minecraft._tcp.crazy.doesnickwork.com', 'type': 'SRV', 'content': '0 1026 mine.doesnickwork.com', 'priority': 0, 'proxiable': False, 'proxied': False, 'ttl': 1, 'data': {'port': 1026, 'priority': 0, 'target': 'mine.doesnickwork.com', 'weight': 0}, 'settings': {}, 'meta': {'auto_added': False, 'managed_by_apps': False, 'managed_by_argo_tunnel': False}, 'comment': None, 'tags': [], 'created_on': '2024-09-14T07:39:32.661583Z', 'modified_on': '2024-09-14T07:39:32.661583Z'}, 'success': True, 'errors': [], 'messages': []}
+2024-09-14 03:39:32,804 - deploy - DEBUG - 211a17afef4776e53b991dbca3523c8b
+2024-09-14 03:39:42,144 - deploy - DEBUG - Deleted successfully: 211a17afef4776e53b991dbca3523c8b
+2024-09-14 03:56:27,307 - deploy - DEBUG - Using port: 1025
+2024-09-14 03:56:27,411 - deploy - ERROR - Unexpected error in create_container: 500 Server Error for http+docker://localhost/v1.46/containers/ad9220692ef65e6c27e2efe7ba71cdd53696e0ae87b5b64999ae52033e9aec51/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_gunt-d38bf42b-2268-492f-bd28-60226781a6c7 (4f16b959bd0d070566f073b05890fd5aa78ed2c2a352431e25dc429859133681): Bind for 0.0.0.0:1026 failed: port is already allocated")
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.46/containers/ad9220692ef65e6c27e2efe7ba71cdd53696e0ae87b5b64999ae52033e9aec51/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 74, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.46/containers/ad9220692ef65e6c27e2efe7ba71cdd53696e0ae87b5b64999ae52033e9aec51/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_gunt-d38bf42b-2268-492f-bd28-60226781a6c7 (4f16b959bd0d070566f073b05890fd5aa78ed2c2a352431e25dc429859133681): Bind for 0.0.0.0:1026 failed: port is already allocated")
+2024-09-14 03:57:16,631 - deploy - DEBUG - Using port: 1025
+2024-09-14 03:57:21,755 - __main__ - INFO - Deleting container attached to subdomain: gunt
+2024-09-14 03:57:48,361 - __main__ - INFO - Deleting container attached to subdomain: gunt
+2024-09-14 03:57:59,286 - __main__ - INFO - Deleting container attached to subdomain: gunt
+2024-09-14 03:58:16,935 - __main__ - INFO - Deleting container attached to subdomain: gunt
+2024-09-14 03:59:50,571 - deploy - DEBUG - Using port: 1025
+2024-09-14 03:59:53,899 - __main__ - INFO - Deleting container attached to subdomain: goopus
+2024-09-14 03:59:54,279 - deploy - DEBUG - Deleted successfully: cb7cdbb0de1cdc44bcb53df0eb6ce57f
+2024-09-14 04:04:14,706 - deploy - DEBUG - Using port: 1025
+2024-09-14 04:04:18,001 - __main__ - INFO - Deleting container attached to subdomain: gubbus
+2024-09-14 04:04:18,381 - deploy - DEBUG - Deleted successfully: c984c71ba7770883cd90f658bd154d41
+2024-09-14 04:04:30,356 - deploy - DEBUG - Using port: 1025
+2024-09-14 04:07:54,124 - __main__ - INFO - Deleting container attached to subdomain: ggg
+2024-09-14 04:07:54,643 - deploy - DEBUG - Deleted successfully: 68712a14fe7913bcc28f7537751c8dbe
+2024-09-14 04:08:44,913 - deploy - DEBUG - Using port: 1025
+2024-09-14 04:08:44,918 - deploy - ERROR - Unexpected error in create_container: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_goobus-49c045b3-c81c-4cd2-a0ee-dee17c17f989: Bad Request ("no command specified")
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.46/containers/create?name=dude_goobus-49c045b3-c81c-4cd2-a0ee-dee17c17f989
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 74, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 876, in run
+    container = self.create(image=image, command=command,
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 935, in create
+    resp = self.client.api.create_container(**create_kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 440, in create_container
+    return self.create_container_from_config(config, name, platform)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 457, in create_container_from_config
+    return self._result(res, True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 281, in _result
+    self._raise_for_status(response)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_goobus-49c045b3-c81c-4cd2-a0ee-dee17c17f989: Bad Request ("no command specified")
+2024-09-14 04:09:03,473 - deploy - DEBUG - Using port: 1025
+2024-09-14 04:09:03,479 - deploy - ERROR - Unexpected error in create_container: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_gello-fe52934d-8a95-4b6f-8b54-f20e5fb30834: Bad Request ("no command specified")
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.46/containers/create?name=dude_gello-fe52934d-8a95-4b6f-8b54-f20e5fb30834
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 74, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 876, in run
+    container = self.create(image=image, command=command,
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 935, in create
+    resp = self.client.api.create_container(**create_kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 440, in create_container
+    return self.create_container_from_config(config, name, platform)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 457, in create_container_from_config
+    return self._result(res, True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 281, in _result
+    self._raise_for_status(response)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_gello-fe52934d-8a95-4b6f-8b54-f20e5fb30834: Bad Request ("no command specified")
+2024-09-14 04:09:16,301 - deploy - DEBUG - Using port: 1025
+2024-09-14 04:15:50,510 - __main__ - INFO - Deleting container attached to subdomain: gggg
+2024-09-14 04:15:50,859 - deploy - DEBUG - Deleted successfully: 07091d9f8fb697ab589bd7f9b2b72b4a

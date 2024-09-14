@@ -30,7 +30,7 @@ with app.app_context():
     db.create_all()
 
 properties = Properties()
-deploy = Deploy(image="debian", db=db, Containers=Containers)
+deploy = Deploy(image=os.getenv("IMAGE_NAME"), db=db, Containers=Containers)
 
 logger = create_logger(__name__)
 
@@ -54,11 +54,12 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
 
-class OpPlayerForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
-    password = PasswordField('Password', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
-    remember = BooleanField('Remember Me')
+class CommandForm(FlaskForm):
+    command = StringField('Command', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
     submit = SubmitField('Login', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
+
+class DeleteForm(FlaskForm):
+    submit = SubmitField('Delete', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
 
 class ServerCreateForm(FlaskForm):
     subdomain = StringField('Subdomain', validators=[DataRequired()])
@@ -99,14 +100,34 @@ def user_can_access(id:int, subdomain: str):
     return False
 
 def reached_creation_limit(id: int):
-    results = Users.query.filter_by(id=id).first().containers
+    results = Users.query.filter_by(id=id).first()
 
     if results:  
-        if len(results) >= int(os.getenv("MAX_SERVERS_PER_USER")):
+        if len(results.containers) >= results.container_limit:
             return True
     
     return False
 
+def get_container(subdomain: str):
+    containers = deploy.get_user_containers(subdomain=subdomain)
+    if containers:
+        return containers[0]
+    
+    return False
+
+def get_container_status(subdomain: str):
+    states = [{"status": "running", "show": "Running", "color": "bg-green-500"},
+                {"status": "exited", "show": "Stopped", "color": "bg-red-500"}]
+
+    container = get_container(subdomain)
+    status = deploy.get_status(container.id)
+
+    for state in states:
+        if state['status'] == status:
+            return state
+
+    return False
+        
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -180,6 +201,9 @@ def edit(subdomain):
         return redirect(url_for('home'))
 
     form = ServerPropertiesForm()
+    command_form = CommandForm()
+    delete_form = DeleteForm()
+    
     results = Containers.query.filter_by(subdomain=subdomain).first()
     props = properties.read_server_properties(results.uuid)
 
@@ -201,7 +225,13 @@ def edit(subdomain):
         properties.write_server_properties(results.uuid, props)
         return redirect(url_for('home'))
 
-    return render_template("edit.html", form=form, subdomain=subdomain)
+    if delete_form.validate_on_submit():
+        logger.info(f"Deleting container attached to subdomain: {subdomain}")
+        deploy.delete_container(subdomain)
+
+        return redirect(url_for('home'))
+
+    return render_template("edit.html", form=form, command_form=command_form, delete_form=delete_form, subdomain=subdomain, domain=os.getenv("DOMAIN"))
 
 @app.route("/create", methods=['GET', 'POST'])
 @login_required
@@ -222,30 +252,56 @@ def create():
     
     return render_template("create.html", title="Create", form=form)
 
-def _get_container_status(subdomain: str):
-    states = [{"status": "running", "show": "Running", "color": "bg-green-500"},
-                {"status": "exited", "show": "Stopped", "color": "bg-red-500"}]
-
-    containers = deploy.get_user_containers(subdomain=subdomain)
-    status = deploy.get_status(containers[0].id)
-
-    for state in states:
-        if state['status'] == status:
-            return state
-
-    return False
-
 @app.route("/get_status/<subdomain>", methods=['GET', 'POST'])
+@login_required
 def get_status(subdomain):
-    if request.method == "GET":
-        status = _get_container_status(subdomain)
+    if request.method == "GET" and user_can_access(id=current_user.id, subdomain=subdomain):
+        status = get_container_status(subdomain)
 
         print(status)
 
         if status:
             return jsonify(status)
+        else:
+            return jsonify({"status": "unknown", "show": "Unknown", "color": "bg-gray-500"})
+    
+    return "Unauthorized", 401
 
-    return jsonify({"status": "unknown", "show": "Unknown", "color": "bg-gray-500"})
+@app.route("/restart/<subdomain>", methods=['GET', 'POST'])
+@login_required
+def restart(subdomain):
+    if request.method == "GET" and user_can_access(id=current_user.id, subdomain=subdomain):
+        status = True
+
+        get_container(subdomain=subdomain).restart()
+
+        return jsonify(status)
+    
+    return "Unauthorized", 401
+
+@app.route("/shutdown/<subdomain>", methods=['GET', 'POST'])
+@login_required
+def shutdown(subdomain):
+    if request.method == "GET" and user_can_access(id=current_user.id, subdomain=subdomain):
+        status = True
+
+        get_container(subdomain=subdomain).kill()
+
+        return jsonify(status)
+    
+    return "Unauthorized", 401
+
+@app.route("/start/<subdomain>", methods=['GET', 'POST'])
+@login_required
+def start(subdomain):
+    if request.method == "GET" and user_can_access(id=current_user.id, subdomain=subdomain):
+        status = True
+
+        get_container(subdomain=subdomain).start()
+
+        return jsonify(status)
+    
+    return "Unauthorized", 401
 
 @app.route("/")
 def index():

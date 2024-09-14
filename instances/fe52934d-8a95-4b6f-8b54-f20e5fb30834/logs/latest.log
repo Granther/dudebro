@@ -1,0 +1,12 @@
+[13:17:53] [Server thread/INFO]: Stopping the server
+[13:17:53] [Server thread/INFO]: Successfully disabled HuskHomes v4.7
+[13:17:53] [Server thread/INFO]: Stopping server
+[13:17:53] [Server thread/INFO]: Saving players
+[13:17:53] [Server thread/INFO]: Saving worlds
+[13:17:53] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world1]'/minecraft:overworld
+[13:17:53] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world1]'/minecraft:the_end
+[13:17:53] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world1]'/minecraft:the_nether
+[13:17:53] [Server thread/INFO]: ThreadedAnvilChunkStorage (world1): All chunks are saved
+[13:17:53] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[13:17:53] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[13:17:53] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved

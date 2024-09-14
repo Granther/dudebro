@@ -31,6 +31,29 @@ class Deploy:
 
         self.logger = create_logger(__name__)
 
+    def delete_container(self, subdomain: str):
+        container = self._get_container(subdomain)
+    
+        try:
+            container.kill()
+        except:
+            pass
+        container.remove()
+
+        container_row = self.Containers.query.filter_by(subdomain=subdomain).first()
+        self._delete_srv_entry(container_row.srv_id)
+        self._delete_instance_dir(container_row.uuid)
+
+        self.db.session.delete(container_row)
+        self.db.session.commit()
+
+    def _get_container(self, subdomain: str):
+        containers = self.get_user_containers(subdomain=subdomain)
+        if containers:
+            return containers[0]
+        
+        return False
+
     def create_container(self, user_id: int, subdomain: str):
         try:
             uuid = str(uuid4())
@@ -59,11 +82,16 @@ class Deploy:
                 network=self.network_name
             )
 
-            new_container = self.Containers(uuid=uuid, subdomain=subdomain, domain=self.domain, port=port, weight=0, priority=0, name=name, user_id=user_id)
+            srv_id = self._create_srv_entry(subdomain, self.domain, self.target_fqdn, port)
+
+            if not srv_id:
+                error = "Error occured while creating SRV DNS Record"
+                self.logger.critical(error)
+                raise RuntimeError(error)
+
+            new_container = self.Containers(uuid=uuid, subdomain=subdomain, domain=self.domain, port=port, weight=0, priority=0, name=name, user_id=user_id, srv_id=srv_id)
             self.db.session.add(new_container)
             self.db.session.commit()
-
-            self._create_srv_entry(subdomain, self.domain, self.target_fqdn, port)
 
             return container
 
@@ -84,16 +112,24 @@ class Deploy:
             self.logger.error(f"Failed to create instance directory: {e}", exc_info=True)
             return None
 
+    def _delete_instance_dir(self, uuid: str):
+        try:
+            path = os.path.join(os.getenv("INSTANCES_DIR"), uuid)
+            shutil.rmtree(path)
+            return path
+        except (OSError, shutil.error) as e:
+            self.logger.error(f"Failed to delete instance directory: {e}", exc_info=True)
+            return None
+
     def _get_port(self):
         ports = self.db.session.query(self.Containers.port).order_by(self.db.desc(self.Containers.port)).first()
-        port = None
 
         if ports:
             port = ports.port
-            print("port", port)
+            self.logger.debug(f"Using port: {port}")
         else:
             port = 1025
-            print("port", port)
+            self.logger.debug(f"Using port: {port}")
 
         return port + 1
     
@@ -129,13 +165,31 @@ class Deploy:
             'proxied': proxied,
             'ttl': 1, #auto
         }
-        print(data)
         create_response = requests.post(url, headers=headers, json=data)
         if create_response.status_code == 200:
-            print(f'Created successfully.')
+            srv_id = create_response.json()['result']['id']
+            return srv_id
+        else:
+            self.logger.critical(f'Failed to create record: {create_response.json()}')
+            return False
+
+    def _delete_srv_entry(self, dns_record_id):
+        url = f"https://api.cloudflare.com/client/v4/zones/{self.zone_id}/dns_records/{dns_record_id}"
+
+        headers = {
+            'Authorization': f'Bearer {self.api_key}',
+            'Content-Type': 'application/json',
+            'X-Auth-Email': self.email,
+            'X-Auth-Key': self.api_key,
+        }
+
+        create_response = requests.delete(url, headers=headers)
+        if create_response.status_code == 200:
+            srv_id = create_response.json()['result']['id']
+            self.logger.debug(f'Deleted successfully: {srv_id}')
             return True
         else:
-            print(f'Failed to create record: {create_response.json()}')
+            self.logger.critical(f'Failed to delete record: {create_response.json()}')
             return False
     
     def init_network(self, network_name):
@@ -179,15 +233,15 @@ class Deploy:
         return False
 
 
-
 if __name__ == "__main__":
     dep = Deploy(image="debian")
+    dep._delete_srv_entry("d542197c520bcd253314f157027d5b69")
     # dep.create_container("123", "anotherone")
-    userid = dep.create_user(username="Grant", password="pass")
-    print("serid", userid)
-    cont = dep.create_container(userid, "helo")
-    x = dep.get_user_containers(3)
-    print(x)
+    # userid = dep.create_user(username="Grant", password="pass")
+    # print("serid", userid)
+    # cont = dep.create_container(userid, "helo")
+    # x = dep.get_user_containers(3)
+    # print(x)
     # x = dep.get_user_containers("123")
     # for i in x:
     #     print(i.id)

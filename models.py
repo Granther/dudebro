@@ -11,6 +11,7 @@ class Users(db.Model, UserMixin):
     username = db.Column(db.String, unique=False, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
+    container_limit = db.Column(db.Integer, nullable=True, default=1)
     containers = db.relationship('Containers', backref='users', lazy=True)
 
 class Containers(db.Model):
@@ -18,6 +19,7 @@ class Containers(db.Model):
     created = db.Column(db.TIMESTAMP, nullable=False, server_default=db.func.now())
     uuid = db.Column(db.String, nullable=True, default=generate_uuid)
     subdomain = db.Column(db.String, unique=True, nullable=False)
+    srv_id = db.Column(db.String, unique=True, nullable=False)
     domain = db.Column(db.String, unique=False, nullable=False)
     port = db.Column(db.Integer, unique=True, nullable=False)
     priority = db.Column(db.Integer, unique=False, nullable=True)

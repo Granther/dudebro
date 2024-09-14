@@ -18,17 +18,18 @@
     <section class="py-12 bg-gray-900">
         <div class="container mx-auto px-4 text-center">
             <h3 class="text-4xl font-bold mb-8">Servers</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="grid grid-cols-1 md:grid-cols-3">
                 {% for server in servers %}
-                <a href="{{ url_for('server', subdomain=server.subdomain) }}" class="text-black">
-                    <div class="feature bg-gray-700 py-6 rounded-lg shadow-md hover:bg-sky-500 flex items-center justify-center aspect-w-1 aspect-h-1">
-                        <span class="text-lg font-medium">{{ server.subdomain }}</span>
+                <a href="{{ url_for('edit', subdomain=server.subdomain) }}" class="text-black flex items-center justify-center ">
+                    <div class="grid grid-rows-2 grid-cols-2 py-3 rounded-xl shadow-md bg-gray-600 hover:bg-sky-500 flex items-center justify-center aspect-w-1 aspect-h-1 w-1/2">
+                        <span class="text-xl font-medium text-left px-5">{{ server.subdomain }}</span>
+                        <!-- <span id="status-tag">On</span> -->
                     </div>
                 </a>
                 {% endfor %}
-                <a href="{{ url_for('create') }}" class="text-black">
-                    <div class="feature bg-gray-600 p-6 rounded-lg shadow-md hover:bg-sky-500 flex items-center justify-center aspect-w-1 aspect-h-1">
-                        <span class="text-4xl font-bold">+</span>
+                <a href="{{ url_for('create') }}" class="text-black flex items-center ">
+                    <div class="feature bg-gray-600 rounded-lg shadow-md hover:bg-sky-500 flex items-center justify-center aspect-w-1 aspect-h-1 w-1/4 py-3">
+                        <span class="text-4xl font-bold w-1/2">+</span>
                     </div>
                 </a>
             </div>
@@ -48,6 +49,20 @@
             </div>
         </div>
     </section>
+    <script>
+      // status_tag = document.getElementById('status-tag')
+
+      // function get_status() {
+      //       fetch(`{{url_for('get_status', subdomain=subdomain)}}`, {
+      //       }).then(response => response.json()).then(data => {
+      //           status_tag.innerHTML = data.show;
+      //           status_tag.classList = "text-lg font-medium text-right px-5 text-white py-2 px-5 rounded-full font-bold bg-green-500 ml-auto mr-3 text-md transition duration-300"
+      //           status_tag.classList.add(data.color);
+      //       }).catch(error => console.error('Error', error));
+      //   }
+      
+      // get_status()
+    </script>
 
   <!-- <section class="py-12 bg-gray-900">
     <div class="container mx-auto px-4 text-center">
