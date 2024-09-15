@@ -1,23 +1,23 @@
-import logging
 import os
+from multiprocessing import Process
 
 from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, IntegerField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from flask_login import LoginManager, login_user, current_user, logout_user, login_required
+from mcrcon import MCRcon
 
 from db_factory import db
 from models import Users, Containers
 from deploy import Deploy
 from properties import Properties
 from logger import create_logger
+from rcon import DudeRcon
+from forms import RegistrationForm, LoginForm, CommandForm, DeleteForm, \
+                    ServerCreateForm, ServerPropertiesForm
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'glorp'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dudebro.db'
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "backup-key")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URI", "sqlite:///dudebro.db")
 
 db.init_app(app)
 bcrypt = Bcrypt(app)
@@ -31,6 +31,7 @@ with app.app_context():
 
 properties = Properties()
 deploy = Deploy(image=os.getenv("IMAGE_NAME"), db=db, Containers=Containers)
+rcon = DudeRcon()
 
 logger = create_logger(__name__)
 
@@ -38,58 +39,7 @@ logger = create_logger(__name__)
 def load_user(user_id):
     return Users.query.get(int(user_id))
 
-server_props_render = {"class": "bg-gray-900 text-white px-2 py-1 rounded-md"}
-server_props_render_int = {"class": "bg-gray-900 text-white px-2 py-1 rounded-md w-16 number-input"}
-
-class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
-    email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
-    password = PasswordField('Password', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
-    submit = SubmitField('Sign Up', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
-
-class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
-    password = PasswordField('Password', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
-    remember = BooleanField('Remember Me')
-    submit = SubmitField('Login', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
-
-class CommandForm(FlaskForm):
-    command = StringField('Command', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
-    submit = SubmitField('Login', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
-
-class DeleteForm(FlaskForm):
-    submit = SubmitField('Delete', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
-
-class ServerCreateForm(FlaskForm):
-    subdomain = StringField('Subdomain', validators=[DataRequired()])
-    name = StringField('Name', validators=[DataRequired()])
-    submit = SubmitField('Create')
-
-class ServerPropertiesForm(FlaskForm):
-    allow_flight = SelectField("allow_flight", choices=[("false", "false"), ("true", "true")], render_kw=server_props_render)
-    allow_nether = SelectField("allow_nether", choices=[("false", "false"), ("true", "true")], render_kw=server_props_render)
-    difficulty = SelectField("difficulty", choices=[("hard", "hard"), ("easy", "easy"), ("peaceful", "peaceful")], render_kw=server_props_render)
-    enforce_whitelist = SelectField("enforce_whitelist", choices=[("false", "false"), ("true", "true")], render_kw=server_props_render)
-    gamemode = SelectField("gamemode", choices=[("creative", "creative"), ("survival", "survival")], render_kw=server_props_render)
-    hardcore = SelectField("hardcore", choices=[("false", "false"), ("true", "true")], render_kw=server_props_render)
-    level_name = StringField("level_name", render_kw=server_props_render)
-    level_seed = StringField("level_seed", render_kw=server_props_render)
-    level_type = StringField("level_type", render_kw=server_props_render)
-    max_players = IntegerField("max_players", render_kw=server_props_render_int)
-    motd = StringField("motd", render_kw=server_props_render)
-    pvp = SelectField("pvp", choices=[("false", "false"), ("true", "true")], render_kw=server_props_render)
-    # query55port = StringField("query.port")
-    # rcon55password = StringField("rcon.password")
-    # rcon55port = StringField("rcon.port")
-    # server_port = StringField("server_port")
-    simulation_distance = IntegerField("simulation_distance", render_kw=server_props_render_int)
-    view_distance = IntegerField("view_distance", render_kw=server_props_render_int)
-    white_list = SelectField("white_list", choices=[("false", "false"), ("true", "true")], render_kw=server_props_render)
-
-    submit = SubmitField('Save', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
-
-def user_can_access(id:int, subdomain: str):
+def user_can_access(id: int, subdomain: str) -> bool:
     results = Users.query.filter_by(id=id).first().containers
 
     if results:
@@ -117,10 +67,16 @@ def get_container(subdomain: str):
 
 def get_container_status(subdomain: str):
     states = [{"status": "running", "show": "Running", "color": "bg-green-500"},
-                {"status": "exited", "show": "Stopped", "color": "bg-red-500"}]
+                {"status": "exited", "show": "Stopped", "color": "bg-red-500"},
+                {"status": "restarting", "show": "Restarting", "color": "bg-orange-500"}]
 
     container = get_container(subdomain)
     status = deploy.get_status(container.id)
+
+    # events = deploy.get_events(container.id)
+    # for event in events:
+    #     print(event)
+    #     logger.debug(event.get('status'))
 
     for state in states:
         if state['status'] == status:
@@ -149,7 +105,6 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        print("validated")
         user = Users.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
@@ -157,8 +112,6 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
-    # elif not form.validate_on_submit():
-    #     flash('Login Unsuccessful. Please check email and password', 'danger')
 
     return render_template('login.html', title='Login', form=form)
 
@@ -225,13 +178,52 @@ def edit(subdomain):
         properties.write_server_properties(results.uuid, props)
         return redirect(url_for('home'))
 
+    return render_template("edit.html", form=form, command_form=command_form, 
+                           delete_form=delete_form, subdomain=subdomain, domain=os.getenv("DOMAIN"))
+
+def execute_rcon_command(subdomain, command):
+    with MCRcon(deploy.get_container_ip(deploy._get_container(subdomain=subdomain)), 
+                                            os.getenv("RCON_PASSWORD"), port=1026) as mcr:
+        res = mcr.command(command)
+        logger.info(res)
+
+@app.route("/command<subdomain>", methods=['POST'])
+def command(subdomain):
+    form = ServerPropertiesForm()
+    command_form = CommandForm()
+    delete_form = DeleteForm()
+
+    if command_form.validate_on_submit():
+        command = command_form.command.data
+        container_ip =deploy.get_container_ip(deploy._get_container(subdomain=subdomain))
+        rcon_port = int(os.getenv("RCON_PORT"))
+
+        # Run in a new process, thus, it will run on the main thread. Sidestepping ValueError raised by `signals`
+        p = Process(target=rcon.command, args=(command, rcon_port, container_ip))
+        p.start()
+        p.join()
+
+        logger.info(f"Sending command: {command}")
+
+        return redirect(url_for('home'))
+
+    return render_template("edit.html", form=form, command_form=command_form, 
+                           delete_form=delete_form, subdomain=subdomain, domain=os.getenv("DOMAIN"))
+
+@app.route("/delete/<subdomain>", methods=['POST'])
+def delete(subdomain):
+    form = ServerPropertiesForm()
+    command_form = CommandForm()
+    delete_form = DeleteForm()
+
     if delete_form.validate_on_submit():
         logger.info(f"Deleting container attached to subdomain: {subdomain}")
         deploy.delete_container(subdomain)
 
         return redirect(url_for('home'))
 
-    return render_template("edit.html", form=form, command_form=command_form, delete_form=delete_form, subdomain=subdomain, domain=os.getenv("DOMAIN"))
+    return render_template("edit.html", form=form, command_form=command_form, 
+                           delete_form=delete_form, subdomain=subdomain, domain=os.getenv("DOMAIN"))
 
 @app.route("/create", methods=['GET', 'POST'])
 @login_required

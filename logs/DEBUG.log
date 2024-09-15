@@ -254,3 +254,111 @@ docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.46/conta
 2024-09-14 04:09:16,301 - deploy - DEBUG - Using port: 1025
 2024-09-14 04:15:50,510 - __main__ - INFO - Deleting container attached to subdomain: gggg
 2024-09-14 04:15:50,859 - deploy - DEBUG - Deleted successfully: 07091d9f8fb697ab589bd7f9b2b72b4a
+2024-09-14 11:13:32,607 - deploy - DEBUG - Using port: 1025
+2024-09-14 11:23:20,986 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f5253c34c40>
+2024-09-14 11:23:21,947 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f52525848e0>
+2024-09-14 11:23:24,811 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f525364a4f0>
+2024-09-14 11:23:27,814 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f5252550610>
+2024-09-14 11:23:30,836 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f52525ccbb0>
+2024-09-14 11:23:33,871 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f52525345b0>
+2024-09-14 11:23:36,881 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f5252534d00>
+2024-09-14 11:23:39,895 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f52525345b0>
+2024-09-14 11:23:42,880 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f525364a7c0>
+2024-09-14 11:23:45,888 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f5252534b50>
+2024-09-14 11:23:48,881 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f5252584d90>
+2024-09-14 11:23:51,890 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f5253635d30>
+2024-09-14 11:23:54,892 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f52524dbe20>
+2024-09-14 11:23:57,897 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f52524db1c0>
+2024-09-14 11:24:00,900 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f52524dba00>
+2024-09-14 11:24:03,901 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f525258bd60>
+2024-09-14 11:24:06,898 - __main__ - DEBUG - <docker.types.daemon.CancellableStream object at 0x7f5252584ee0>
+2024-09-14 21:22:12,520 - __main__ - INFO - Deleting container attached to subdomain: imma
+2024-09-14 21:22:13,018 - deploy - DEBUG - Deleted successfully: 2c9ffd0848a583d2a198cb68148bf751
+2024-09-14 21:22:31,033 - deploy - DEBUG - Using port: 1025
+2024-09-14 21:22:41,461 - __main__ - INFO - Deleting container attached to subdomain: scrimbus
+2024-09-14 21:22:42,141 - deploy - DEBUG - Deleted successfully: 673b26819e92c90d3712763b6c0c8a5b
+2024-09-15 03:29:04,342 - deploy - DEBUG - Using port: 1025
+2024-09-15 03:40:22,231 - __main__ - INFO - Sending command: /say Hello
+2024-09-15 03:40:25,322 - __main__ - INFO - Sending command: /say Hello
+2024-09-15 03:40:51,045 - __main__ - INFO - Sending command: /say Hello
+2024-09-15 03:44:20,435 - __main__ - INFO - Deleting container attached to subdomain: gooptown
+2024-09-15 03:44:20,933 - deploy - DEBUG - Deleted successfully: c2a4e7573f00701716d291ad57d0ad0c
+2024-09-15 03:44:31,282 - deploy - DEBUG - Using port: 1025
+2024-09-15 03:44:41,624 - __main__ - INFO - Sending command: /say way
+2024-09-15 03:45:06,694 - __main__ - INFO - Sending command: /stop
+2024-09-15 03:50:44,303 - __main__ - INFO - Sending command: /stop
+2024-09-15 03:50:57,283 - __main__ - INFO - Sending command: /stop
+2024-09-15 13:06:53,124 - app - INFO - Sending command: /say Hello
+2024-09-15 13:06:53,130 - app - ERROR - Exception on /commandimmaskib [POST]
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/grant/dudebro/app.py", line 193, in command
+    rcon.command(command=command, port=1026, ip=deploy.get_container_ip(deploy._get_container(subdomain=subdomain)))
+  File "/home/grant/dudebro/rcon.py", line 16, in command
+    with MCRcon(ip, rcon_pass, port=port) as mcr:
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/mcrcon.py", line 54, in __init__
+    signal.signal(signal.SIGALRM, timeout_handler)
+  File "/usr/lib64/python3.9/signal.py", line 56, in signal
+    handler = _signal.signal(_enum_to_int(signalnum), _enum_to_int(handler))
+ValueError: signal only works in main thread of the main interpreter
+2024-09-15 13:11:19,795 - __main__ - INFO - Sending command: /say Hello
+2024-09-15 13:12:52,608 - __main__ - INFO - Sending command: /say hello
+2024-09-15 13:20:34,057 - __main__ - INFO - Sending command: /say Hello
+2024-09-15 13:33:01,855 - __main__ - INFO - Deleting container attached to subdomain: immaskib
+2024-09-15 13:33:02,506 - deploy - DEBUG - Deleted successfully: 34667ec9982e1e6d3d5c93ee326cd07f
+2024-09-15 13:33:08,804 - deploy - DEBUG - Using port: 1025
+2024-09-15 13:33:08,811 - deploy - ERROR - Unexpected error in create_container: 'list' object has no attribute 'items'
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 87, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 876, in run
+    container = self.create(image=image, command=command,
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 934, in create
+    create_kwargs = _create_container_args(kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 1164, in _create_container_args
+    create_kwargs['host_config'] = HostConfig(**host_config_kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/types/containers.py", line 404, in __init__
+    self['PortBindings'] = convert_port_bindings(port_bindings)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/utils.py", line 115, in convert_port_bindings
+    for k, v in iter(port_bindings.items()):
+AttributeError: 'list' object has no attribute 'items'
+2024-09-15 13:34:34,079 - deploy - DEBUG - Using port: 1025
+2024-09-15 13:34:34,193 - deploy - ERROR - Unexpected error in create_container: 500 Server Error for http+docker://localhost/v1.46/containers/4aedcf1563064a8b06bcd9543146d6b7640a8cd6d34b815886d58aec316fdce0/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_huh-8a9c34de-95e3-4f59-a8eb-4ee962a3aeb6 (efc3998e91f796d744424462963cca0704edbe6bae12162b89ab26f008a1eccf): Bind for 0.0.0.0:25575 failed: port is already allocated")
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.46/containers/4aedcf1563064a8b06bcd9543146d6b7640a8cd6d34b815886d58aec316fdce0/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 87, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.46/containers/4aedcf1563064a8b06bcd9543146d6b7640a8cd6d34b815886d58aec316fdce0/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_huh-8a9c34de-95e3-4f59-a8eb-4ee962a3aeb6 (efc3998e91f796d744424462963cca0704edbe6bae12162b89ab26f008a1eccf): Bind for 0.0.0.0:25575 failed: port is already allocated")
+2024-09-15 13:34:59,414 - deploy - DEBUG - Using port: 1025
+2024-09-15 13:37:11,665 - deploy - DEBUG - Using port: 1026
+2024-09-15 13:38:00,778 - __main__ - INFO - Sending command: /say Hello
+2024-09-15 13:39:18,270 - __main__ - INFO - Sending command: /say Hello
+2024-09-15 13:40:41,820 - __main__ - INFO - Sending command: /stop
+2024-09-15 13:41:11,411 - __main__ - INFO - Sending command: /op Granther21

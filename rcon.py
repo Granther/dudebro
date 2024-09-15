@@ -10,7 +10,7 @@ class DudeRcon:
         load_dotenv()
         self.logger = create_logger(__name__)
 
-    def command(self, str: command, int: port, str: ip):
+    def command(self, command: str, port: int, ip: str):
         rcon_pass = os.getenv("RCON_PASSWORD")
 
         with MCRcon(ip, rcon_pass, port=port) as mcr:
@@ -19,8 +19,3 @@ class DudeRcon:
 
         return False
 
-
-# Set RCON parameters
-rcon_host = 'localhost'  # Or the Docker container IP if running externally
-rcon_port = 25575
-rcon_password = 'your_secure_password' 

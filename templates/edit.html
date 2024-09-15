@@ -39,13 +39,13 @@
             <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-lg w-full m-6">
                 <h2 class="text-3xl font-bold mb-6 text-center">Actions</h2>
                 <div class="flex justify-center">
-                    <button id="restart-btn" class="disabled:bg-sky-700 bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-l-full font-bold text-md transition duration-300">
+                    <button id="restart-btn" class="disabled:bg-sky-700 bg-sky-500 hover:bg-sky-700 active:bg-sky-900 text-white py-2 px-5 rounded-l-full font-bold text-md transition duration-300">
                         Restart
                     </button>
-                    <button id="shutdown-btn" class="disabled:bg-sky-700 bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 font-bold text-md transition duration-300">
+                    <button id="shutdown-btn" class="disabled:bg-sky-700 bg-sky-500 hover:bg-sky-700 active:bg-sky-900 text-white py-2 px-5 font-bold text-md transition duration-300">
                         Shutdown
                     </button>
-                    <button id="start-btn" class="disabled:bg-sky-700 bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-full font-bold text-md transition duration-300">
+                    <button id="start-btn" class="disabled:bg-sky-700 bg-sky-500 hover:bg-sky-700 active:bg-sky-900 text-white py-2 px-5 rounded-r-full font-bold text-md transition duration-300">
                         Start
                     </button>
                 </div>
@@ -78,7 +78,7 @@
             </div>
             <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-lg w-full m-6">
                 <h2 class="text-3xl font-bold mb-6 text-center">Actions</h2>
-                <form class="space-y-6" action="" id="command-form" method="POST">
+                <form class="space-y-6" action="{{url_for('command', subdomain=subdomain)}}" id="command-form" method="POST">
                     {{ command_form.hidden_tag() }}
                 
                     <div>{{ command_form.command.label }} {{ command_form.command }}</div>
@@ -90,7 +90,7 @@
         <div class="flex flex-row bg-cover bg-gray-900 space-x-3 justify-center"></div>
             <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full m-6 mb-auto">
                 <h2 class="text-3xl font-bold mb-6 text-center">Other</h2>
-                <form class="space-y-3" action="" method="POST">
+                <form class="space-y-3" action="{{url_for('delete', subdomain=subdomain)}}" method="POST">
                     {{ delete_form.hidden_tag() }}                    
                     <div class="pt-3">{{ delete_form.submit() }}</div>
                 </form>
@@ -104,31 +104,51 @@
         var status_tag = document.getElementById("status-tag")
         var command_form = document.getElementById("command-form")
 
-        restart_btn.addEventListener("click", function(event) {
-            fetch(`{{url_for('restart', subdomain=subdomain)}}`, {
-                }).then(response => response.json()).then(data => {
-                    console.log("clicked restart")
-                }).catch(error => console.error('Error', error));
+        restart_btn.addEventListener("click", async function(event) {
+            disable_ui()
+            try {
+                const response = fetch(`{{url_for('restart', subdomain=subdomain)}}`)
+
+                const data = await response.json
+
+                await get_status()
+
+                console.log("clicked restart")
+            }
+            catch (error) {
+                console.log("Error", error)
+            }
         });
+        //         }).then(response => response.json()).then(data => {
+        //             get_status()
+
+        //             // status_tag.innerHTML = "Restarting";
+        //             // status_tag.classList = "text-white py-2 px-5 rounded-full font-bold text-md transition duration-300 w-1/2 text-center bg-orange-500"
+        //         }).catch(error => console.error('Error', error));
+        // });
 
         shutdown_btn.addEventListener("click", function(event) {
+            disable_ui()
             fetch(`{{url_for('shutdown', subdomain=subdomain)}}`, {
                 }).then(response => response.json()).then(data => {
+                    get_status()
                     console.log("clicked shutdown")
                 }).catch(error => console.error('Error', error));
         });
 
         start_btn.addEventListener("click", function(event) {
+            disable_ui()
             fetch(`{{url_for('start', subdomain=subdomain)}}`, {
                 }).then(response => response.json()).then(data => {
+                    get_status()
                     console.log("clicked start")
                 }).catch(error => console.error('Error', error));
         });
 
-        command_form.addEventListener("submit", function(event) {
-            event.preventDefault();
-            console.log("submitted");
-        })
+        // command_form.addEventListener("submit", function(event) {
+        //     event.preventDefault();
+        //     console.log("submitted");
+        // })
 
         function disable_ui() {
             restart_btn.disabled = true;  

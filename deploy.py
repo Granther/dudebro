@@ -1,15 +1,14 @@
-import random
-import requests
 import os
 import shutil
+import requests
 
 from uuid import uuid4
 from dotenv import load_dotenv
 import docker
 
-from nginx import NginxInteractor
 from properties import set_property
 from logger import create_logger
+from properties import Properties
 
 class Deploy:
     def __init__(self, image, Containers, db, network_name:str="mc-network", timeout:int=5):
@@ -54,6 +53,22 @@ class Deploy:
         
         return False
 
+    def _set_server_properties(self, uuid: str, port: str):
+        properties = Properties()
+
+        try:
+            properties.set_property(uuid, "server-port", port)
+            properties.set_property(uuid, "rcon.password", os.getenv("RCON_PASSWORD"))
+            properties.set_property(uuid, "rcon.port", os.getenv("RCON_PORT"))
+            properties.set_property(uuid, "enable-rcon", "true")
+        except RuntimeError as e:
+            raise RuntimeError from e
+        except Exception as e:
+            error = f"Unknown error occured whil setting property in server.properties: {e}"
+            self.logger.critical(error)
+            raise RuntimeError(error) from e
+
+
     def create_container(self, user_id: int, subdomain: str):
         try:
             uuid = str(uuid4())
@@ -65,17 +80,15 @@ class Deploy:
                 self.logger.critical(error)
                 raise RuntimeError(error)
 
-            if not set_property(uuid, "server-port", port):
-                error = "Error setting port property in server.properties"
-                self.logger.critical(error)
-                raise RuntimeError(error)
+            self._set_server_properties(uuid=uuid, port=port)
+            rcon_port = int(os.getenv("RCON_PORT", "25575"))
 
             name = f"dude_{subdomain}-{uuid}"
             container = self.client.containers.run(
                 self.image,
                 detach=True,
                 tty=True,
-                ports={f"{port}/tcp":port},
+                ports={f"{port}/tcp":port, f"{rcon_port}/tcp":rcon_port},
                 volumes={path: {"bind": "/minecraft", "mode": "rw"}},
                 name=name,
                 labels={"user_id": str(user_id), "subdomain": subdomain, "uuid": uuid},
@@ -108,7 +121,7 @@ class Deploy:
             path = os.path.join(os.getenv("INSTANCES_DIR"), uuid)
             shutil.copytree("./minecraft", path)
             return path
-        except (OSError, shutil.error) as e:
+        except OSError as e:
             self.logger.error(f"Failed to create instance directory: {e}", exc_info=True)
             return None
 
@@ -117,7 +130,7 @@ class Deploy:
             path = os.path.join(os.getenv("INSTANCES_DIR"), uuid)
             shutil.rmtree(path)
             return path
-        except (OSError, shutil.error) as e:
+        except OSError as e:
             self.logger.error(f"Failed to delete instance directory: {e}", exc_info=True)
             return None
 
@@ -132,6 +145,9 @@ class Deploy:
             self.logger.debug(f"Using port: {port}")
 
         return port + 1
+
+    def get_events(self, cid):
+        return self.client.events(filters={'container': cid}, decode=True)
     
     def get_container_ip(self, container):
         container.reload()
@@ -234,8 +250,9 @@ class Deploy:
 
 
 if __name__ == "__main__":
-    dep = Deploy(image="debian")
-    dep._delete_srv_entry("d542197c520bcd253314f157027d5b69")
+    pass
+    # dep = Deploy(image="debian")
+    # dep._delete_srv_entry("d542197c520bcd253314f157027d5b69")
     # dep.create_container("123", "anotherone")
     # userid = dep.create_user(username="Grant", password="pass")
     # print("serid", userid)

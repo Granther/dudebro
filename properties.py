@@ -38,7 +38,9 @@ class Properties():
             server_props[key] = value
             return self.write_server_properties(uuid, server_props)
         else:
-            return properties
+            error = f"Unable to set server property: {key}:{value}"
+            self.logger.critical(error)
+            raise RuntimeError(error)
 
 def set_property(uuid: str, key, value):
     properties = Properties()

@@ -1,8 +1,10 @@
-import logging
 import os
+import logging
 from dotenv import load_dotenv
 
-def create_logger(name):
+def create_logger(name) -> logging.Logger:
+    """Returns instantiated logger using environment settings"""
+
     load_dotenv()
 
     logger = logging.getLogger(name)
