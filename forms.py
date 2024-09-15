@@ -16,8 +16,14 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
 
 class CommandForm(FlaskForm):
-    command = StringField('Command', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
-    submit = SubmitField('Send', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
+    command = StringField('Command', validators=[DataRequired()], 
+                          render_kw={"class": "border border-black rounded-l-lg text-black px-2 py-2 focus:outline-none w-1/2 text-md", "autocomplete":"off"})
+    submit = SubmitField('Send', 
+                         render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-lg font-bold text-md transition duration-300"})
+
+class BanCommandForm(FlaskForm):
+    ban = StringField('/ban', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-1/2 text-lg", "autocomplete":"off"})
+    submit = SubmitField('Ban', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
 
 class DeleteForm(FlaskForm):
     submit = SubmitField('Delete', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
@@ -46,4 +52,4 @@ class ServerPropertiesForm(FlaskForm):
     view_distance = IntegerField("view_distance", render_kw=server_props_render_int)
     white_list = SelectField("white_list", choices=[("false", "false"), ("true", "true")], render_kw=server_props_render)
 
-    submit = SubmitField('Save', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
+    submit = SubmitField('Save and Restart', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})

@@ -362,3 +362,78 @@ docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.46/conta
 2024-09-15 13:39:18,270 - __main__ - INFO - Sending command: /say Hello
 2024-09-15 13:40:41,820 - __main__ - INFO - Sending command: /stop
 2024-09-15 13:41:11,411 - __main__ - INFO - Sending command: /op Granther21
+2024-09-15 14:03:45,645 - __main__ - INFO - Sent command: /op Granther21, got response: Nothing changed. The player already is an operator
+2024-09-15 15:13:50,676 - __main__ - INFO - Sent command: hello, got response: Unknown or incomplete command, see below for errorhello<--[HERE]
+2024-09-15 15:13:53,084 - __main__ - INFO - Sent command: hello, got response: Unknown or incomplete command, see below for errorhello<--[HERE]
+2024-09-15 15:18:25,785 - __main__ - DEBUG - rrrr
+2024-09-15 15:19:02,726 - __main__ - DEBUG - rrrr
+2024-09-15 15:19:42,443 - __main__ - DEBUG - ffff
+2024-09-15 15:20:10,094 - __main__ - DEBUG - ddd
+2024-09-15 15:21:13,423 - __main__ - DEBUG - dd
+2024-09-15 15:24:22,443 - __main__ - DEBUG - fff
+2024-09-15 15:26:04,100 - __main__ - DEBUG - f
+2024-09-15 15:26:27,261 - __main__ - DEBUG - fff
+2024-09-15 15:26:29,753 - __main__ - DEBUG - fff
+2024-09-15 15:26:30,979 - __main__ - DEBUG - fff
+2024-09-15 15:26:31,568 - __main__ - DEBUG - fff
+2024-09-15 15:26:50,413 - __main__ - DEBUG - ddd
+2024-09-15 15:26:50,869 - __main__ - DEBUG - ddd
+2024-09-15 15:26:51,045 - __main__ - DEBUG - ddd
+2024-09-15 15:26:51,245 - __main__ - DEBUG - ddd
+2024-09-15 15:27:24,550 - __main__ - DEBUG - ww
+2024-09-15 15:27:25,176 - __main__ - DEBUG - ww
+2024-09-15 15:27:25,461 - __main__ - DEBUG - ww
+2024-09-15 15:29:02,850 - __main__ - DEBUG - ww
+2024-09-15 15:29:03,343 - __main__ - DEBUG - ww
+2024-09-15 15:29:03,549 - __main__ - DEBUG - ww
+2024-09-15 15:29:03,720 - __main__ - DEBUG - ww
+2024-09-15 15:29:04,585 - __main__ - DEBUG - ww
+2024-09-15 15:29:04,741 - __main__ - DEBUG - ww
+2024-09-15 15:29:23,828 - __main__ - DEBUG - ww
+2024-09-15 15:29:24,556 - __main__ - DEBUG - ww
+2024-09-15 15:29:51,653 - __main__ - DEBUG - ww
+2024-09-15 15:30:46,232 - __main__ - DEBUG - ww
+2024-09-15 15:30:46,812 - __main__ - DEBUG - ww
+2024-09-15 15:30:46,993 - __main__ - DEBUG - ww
+2024-09-15 15:30:47,191 - __main__ - DEBUG - ww
+2024-09-15 15:30:47,908 - __main__ - DEBUG - ww
+2024-09-15 15:30:48,074 - __main__ - DEBUG - ww
+2024-09-15 15:31:21,651 - __main__ - DEBUG - ww
+2024-09-15 15:31:22,333 - __main__ - DEBUG - ww
+2024-09-15 15:31:22,516 - __main__ - DEBUG - ww
+2024-09-15 15:31:22,691 - __main__ - DEBUG - ww
+2024-09-15 15:32:39,700 - __main__ - DEBUG - ww
+2024-09-15 15:32:40,263 - __main__ - DEBUG - ww
+2024-09-15 15:32:40,499 - __main__ - DEBUG - ww
+2024-09-15 15:33:39,968 - __main__ - DEBUG - ww
+2024-09-15 15:44:01,927 - __main__ - DEBUG - ww
+2024-09-15 15:44:12,959 - __main__ - DEBUG - ww
+2024-09-15 15:44:14,768 - __main__ - DEBUG - ww
+2024-09-15 15:44:33,560 - __main__ - DEBUG - ww
+2024-09-15 15:44:35,596 - __main__ - DEBUG - ww
+2024-09-15 15:45:57,370 - __main__ - DEBUG - ww
+2024-09-15 15:45:59,343 - __main__ - DEBUG - ww
+2024-09-15 15:46:01,210 - __main__ - DEBUG - ww
+2024-09-15 15:46:01,619 - __main__ - DEBUG - ww
+2024-09-15 15:46:02,020 - __main__ - DEBUG - ww
+2024-09-15 15:46:22,630 - __main__ - DEBUG - ww
+2024-09-15 15:46:23,923 - __main__ - DEBUG - ww
+2024-09-15 15:46:25,204 - __main__ - DEBUG - ww
+2024-09-15 15:49:50,194 - __main__ - DEBUG - ww
+2024-09-15 15:54:37,785 - __main__ - INFO - Sent command: op form.command.data, got response: That player does not exist
+2024-09-15 15:54:42,312 - __main__ - INFO - Sent command: op form.command.data, got response: That player does not exist
+2024-09-15 15:55:21,147 - __main__ - INFO - Sent command: op Granther21, got response: Nothing changed. The player already is an operator
+2024-09-15 15:55:32,582 - __main__ - INFO - Sent command: ban Granther21, got response: Banned Granther21: Banned by an operator.
+2024-09-15 15:55:45,040 - __main__ - INFO - Sent command:  /stop, got response: Unknown or incomplete command, see below for error /stop<--[HERE]
+2024-09-15 15:55:54,275 - __main__ - INFO - Sent command:  stop, got response: Unknown or incomplete command, see below for error stop<--[HERE]
+2024-09-15 16:50:14,672 - __main__ - INFO - Sent command:  dibg, got response: Unknown or incomplete command, see below for error dibg<--[HERE]
+2024-09-15 16:50:57,264 - __main__ - INFO - Sent command:  d, got response: Unknown or incomplete command, see below for error d<--[HERE]
+2024-09-15 16:52:16,125 - __main__ - INFO - Sent command:  dd, got response: Unknown or incomplete command, see below for error dd<--[HERE]
+2024-09-15 16:52:31,015 - __main__ - INFO - Sent command:  d, got response: Unknown or incomplete command, see below for error d<--[HERE]
+2024-09-15 16:52:36,475 - __main__ - INFO - Sent command:  d, got response: Unknown or incomplete command, see below for error d<--[HERE]
+2024-09-15 16:55:45,098 - __main__ - INFO - Sent command:  dd, got response: Unknown or incomplete command, see below for error dd<--[HERE]
+2024-09-15 16:55:58,226 - __main__ - INFO - Sent command:  ddd, got response: Unknown or incomplete command, see below for error ddd<--[HERE]
+2024-09-15 16:56:10,725 - __main__ - INFO - Sent command:  ddd, got response: Unknown or incomplete command, see below for error ddd<--[HERE]
+2024-09-15 16:56:54,943 - __main__ - INFO - Sent command: ban Granther21, got response: Nothing changed. The player is already banned
+2024-09-15 16:57:00,535 - __main__ - INFO - Sent command: op Granther21, got response: Nothing changed. The player already is an operator
+2024-09-15 16:58:34,482 - __main__ - INFO - Sent command: ban Granther21, got response: Nothing changed. The player is already banned

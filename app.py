@@ -1,5 +1,5 @@
 import os
-from multiprocessing import Process
+from multiprocessing import Process, Queue
 
 from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
 from flask_bcrypt import Bcrypt
@@ -83,6 +83,22 @@ def get_container_status(subdomain: str):
             return state
 
     return False
+
+def send_rcon_command(subdomain: str, command: str):
+    container_ip =deploy.get_container_ip(deploy._get_container(subdomain=subdomain))
+    rcon_port = int(os.getenv("RCON_PORT"))
+
+    queue= Queue()
+
+    # Run in a new process, thus, it will run on the main thread. Sidestepping ValueError raised by `signals`
+    p = Process(target=rcon.command, args=(queue, command, rcon_port, container_ip))
+    p.start()
+    p.join()
+    response = queue.get()
+
+    logger.info(f"Sent command: {command}, got response: {response}")
+
+    return response
         
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -176,39 +192,35 @@ def edit(subdomain):
                 pass
 
         properties.write_server_properties(results.uuid, props)
-        return redirect(url_for('home'))
+        get_container(subdomain=subdomain).restart()
 
     return render_template("edit.html", form=form, command_form=command_form, 
                            delete_form=delete_form, subdomain=subdomain, domain=os.getenv("DOMAIN"))
 
-def execute_rcon_command(subdomain, command):
-    with MCRcon(deploy.get_container_ip(deploy._get_container(subdomain=subdomain)), 
-                                            os.getenv("RCON_PASSWORD"), port=1026) as mcr:
-        res = mcr.command(command)
-        logger.info(res)
-
-@app.route("/command<subdomain>", methods=['POST'])
+@app.route("/command/<subdomain>", methods=['POST'])
 def command(subdomain):
-    form = ServerPropertiesForm()
-    command_form = CommandForm()
-    delete_form = DeleteForm()
+    form = CommandForm()
 
-    if command_form.validate_on_submit():
-        command = command_form.command.data
-        container_ip =deploy.get_container_ip(deploy._get_container(subdomain=subdomain))
-        rcon_port = int(os.getenv("RCON_PORT"))
+    if form.validate_on_submit():
+        type = request.form.get('type')
 
-        # Run in a new process, thus, it will run on the main thread. Sidestepping ValueError raised by `signals`
-        p = Process(target=rcon.command, args=(command, rcon_port, container_ip))
-        p.start()
-        p.join()
+        res = send_rcon_command(subdomain, f"{type} {form.command.data}")
 
-        logger.info(f"Sending command: {command}")
+        return jsonify({"status": res})
+    
+    return jsonify({"status": "nope"})
+    # form = ServerPropertiesForm()
+    # command_form = CommandForm()
+    # delete_form = DeleteForm()
 
-        return redirect(url_for('home'))
+    # if command_form.validate_on_submit():
+    #     command = command_form.command.data
+    #     send_rcon_command(command=command, subdomain=subdomain)
 
-    return render_template("edit.html", form=form, command_form=command_form, 
-                           delete_form=delete_form, subdomain=subdomain, domain=os.getenv("DOMAIN"))
+    #     return redirect(url_for('home'))
+
+    # return render_template("edit.html", form=form, command_form=command_form, 
+    #                        delete_form=delete_form, subdomain=subdomain, domain=os.getenv("DOMAIN"))
 
 @app.route("/delete/<subdomain>", methods=['POST'])
 def delete(subdomain):
