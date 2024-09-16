@@ -75,7 +75,7 @@
                 <div class="flex flex-col">
                     <form class="py-2" action="" id="command-select" method="POST" name="">
                         {{ command_select_form.hidden_tag() }}
-                        <div>
+                        <div class="flex justify-center">
                             {{command_select_form.command}}
                             {{command_select_form.input}}
                             <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-lg font-bold text-md transition duration-300">Send</button>
@@ -88,26 +88,60 @@
         <div class="flex flex-row bg-cover bg-gray-900 space-x-3 justify-center">
             <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full m-6 mb-auto">
                 <h2 class="text-3xl font-bold mb-6 text-center">Other</h2>
-                <form class="space-y-3" action="{{url_for('delete', subdomain=subdomain)}}" method="POST">
-                    {{ delete_form.hidden_tag() }}                    
-                    <div class="pt-3">{{ delete_form.submit() }}</div>
-                </form>
+                <button class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300" id="open-del-modal">Delete</button>
             </div>
         </div>
     </div>
+    <div id="del-modal" class="fixed inset-0 hidden bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-gray-600 rounded-lg shadow-lg w-1/3 p-6">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold">Delete?</h2>
+                <button id="close-del-modal" class="text-white hover:text-blue-700 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <form class="space-y-3" action="{{url_for('delete', subdomain=subdomain)}}" method="POST">
+                {{ delete_form.hidden_tag() }}                    
+                <div class="mt-6 flex justify-end">
+                    <p class="mr-auto">This server and all its data will be gone forever...blah blah blah</p>
+                    <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300">
+                        Delete
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
     <script>
-        var commands_container = document.getElementById("commands-container")
         var restart_btn = document.getElementById("restart-btn")
         var shutdown_btn = document.getElementById("shutdown-btn")
         var start_btn = document.getElementById("start-btn")
+
         var status_tag = document.getElementById("status-tag")
-        var command_form = document.getElementById("command-form")
-        var op_form = document.getElementById("op-form")
-        var ban_form = document.getElementById("ban-form")
         var command_select = document.getElementById("command-select")
         var response_div = document.getElementById("response-div")
 
-        const forms = commands_container.querySelectorAll("form[id$='-form']"); // Selects all forms ending with '-form'
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('del-modal');
+            const open_delete_modal = document.getElementById("open-del-modal")
+            const close_del_modal = document.getElementById("close-del-modal")
+
+            open_delete_modal.addEventListener('click', function (event) {
+                modal.classList.remove('hidden');
+            });
+
+            close_del_modal.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+        });
 
         command_select.addEventListener("submit", function(event) {
             event.preventDefault()
@@ -122,46 +156,10 @@
                 }).then(response => response.json()).then(data => {
                     this.input.value = ''
                     response_div.innerHTML = data.response
-
-                    // tag = document.createElement('p')
-                    // tag.innerHTML = data.response
-                    // command_select.appendChild(tag)
                 }).catch(error => {
                     console.log("Error occured while submitting command:", error)
             })
         })
-
-        forms.forEach(form => {
-            form.addEventListener("submit", function(event) {
-                event.preventDefault()
-                var formdata = new FormData(this)
-                formdata.set("type", this.name)
-
-                fetch(`{{url_for('command', subdomain=subdomain)}}`, {
-                    method: 'POST',
-                    body: formdata,
-                    headers: {
-                    'Accept': 'application/json',
-                    }   
-                }).then(response => response.json()).then(data => {
-                    this.command.value = ''
-                    // set_status(this, data.status)
-
-                    // Set the message text and show it
-                    const message = document.getElementById("form-message");
-                    message.innerText = data.status;
-                    message.classList.remove("hidden");
-                }).catch(error => {
-                    console.log("Error occured while submitting command:", error)
-                })
-            })
-        });
-
-        function set_status(parentTag, status) {
-            tag = document.createElement('p')
-            tag.innerHTML = status
-            parentTag.appendChild(tag)
-        }
 
         restart_btn.addEventListener("click", async function(event) {
             disable_ui()
@@ -196,11 +194,6 @@
                     console.log("clicked start")
                 }).catch(error => console.error('Error', error));
         });
-
-        // command_form.addEventListener("submit", function(event) {
-        //     event.preventDefault();
-        //     console.log("submitted");
-        // })
 
         function disable_ui() {
             restart_btn.disabled = true;  

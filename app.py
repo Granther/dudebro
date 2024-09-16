@@ -184,7 +184,7 @@ def home():
             return redirect(url_for('home'))
         
         # return render_template("home.html", servers=servers, form=form)
-    return render_template("home.html", servers=servers, form=form)
+    return render_template("home.html", servers=servers, form=form, domain=os.getenv("DOMAIN"))
 
 @app.route("/home/<subdomain>")
 @authorized

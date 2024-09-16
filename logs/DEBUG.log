@@ -695,3 +695,9 @@ AttributeError: rcon
 2024-09-16 03:34:10,316 - deploy - DEBUG - Deleted successfully: 9b721f679a72a90e6a06b3223ca67090
 2024-09-16 03:41:45,511 - deploy - DEBUG - None
 2024-09-16 03:41:45,511 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
+2024-09-16 04:13:36,195 - __main__ - INFO - Deleting container attached to subdomain: iieieie
+2024-09-16 04:13:36,756 - deploy - DEBUG - Deleted successfully: 3938a4574bd4fd4452f7bcfb760ae3ab
+2024-09-16 04:13:51,209 - deploy - DEBUG - None
+2024-09-16 04:13:51,210 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
+2024-09-16 04:17:45,218 - __main__ - INFO - Sent command: whitelist add Granther21, got response: That player does not exist
+2024-09-16 04:17:45,218 - __main__ - DEBUG - whitelist add
