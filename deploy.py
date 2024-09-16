@@ -139,12 +139,12 @@ class Deploy:
 
         if ports:
             port = ports.port
-            rcon_port = ports.rcon
-            self.logger.debug(f"Using port: {port}, Rcon port: {rcon_port}")
+            rcon_port = ports.rcon_port
         else:
             port = 1025
             rcon_port = port + 1
-            self.logger.debug(f"Using port: {port}, Rcon port: {rcon_port}")
+        
+        self.logger.debug(f"Using port: {port}, Rcon port: {rcon_port}")
 
         return port+1, rcon_port+1
 

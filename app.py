@@ -74,11 +74,6 @@ def get_container_status(subdomain: str):
     container = get_container(subdomain)
     status = deploy.get_status(container.id)
 
-    # events = deploy.get_events(container.id)
-    # for event in events:
-    #     print(event)
-    #     logger.debug(event.get('status'))
-
     for state in states:
         if state['status'] == status:
             return state
@@ -163,8 +158,10 @@ def logout():
 def about():
     return render_template('about.html')
 
-@app.route("/home")
+@app.route("/home", methods=['GET', 'POST'])
+@login_required
 def home():
+    form = ServerCreateForm()
     servers = []
     results = Users.query.filter_by(email=current_user.email).first()
 
@@ -173,7 +170,21 @@ def home():
         for item in containers:
             servers.append(item)
 
-    return render_template("home.html", servers=servers)
+    if form.validate_on_submit():
+        if reached_creation_limit(id=current_user.id):
+            flash("Sorry, you have reached the maximum number of servers you can create", "danger")
+            return redirect(url_for('home'))  
+
+        try:
+            deploy.create_container(user_id=current_user.id, subdomain=form.subdomain.data)
+            flash("Successfully created server", "success")
+            return redirect(url_for('home'))
+        except Exception as e:
+            flash(f"Exception occured when creating server: {e}","danger")
+            return redirect(url_for('home'))
+        
+        # return render_template("home.html", servers=servers, form=form)
+    return render_template("home.html", servers=servers, form=form)
 
 @app.route("/home/<subdomain>")
 @authorized
@@ -225,22 +236,12 @@ def command(subdomain):
         return jsonify({"response": res})
     
     return jsonify({"status": "nope"})
-    # form = ServerPropertiesForm()
-    # command_form = CommandForm()
-    # delete_form = DeleteForm()
-
-    # if command_form.validate_on_submit():
-    #     command = command_form.command.data
-    #     send_rcon_command(command=command, subdomain=subdomain)
-
-    #     return redirect(url_for('home'))
-
-    # return render_template("edit.html", form=form, command_form=command_form, 
-    #                        delete_form=delete_form, subdomain=subdomain, domain=os.getenv("DOMAIN"))
 
 @app.route("/delete/<subdomain>", methods=['POST'])
 @authorized
 def delete(subdomain):
+    # Maybe not actually delete
+
     form = ServerPropertiesForm()
     command_form = CommandForm()
     delete_form = DeleteForm()
@@ -254,24 +255,24 @@ def delete(subdomain):
     return render_template("edit.html", form=form, command_form=command_form, 
                            delete_form=delete_form, subdomain=subdomain, domain=os.getenv("DOMAIN"))
 
-@app.route("/create", methods=['GET', 'POST'])
-@login_required
-def create():
-    if reached_creation_limit(id=current_user.id):
-        flash("Sorry, you have reached the maximum number of servers you can create", "danger")
-        return redirect(url_for('home'))        
+# @app.route("/create", methods=['GET', 'POST'])
+# @login_required
+# def create():
+#     if reached_creation_limit(id=current_user.id):
+#         flash("Sorry, you have reached the maximum number of servers you can create", "danger")
+#         return redirect(url_for('home'))        
 
-    form = ServerCreateForm()
-    if form.validate_on_submit():
-        try:
-            deploy.create_container(user_id=current_user.id, subdomain=form.subdomain.data)
-            flash("Successfully created server", "success")
-            return redirect(url_for('home'))
-        except Exception as e:
-            flash(f"Exception occured when creating server: {e}","danger")
-            return redirect(url_for('home'))
+#     form = ServerCreateForm()
+#     if form.validate_on_submit():
+#         try:
+#             deploy.create_container(user_id=current_user.id, subdomain=form.subdomain.data)
+#             flash("Successfully created server", "success")
+#             return redirect(url_for('home'))
+#         except Exception as e:
+#             flash(f"Exception occured when creating server: {e}","danger")
+#             return redirect(url_for('home'))
     
-    return render_template("create.html", title="Create", form=form)
+#     return render_template("create.html", title="Create", form=form)
 
 @app.route("/get_status/<subdomain>", methods=['GET', 'POST'])
 @authorized

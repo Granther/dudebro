@@ -80,6 +80,7 @@
                             {{command_select_form.input}}
                             <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-lg font-bold text-md transition duration-300">Send</button>
                         </div>
+                        <div id="response-div"></div>
                     </form>
                 </div>
             </div>
@@ -104,6 +105,7 @@
         var op_form = document.getElementById("op-form")
         var ban_form = document.getElementById("ban-form")
         var command_select = document.getElementById("command-select")
+        var response_div = document.getElementById("response-div")
 
         const forms = commands_container.querySelectorAll("form[id$='-form']"); // Selects all forms ending with '-form'
 
@@ -119,9 +121,11 @@
                     }   
                 }).then(response => response.json()).then(data => {
                     this.input.value = ''
-                    tag = document.createElement('p')
-                    tag.innerHTML = data.response
-                    command_select.appendChild(tag)
+                    response_div.innerHTML = data.response
+
+                    // tag = document.createElement('p')
+                    // tag.innerHTML = data.response
+                    // command_select.appendChild(tag)
                 }).catch(error => {
                     console.log("Error occured while submitting command:", error)
             })
