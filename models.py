@@ -22,6 +22,7 @@ class Containers(db.Model):
     srv_id = db.Column(db.String, unique=True, nullable=False)
     domain = db.Column(db.String, unique=False, nullable=False)
     port = db.Column(db.Integer, unique=True, nullable=False)
+    rcon_port = db.Column(db.Integer, unique=True, nullable=False)
     priority = db.Column(db.Integer, unique=False, nullable=True)
     weight = db.Column(db.Integer, unique=False, nullable=True)
     priority = db.Column(db.Integer, unique=False, nullable=True)

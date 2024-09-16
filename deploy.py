@@ -53,13 +53,13 @@ class Deploy:
         
         return False
 
-    def _set_server_properties(self, uuid: str, port: str):
+    def _set_server_properties(self, uuid: str, port: str, rcon_port: str):
         properties = Properties()
 
         try:
             properties.set_property(uuid, "server-port", port)
             properties.set_property(uuid, "rcon.password", os.getenv("RCON_PASSWORD"))
-            properties.set_property(uuid, "rcon.port", os.getenv("RCON_PORT"))
+            properties.set_property(uuid, "rcon.port", rcon_port)
             properties.set_property(uuid, "enable-rcon", "true")
         except RuntimeError as e:
             raise RuntimeError from e
@@ -74,14 +74,13 @@ class Deploy:
             uuid = str(uuid4())
             path = self._create_instance_dir(uuid)
 
-            port = self._get_port()
-            if not port:
-                error = "Error retrieving port"
+            port, rcon_port = self._get_port()
+            if not port or not rcon_port:
+                error = "Error retrieving port or rcon port"
                 self.logger.critical(error)
                 raise RuntimeError(error)
 
-            self._set_server_properties(uuid=uuid, port=port)
-            rcon_port = int(os.getenv("RCON_PORT", "25575"))
+            self._set_server_properties(uuid=uuid, port=port, rcon_port=rcon_port)
 
             name = f"dude_{subdomain}-{uuid}"
             container = self.client.containers.run(
@@ -102,7 +101,7 @@ class Deploy:
                 self.logger.critical(error)
                 raise RuntimeError(error)
 
-            new_container = self.Containers(uuid=uuid, subdomain=subdomain, domain=self.domain, port=port, weight=0, priority=0, name=name, user_id=user_id, srv_id=srv_id)
+            new_container = self.Containers(uuid=uuid, subdomain=subdomain, domain=self.domain, port=port, rcon_port=rcon_port, weight=0, priority=0, name=name, user_id=user_id, srv_id=srv_id)
             self.db.session.add(new_container)
             self.db.session.commit()
 
@@ -135,16 +134,19 @@ class Deploy:
             return None
 
     def _get_port(self):
-        ports = self.db.session.query(self.Containers.port).order_by(self.db.desc(self.Containers.port)).first()
+        ports = self.db.session.query(self.Containers.port, self.Containers.rcon_port).order_by(self.db.desc(self.Containers.port)).first()
+        self.logger.debug(ports)
 
         if ports:
             port = ports.port
-            self.logger.debug(f"Using port: {port}")
+            rcon_port = ports.rcon
+            self.logger.debug(f"Using port: {port}, Rcon port: {rcon_port}")
         else:
             port = 1025
-            self.logger.debug(f"Using port: {port}")
+            rcon_port = port + 1
+            self.logger.debug(f"Using port: {port}, Rcon port: {rcon_port}")
 
-        return port + 1
+        return port+1, rcon_port+1
 
     def get_events(self, cid):
         return self.client.events(filters={'container': cid}, decode=True)
@@ -252,6 +254,7 @@ class Deploy:
 if __name__ == "__main__":
     pass
     # dep = Deploy(image="debian")
+    # dep._get_port()
     # dep._delete_srv_entry("d542197c520bcd253314f157027d5b69")
     # dep.create_container("123", "anotherone")
     # userid = dep.create_user(username="Grant", password="pass")

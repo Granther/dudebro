@@ -86,8 +86,8 @@ def get_container_status(subdomain: str):
     return False
 
 def send_rcon_command(subdomain: str, command: str):
-    container_ip =deploy.get_container_ip(deploy._get_container(subdomain=subdomain))
-    rcon_port = int(os.getenv("RCON_PORT"))
+    container_ip = deploy.get_container_ip(deploy._get_container(subdomain=subdomain))
+    rcon_port = Containers.query.filter_by(subdomain=subdomain).first().rcon_port
 
     queue= Queue()
 
@@ -102,11 +102,13 @@ def send_rcon_command(subdomain: str, command: str):
     return response
 
 def authorized(f):
+    """Decorator for handling if a user is authorized in regards to login and container access"""
+
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not current_user.is_authenticated:
             return redirect(url_for('login'))
-        
+           
         subdomain = kwargs.get("subdomain", False)
 
         if not subdomain:
@@ -117,10 +119,10 @@ def authorized(f):
             return redirect(url_for('home'))
         else:
             # Return original view function
-            return f(*args, **kwargs)     
-            
+            return f(*args, **kwargs)
+
     return decorated_function
-        
+   
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -155,7 +157,7 @@ def login():
 @app.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))
 
 @app.route('/about')
 def about():
@@ -213,16 +215,14 @@ def edit(subdomain):
 @app.route("/command/<subdomain>", methods=['POST'])
 @authorized
 def command(subdomain):
-    form = CommandForm()
+    form = CommandSelectForm()
 
     if form.validate_on_submit():
-        # type = request.form.get('type')
-
-        # res = send_rcon_command(subdomain, f"{type} {form.command.data}")
+        res = send_rcon_command(subdomain, f"{form.command.data} {form.input.data}")
 
         logger.debug(form.command.data)
 
-        return jsonify({"status": form.command.data})
+        return jsonify({"response": res})
     
     return jsonify({"status": "nope"})
     # form = ServerPropertiesForm()

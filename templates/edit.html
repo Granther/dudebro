@@ -119,6 +119,9 @@
                     }   
                 }).then(response => response.json()).then(data => {
                     this.input.value = ''
+                    tag = document.createElement('p')
+                    tag.innerHTML = data.response
+                    command_select.appendChild(tag)
                 }).catch(error => {
                     console.log("Error occured while submitting command:", error)
             })

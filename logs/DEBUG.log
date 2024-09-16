@@ -467,3 +467,138 @@ Traceback (most recent call last):
   File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
     raise cls(e, response=response, explanation=explanation) from e
 docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.46/containers/d4505b8963151522dc2d2addc75b8e2b04d92ba547b9160243f2eb0063a5efd9/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_rizzum-be905dfc-4911-4539-bc84-c846e97d15eb (ce15d919f24c10590e41f03cf1b5dace6cfbf70cbc86e5fafb01978ed158f099): Bind for 0.0.0.0:42069 failed: port is already allocated")
+2024-09-15 21:46:16,494 - deploy - DEBUG - None
+2024-09-15 21:46:16,494 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
+2024-09-15 21:46:16,503 - deploy - ERROR - Unexpected error in create_container: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_uhuh-ad1eef02-5586-405d-af63-709866387bdf: Bad Request ("invalid JSON: json: cannot unmarshal number into Go struct field PortBinding.HostConfig.PortBindings.HostIp of type string")
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.46/containers/create?name=dude_uhuh-ad1eef02-5586-405d-af63-709866387bdf
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 87, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 876, in run
+    container = self.create(image=image, command=command,
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 935, in create
+    resp = self.client.api.create_container(**create_kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 440, in create_container
+    return self.create_container_from_config(config, name, platform)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 457, in create_container_from_config
+    return self._result(res, True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 281, in _result
+    self._raise_for_status(response)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.46/containers/create?name=dude_uhuh-ad1eef02-5586-405d-af63-709866387bdf: Bad Request ("invalid JSON: json: cannot unmarshal number into Go struct field PortBinding.HostConfig.PortBindings.HostIp of type string")
+2024-09-15 21:50:52,984 - deploy - DEBUG - None
+2024-09-15 21:50:52,984 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
+2024-09-15 21:50:53,660 - deploy - ERROR - Unexpected error in create_container: (sqlite3.IntegrityError) NOT NULL constraint failed: containers.rcon_port
+[SQL: INSERT INTO containers (uuid, subdomain, srv_id, domain, port, rcon_port, priority, weight, name, type, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('2531117b-6dc3-4647-a90d-b86e070752b9', 'whothe', '06e05f72e7de5872a92666c3768619c3', 'doesnickwork.com', 1026, None, 0, 0, 'dude_whothe-2531117b-6dc3-4647-a90d-b86e070752b9', None, 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: NOT NULL constraint failed: containers.rcon_port
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 106, in create_container
+    self.db.session.commit()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
+    return self._proxied.commit()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 2028, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 4352, in flush
+    self._flush(objects)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 4448, in _flush
+    flush_context.execute()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: containers.rcon_port
+[SQL: INSERT INTO containers (uuid, subdomain, srv_id, domain, port, rcon_port, priority, weight, name, type, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('2531117b-6dc3-4647-a90d-b86e070752b9', 'whothe', '06e05f72e7de5872a92666c3768619c3', 'doesnickwork.com', 1026, None, 0, 0, 'dude_whothe-2531117b-6dc3-4647-a90d-b86e070752b9', None, 1)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-09-15 21:51:32,340 - deploy - DEBUG - None
+2024-09-15 21:51:32,340 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
+2024-09-15 21:51:32,615 - deploy - ERROR - Unexpected error in create_container: 500 Server Error for http+docker://localhost/v1.46/containers/b5fbec3dc6916d0a12cac5109b8d8388987816f4a63330553f4accb49df0070e/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_gggg-1ee14a14-c277-492c-930f-c282b69daaa4 (da9f8427edfc19b61a693e7f866d3da249e34422a37b1cbea5933845b775c42c): Bind for 0.0.0.0:1026 failed: port is already allocated")
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.46/containers/b5fbec3dc6916d0a12cac5109b8d8388987816f4a63330553f4accb49df0070e/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 86, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.46/containers/b5fbec3dc6916d0a12cac5109b8d8388987816f4a63330553f4accb49df0070e/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_gggg-1ee14a14-c277-492c-930f-c282b69daaa4 (da9f8427edfc19b61a693e7f866d3da249e34422a37b1cbea5933845b775c42c): Bind for 0.0.0.0:1026 failed: port is already allocated")
+2024-09-15 21:51:57,106 - deploy - DEBUG - None
+2024-09-15 21:51:57,106 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
+2024-09-15 21:52:08,377 - __main__ - DEBUG - ban
+2024-09-15 21:58:10,766 - __main__ - INFO - Sent command: ban Granther21, got response: That player does not exist
+2024-09-15 21:58:10,766 - __main__ - DEBUG - ban
+2024-09-15 21:58:59,051 - __main__ - INFO - Sent command: ban Granther21, got response: That player does not exist
+2024-09-15 21:58:59,052 - __main__ - DEBUG - ban
+2024-09-15 21:59:13,283 - __main__ - INFO - Sent command: op Granther21, got response: That player does not exist
+2024-09-15 21:59:13,284 - __main__ - DEBUG - op
