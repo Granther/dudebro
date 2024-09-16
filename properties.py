@@ -29,7 +29,7 @@ class Properties():
             return True
         except:
             return False
-
+        
     def set_property(self, uuid: str, key, value):
         server_props = self.read_server_properties(uuid)
         item = server_props.get(key, False)

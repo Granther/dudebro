@@ -57,9 +57,6 @@
                     <div>{{ form.enforce_whitelist.label }} = {{ form.enforce_whitelist }}</div>
                     <div>{{ form.gamemode.label }} = {{ form.gamemode }}</div>
                     <div>{{ form.hardcore.label }} = {{ form.hardcore }}</div>
-                    <div>{{ form.level_name.label }} = {{ form.level_name }}</div>
-                    <div>{{ form.level_seed.label }} = {{ form.level_seed }}</div>
-                    <div>{{ form.level_type.label }} = {{ form.level_type }}</div>
                     <div>{{ form.max_players.label }} = {{ form.max_players }}</div>
                     <div>{{ form.motd.label }} = {{ form.motd }}</div>
                     <div>{{ form.pvp.label }} = {{ form.pvp }}</div>
@@ -70,25 +67,36 @@
                     <div class="pt-3">{{ form.submit() }}</div>
                 </form>
             </div>
-            <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-lg w-full m-6" id="commands-container">
-                <h2 class="text-3xl font-bold mb-6 text-center">Commands</h2>
+            <div class="flex flex-col space-y-10 bg-gray-800 p-8 rounded-lg shadow-lg max-w-lg w-full m-6" id="commands-container">
                 <div class="flex flex-col">
-                    <form class="py-2" action="" id="command-select" method="POST" name="">
+                    <h2 class="text-3xl font-bold mb-6 text-center">Commands</h2>
+                    <form action="" id="command-select" method="POST" name="">
                         {{ command_select_form.hidden_tag() }}
                         <div class="flex justify-center">
                             {{command_select_form.command}}
                             {{command_select_form.input}}
-                            <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-lg font-bold text-md transition duration-300">Send</button>
+                            <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-full font-bold text-md transition duration-300">Send</button>
                         </div>
                         <div id="response-div"></div>
                     </form>
                 </div>
-            </div>
-        </div>
-        <div class="flex flex-row bg-cover bg-gray-900 space-x-3 justify-center">
-            <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full m-6 mb-auto">
-                <h2 class="text-3xl font-bold mb-6 text-center">Other</h2>
-                <button class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300" id="open-del-modal">Delete</button>
+
+                <div class="flex flex-col">
+                    <h2 class="text-3xl font-bold mb-6 text-center">World</h2>
+                    <form action="" id="download-world" method="POST" name="">
+                        <div class="flex justify-center">
+                            <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300">Download World</button>
+                        </div> 
+                        <div id="response-div"></div>
+                    </form>
+                </div>
+
+                <div class="flex flex-col">
+                    <h2 class="text-3xl font-bold mb-6 text-center">Other</h2>
+                    <div class="flex justify-center">
+                        <button class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300" id="open-del-modal">Delete Server</button>
+                    </div> 
+                </div>
             </div>
         </div>
     </div>
@@ -123,6 +131,8 @@
         var command_select = document.getElementById("command-select")
         var response_div = document.getElementById("response-div")
 
+        var download_world = document.getElementById("download-world")
+
         document.addEventListener('DOMContentLoaded', () => {
             const modal = document.getElementById('del-modal');
             const open_delete_modal = document.getElementById("open-del-modal")
@@ -142,6 +152,11 @@
                 }
             });
         });
+
+        download_world.addEventListener("submit", function(event) {
+            event.preventDefault()
+            window.location.href = `{{url_for('download', subdomain=subdomain)}}`; 
+        })
 
         command_select.addEventListener("submit", function(event) {
             event.preventDefault()
@@ -164,11 +179,9 @@
         restart_btn.addEventListener("click", async function(event) {
             disable_ui()
             try {
-                const response = fetch(`{{url_for('restart', subdomain=subdomain)}}`)
-
-                const data = await response.json
-
-                await get_status()
+                const response = fetch(`{{url_for('restart', subdomain=subdomain)}}`).then(response => response.json()).then(data => {
+                    set_status(data)
+                })
 
                 console.log("clicked restart")
             }
@@ -228,6 +241,12 @@
                 start_btn.disabled = true;  
                 shutdown_btn.disabled = false;  
             }
+        }
+
+        function set_status(status) {
+            status_tag.innerHTML = status.show;
+            status_tag.classList = "text-white py-2 px-5 rounded-full font-bold text-md transition duration-300 w-1/2 text-center"
+            status_tag.classList.add(status.color);
         }
 
         get_status()

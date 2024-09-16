@@ -701,3 +701,81 @@ AttributeError: rcon
 2024-09-16 04:13:51,210 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
 2024-09-16 04:17:45,218 - __main__ - INFO - Sent command: whitelist add Granther21, got response: That player does not exist
 2024-09-16 04:17:45,218 - __main__ - DEBUG - whitelist add
+2024-09-16 13:29:54,850 - __main__ - DEBUG - Container holy restarted.
+2024-09-16 14:00:48,728 - __main__ - DEBUG - Container holy restarted.
+2024-09-16 14:01:25,164 - __main__ - DEBUG - Container holy restarted.
+2024-09-16 14:01:51,168 - __main__ - DEBUG - Container holy restarted.
+2024-09-16 15:29:39,951 - __main__ - INFO - Deleting container attached to subdomain: holy
+2024-09-16 15:29:40,575 - deploy - DEBUG - Deleted successfully: 1129224a0c86f08d05fec96726b0ebb4
+2024-09-16 15:29:45,917 - deploy - DEBUG - None
+2024-09-16 15:29:45,918 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
+2024-09-16 15:32:06,726 - __main__ - INFO - Deleting container attached to subdomain: immagoop
+2024-09-16 15:32:07,271 - deploy - DEBUG - Deleted successfully: 0b0a5ef00dddecd3724f1d983527253f
+2024-09-16 15:32:22,441 - deploy - DEBUG - None
+2024-09-16 15:32:22,442 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
+2024-09-16 15:32:22,973 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-16 15:32:22,974 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-16 15:32:22,974 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 102, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-16 15:33:24,535 - deploy - DEBUG - None
+2024-09-16 15:33:24,535 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
+2024-09-16 15:33:24,680 - deploy - ERROR - Unexpected error in create_container: 500 Server Error for http+docker://localhost/v1.46/containers/b8631ffd72e4ae06fe5fec20c12e3cfb3fdcc8be009f4bddc6d6a63fa5cc21d6/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_immarizzler-e4ca793b-77c0-48c5-9aff-dcd0bd0434b2 (8d5b3d7fdf275d8c5cc3c11794558e892e6a9df877a507e2f46f5ba8a0b3617b): Bind for 0.0.0.0:1026 failed: port is already allocated")
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.46/containers/b8631ffd72e4ae06fe5fec20c12e3cfb3fdcc8be009f4bddc6d6a63fa5cc21d6/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 86, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.46/containers/b8631ffd72e4ae06fe5fec20c12e3cfb3fdcc8be009f4bddc6d6a63fa5cc21d6/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_immarizzler-e4ca793b-77c0-48c5-9aff-dcd0bd0434b2 (8d5b3d7fdf275d8c5cc3c11794558e892e6a9df877a507e2f46f5ba8a0b3617b): Bind for 0.0.0.0:1026 failed: port is already allocated")
+2024-09-16 15:34:30,548 - deploy - DEBUG - None
+2024-09-16 15:34:30,548 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
+2024-09-16 15:34:58,315 - __main__ - INFO - Deleting container attached to subdomain: witowo
+2024-09-16 15:34:58,798 - deploy - DEBUG - Deleted successfully: 3d8dacd4225acd6f772bd29b1125e956
+2024-09-16 15:35:19,033 - deploy - DEBUG - None
+2024-09-16 15:35:19,033 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
+2024-09-16 17:01:40,145 - __main__ - INFO - Deleting container attached to subdomain: gunghu
+2024-09-16 17:01:40,563 - deploy - DEBUG - Deleted successfully: 6b7d6e920a0162db2f7cce9f78121067
+2024-09-16 17:01:48,380 - deploy - DEBUG - None
+2024-09-16 17:01:48,380 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
+2024-09-16 17:06:55,598 - __main__ - INFO - Deleting container attached to subdomain: huhgungng
+2024-09-16 17:06:56,177 - deploy - DEBUG - Deleted successfully: bd142d31d8903e36bf2bc128f308f257
+2024-09-16 17:06:56,208 - deploy - ERROR - Failed to delete instance directory: [Errno 13] Permission denied: 'session.lock'
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 130, in _delete_instance_dir
+    shutil.rmtree(path)
+  File "/usr/lib64/python3.9/shutil.py", line 734, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib64/python3.9/shutil.py", line 667, in _rmtree_safe_fd
+    _rmtree_safe_fd(dirfd, fullname, onerror)
+  File "/usr/lib64/python3.9/shutil.py", line 690, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib64/python3.9/shutil.py", line 688, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+PermissionError: [Errno 13] Permission denied: 'session.lock'
+2024-09-16 17:08:57,921 - deploy - DEBUG - None
+2024-09-16 17:08:57,921 - deploy - DEBUG - Using port: 1025, Rcon port: 1026
+2024-09-16 17:23:08,690 - __main__ - INFO - Deleting container attached to subdomain: goopla
+2024-09-16 17:23:09,230 - deploy - DEBUG - Deleted successfully: 5d053c6e0e5e2c96a39f7a4a8bf36bb8
+2024-09-16 17:25:40,765 - deploy - DEBUG - None
+2024-09-16 17:25:40,765 - deploy - DEBUG - Using port: 1025, Rcon port: 1026

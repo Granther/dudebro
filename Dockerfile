@@ -1,6 +1,9 @@
 # Use the correct base image
 FROM debian:slim-dude
 
+RUN useradd -ms /bin/bash dude
+USER dude
+
 #RUN apt update && apt upgrade -y
 
 # Set the working directory

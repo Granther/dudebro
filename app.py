@@ -1,8 +1,12 @@
 import os
+from io import BytesIO
 from multiprocessing import Process, Queue
+from concurrent.futures import ThreadPoolExecutor
 from functools import wraps
+from zipfile import ZipFile
+import shutil
 
-from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
+from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, send_file
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from mcrcon import MCRcon
@@ -33,6 +37,7 @@ with app.app_context():
 properties = Properties()
 deploy = Deploy(image=os.getenv("IMAGE_NAME"), db=db, Containers=Containers)
 rcon = DudeRcon()
+executor = ThreadPoolExecutor(max_workers=2)
 
 logger = create_logger(__name__)
 
@@ -289,15 +294,22 @@ def get_status(subdomain):
     
     return "Unauthorized", 401
 
+def async_restart(subdomain):
+    container = get_container(subdomain=subdomain)  # Fetch the container by subdomain
+    container.restart()  # Restart the container
+    logger.debug(f"Container {subdomain} restarted.")
+    return f"Container {subdomain} restarted."
+
 @app.route("/restart/<subdomain>", methods=['GET', 'POST'])
 @authorized
 def restart(subdomain):
     if request.method == "GET":
         status = True
 
-        get_container(subdomain=subdomain).restart()
+        # get_container(subdomain=subdomain).restart()
+        executor.submit(async_restart, subdomain)
 
-        return jsonify(status)
+        return jsonify({"status": "restarting", "show": "Restarting", "color": "bg-orange-500"})
     
     return "Unauthorized", 401
 
@@ -324,6 +336,26 @@ def start(subdomain):
         return jsonify(status)
     
     return "Unauthorized", 401
+
+def get_world_path(subdomain: str):
+    container = Containers.query.filter_by(subdomain=subdomain).first()
+    uuid = container.uuid
+    instances_dir = os.getenv("INSTANCES_DIR")
+    path = f"{instances_dir}/{uuid}"
+
+    shutil.make_archive(path+"/world", 'zip', path+"/world")
+
+    # with ZipFile(path + '/world.zip', 'w') as myzip:
+    #     myzip.write(path + "/world")
+
+    return f"{instances_dir}/{uuid}/world.zip"
+
+@app.route("/download/<subdomain>", methods=['GET', 'POST'])
+@authorized
+def download(subdomain):
+    path = get_world_path(subdomain)
+
+    return send_file(path, as_attachment=True)
 
 @app.route("/")
 def index():
