@@ -4,12 +4,6 @@
 <li>
     <a href="{{url_for('home')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Account</a>
 </li>
-<li>
-    <a href="{{url_for('about')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
-</li>
-<li>
-    <a href="{{url_for('logout')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Logout</a>
-</li>
 {% endblock %}
 
 {% block content %}
@@ -25,7 +19,7 @@
         margin: 0;
         }
     </style>
-    <div class="flex flex-col justify-center">
+    <div class="flex flex-col justify-center mb-4">
         <div class="flex justify-center max-w-md w-full pt-6 pb-3 mx-auto">
             <h2 class="text-3xl text-center font-bold">{{ subdomain }}.{{ domain }}</h2>
         </div>
@@ -79,27 +73,11 @@
             <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-lg w-full m-6" id="commands-container">
                 <h2 class="text-3xl font-bold mb-6 text-center">Commands</h2>
                 <div class="flex flex-col">
-                    <form class="py-2" action="" id="command-form" method="POST" name="">
-                        {{ command_form.hidden_tag() }}
-                    
+                    <form class="py-2" action="" id="command-select" method="POST" name="">
+                        {{ command_select_form.hidden_tag() }}
                         <div>
-                            Any Command {{ command_form.command }}
-                            <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-lg font-bold text-md transition duration-300">Send</button>
-                        </div>
-                    </form>
-                    <form class="py-2" action="" id="ban-form" method="POST" name="ban">
-                        {{ command_form.hidden_tag() }}
-                    
-                        <div>
-                            /ban {{ command_form.command }}
-                            <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-lg font-bold text-md transition duration-300">Send</button>
-                        </div>
-                    </form>
-                    <form class="py-2" action="" id="op-form" method="POST" name="op">
-                        {{ command_form.hidden_tag() }}
-                    
-                        <div>
-                            /op {{ command_form.command }}
+                            {{command_select_form.command}}
+                            {{command_select_form.input}}
                             <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-lg font-bold text-md transition duration-300">Send</button>
                         </div>
                     </form>
@@ -125,8 +103,26 @@
         var command_form = document.getElementById("command-form")
         var op_form = document.getElementById("op-form")
         var ban_form = document.getElementById("ban-form")
+        var command_select = document.getElementById("command-select")
 
         const forms = commands_container.querySelectorAll("form[id$='-form']"); // Selects all forms ending with '-form'
+
+        command_select.addEventListener("submit", function(event) {
+            event.preventDefault()
+            var formdata = new FormData(this)
+
+            fetch(`{{url_for('command', subdomain=subdomain)}}`, {
+                    method: 'POST',
+                    body: formdata,
+                    headers: {
+                    'Accept': 'application/json',
+                    }   
+                }).then(response => response.json()).then(data => {
+                    this.input.value = ''
+                }).catch(error => {
+                    console.log("Error occured while submitting command:", error)
+            })
+        })
 
         forms.forEach(form => {
             form.addEventListener("submit", function(event) {
@@ -142,7 +138,12 @@
                     }   
                 }).then(response => response.json()).then(data => {
                     this.command.value = ''
-                    set_status(this, data.status)
+                    // set_status(this, data.status)
+
+                    // Set the message text and show it
+                    const message = document.getElementById("form-message");
+                    message.innerText = data.status;
+                    message.classList.remove("hidden");
                 }).catch(error => {
                     console.log("Error occured while submitting command:", error)
                 })

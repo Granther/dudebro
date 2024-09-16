@@ -437,3 +437,33 @@ docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.46/conta
 2024-09-15 16:56:54,943 - __main__ - INFO - Sent command: ban Granther21, got response: Nothing changed. The player is already banned
 2024-09-15 16:57:00,535 - __main__ - INFO - Sent command: op Granther21, got response: Nothing changed. The player already is an operator
 2024-09-15 16:58:34,482 - __main__ - INFO - Sent command: ban Granther21, got response: Nothing changed. The player is already banned
+2024-09-15 18:47:39,891 - __main__ - INFO - Sent command: ban Granther21, got response: Nothing changed. The player is already banned
+2024-09-15 18:49:11,412 - __main__ - INFO - Sent command:  ww, got response: Unknown or incomplete command, see below for error ww<--[HERE]
+2024-09-15 20:26:22,828 - __main__ - DEBUG - ban
+2024-09-15 21:18:34,491 - deploy - DEBUG - Using port: 1027
+2024-09-15 21:18:34,854 - deploy - ERROR - Unexpected error in create_container: 500 Server Error for http+docker://localhost/v1.46/containers/d4505b8963151522dc2d2addc75b8e2b04d92ba547b9160243f2eb0063a5efd9/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_rizzum-be905dfc-4911-4539-bc84-c846e97d15eb (ce15d919f24c10590e41f03cf1b5dace6cfbf70cbc86e5fafb01978ed158f099): Bind for 0.0.0.0:42069 failed: port is already allocated")
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.46/containers/d4505b8963151522dc2d2addc75b8e2b04d92ba547b9160243f2eb0063a5efd9/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 87, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.46/containers/d4505b8963151522dc2d2addc75b8e2b04d92ba547b9160243f2eb0063a5efd9/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_rizzum-be905dfc-4911-4539-bc84-c846e97d15eb (ce15d919f24c10590e41f03cf1b5dace6cfbf70cbc86e5fafb01978ed158f099): Bind for 0.0.0.0:42069 failed: port is already allocated")

@@ -1,0 +1,26 @@
+<form class="py-2" action="" id="command-form" method="POST" name="">
+    {{ command_form.hidden_tag() }}
+
+    <div>
+        Any Command {{ command_form.command }}
+        <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-lg font-bold text-md transition duration-300">Send</button>
+    </div>
+    <div id="form-message" class="h-6 text-center text-gray-500 min-h-2 hidden"></div>
+</form>
+<form class="py-2" action="" id="ban-form" method="POST" name="ban">
+    {{ command_form.hidden_tag() }}
+
+    <div>
+        /ban {{ command_form.command }}
+        <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-lg font-bold text-md transition duration-300">Send</button>
+    </div>
+    <div id="form-message" class="h-6 text-center text-gray-500 hidden"></div>
+</form>
+<form class="py-2" action="" id="op-form" method="POST" name="op">
+    {{ command_form.hidden_tag() }}
+
+    <div>
+        /op {{ command_form.command }}
+        <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-lg font-bold text-md transition duration-300">Send</button>
+    </div>
+</form>

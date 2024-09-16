@@ -1,5 +1,6 @@
 import os
 from multiprocessing import Process, Queue
+from functools import wraps
 
 from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
 from flask_bcrypt import Bcrypt
@@ -13,7 +14,7 @@ from properties import Properties
 from logger import create_logger
 from rcon import DudeRcon
 from forms import RegistrationForm, LoginForm, CommandForm, DeleteForm, \
-                    ServerCreateForm, ServerPropertiesForm
+                    ServerCreateForm, ServerPropertiesForm, CommandSelectForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "backup-key")
@@ -99,6 +100,26 @@ def send_rcon_command(subdomain: str, command: str):
     logger.info(f"Sent command: {command}, got response: {response}")
 
     return response
+
+def authorized(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return redirect(url_for('login'))
+        
+        subdomain = kwargs.get("subdomain", False)
+
+        if not subdomain:
+            return f(*args, **kwargs)
+
+        if not user_can_access(current_user.id, subdomain):
+            flash("Sorry, you cannot access that page", "danger")
+            return redirect(url_for('home'))
+        else:
+            # Return original view function
+            return f(*args, **kwargs)     
+            
+    return decorated_function
         
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -141,7 +162,6 @@ def about():
     return render_template('about.html')
 
 @app.route("/home")
-@login_required
 def home():
     servers = []
     results = Users.query.filter_by(email=current_user.email).first()
@@ -154,24 +174,17 @@ def home():
     return render_template("home.html", servers=servers)
 
 @app.route("/home/<subdomain>")
-@login_required
+@authorized
 def server(subdomain):
-    if not user_can_access(id=current_user.id, subdomain=subdomain):
-        flash("Sorry, you cannot access that page", "danger")
-        return redirect(url_for('home'))
-
     return render_template("server.html", subdomain=subdomain)
     
 @app.route("/edit/<subdomain>", methods=['POST', 'GET'])
-@login_required
+@authorized
 def edit(subdomain):
-    if not user_can_access(id=current_user.id, subdomain=subdomain):
-        flash("Sorry, you cannot access that page", "danger")
-        return redirect(url_for('home'))
-
     form = ServerPropertiesForm()
     command_form = CommandForm()
     delete_form = DeleteForm()
+    command_select_form = CommandSelectForm()
     
     results = Containers.query.filter_by(subdomain=subdomain).first()
     props = properties.read_server_properties(results.uuid)
@@ -187,7 +200,7 @@ def edit(subdomain):
     if form.validate_on_submit():
         for key, val in props.items():
             try:
-                props[key] = getattr(form, key.replace("-", "_")).data 
+                props[key] = getattr(form, key.replace("-", "_")).data
             except:
                 pass
 
@@ -195,18 +208,21 @@ def edit(subdomain):
         get_container(subdomain=subdomain).restart()
 
     return render_template("edit.html", form=form, command_form=command_form, 
-                           delete_form=delete_form, subdomain=subdomain, domain=os.getenv("DOMAIN"))
+                           delete_form=delete_form, subdomain=subdomain, command_select_form=command_select_form, domain=os.getenv("DOMAIN"))
 
 @app.route("/command/<subdomain>", methods=['POST'])
+@authorized
 def command(subdomain):
     form = CommandForm()
 
     if form.validate_on_submit():
-        type = request.form.get('type')
+        # type = request.form.get('type')
 
-        res = send_rcon_command(subdomain, f"{type} {form.command.data}")
+        # res = send_rcon_command(subdomain, f"{type} {form.command.data}")
 
-        return jsonify({"status": res})
+        logger.debug(form.command.data)
+
+        return jsonify({"status": form.command.data})
     
     return jsonify({"status": "nope"})
     # form = ServerPropertiesForm()
@@ -223,6 +239,7 @@ def command(subdomain):
     #                        delete_form=delete_form, subdomain=subdomain, domain=os.getenv("DOMAIN"))
 
 @app.route("/delete/<subdomain>", methods=['POST'])
+@authorized
 def delete(subdomain):
     form = ServerPropertiesForm()
     command_form = CommandForm()
@@ -257,9 +274,9 @@ def create():
     return render_template("create.html", title="Create", form=form)
 
 @app.route("/get_status/<subdomain>", methods=['GET', 'POST'])
-@login_required
+@authorized
 def get_status(subdomain):
-    if request.method == "GET" and user_can_access(id=current_user.id, subdomain=subdomain):
+    if request.method == "GET":
         status = get_container_status(subdomain)
 
         print(status)
@@ -272,9 +289,9 @@ def get_status(subdomain):
     return "Unauthorized", 401
 
 @app.route("/restart/<subdomain>", methods=['GET', 'POST'])
-@login_required
+@authorized
 def restart(subdomain):
-    if request.method == "GET" and user_can_access(id=current_user.id, subdomain=subdomain):
+    if request.method == "GET":
         status = True
 
         get_container(subdomain=subdomain).restart()
@@ -284,9 +301,9 @@ def restart(subdomain):
     return "Unauthorized", 401
 
 @app.route("/shutdown/<subdomain>", methods=['GET', 'POST'])
-@login_required
+@authorized
 def shutdown(subdomain):
-    if request.method == "GET" and user_can_access(id=current_user.id, subdomain=subdomain):
+    if request.method == "GET":
         status = True
 
         get_container(subdomain=subdomain).kill()
@@ -296,9 +313,9 @@ def shutdown(subdomain):
     return "Unauthorized", 401
 
 @app.route("/start/<subdomain>", methods=['GET', 'POST'])
-@login_required
+@authorized
 def start(subdomain):
-    if request.method == "GET" and user_can_access(id=current_user.id, subdomain=subdomain):
+    if request.method == "GET":
         status = True
 
         get_container(subdomain=subdomain).start()
