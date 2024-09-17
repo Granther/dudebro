@@ -31,17 +31,28 @@ class Deploy:
         self.logger = create_logger(__name__)
 
     def delete_container(self, subdomain: str):
-        container = self._get_container(subdomain)
-    
         try:
-            container.kill()
-        except:
-            pass
-        container.remove()
+            container = self._get_container(subdomain)
+        
+            try:
+                container.kill()
+            except Exception:
+                pass
+            container.remove()
+        except Exception as e:
+            self.logger.warning(f"Exception occured while removing container for subdomain: {subdomain}, skipping: {e}")
 
         container_row = self.Containers.query.filter_by(subdomain=subdomain).first()
-        self._delete_srv_entry(container_row.srv_id)
-        self._delete_instance_dir(container_row.uuid)
+
+        try:
+            self._delete_srv_entry(container_row.srv_id)
+        except Exception as e:
+            self.logger.warning(f"Exception occured while attempting to delete the SRV entry for subdomain: {subdomain}, skipping: {e}")
+
+        try:
+            self._delete_instance_dir(container_row.uuid)
+        except Exception as e:
+            self.logger.warning(f"Exception occured while attempting to delete the instance directory for: {subdomain}, skipping: {e}")
 
         self.db.session.delete(container_row)
         self.db.session.commit()

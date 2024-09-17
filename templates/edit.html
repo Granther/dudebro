@@ -19,84 +19,80 @@
         margin: 0;
         }
     </style>
-    <div class="flex flex-col justify-center mb-4">
-        <div class="flex justify-center max-w-md w-full pt-6 pb-3 mx-auto">
-            <h2 class="text-3xl text-center font-bold">{{ subdomain }}.{{ domain }}</h2>
-        </div>
-        <div class="flex flex-row bg-cover bg-gray-900 space-x-3 justify-center">
-            <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full m-6 mb-auto">
-                <h2 class="text-3xl font-bold mb-6 text-center">Status</h2>
-                <div class="flex justify-center align-center">
-                    <h1 id="status-tag"></h1>
-                </div>
-            </div>
-            <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-lg w-full m-6">
-                <h2 class="text-3xl font-bold mb-6 text-center">Actions</h2>
-                <div class="flex justify-center">
-                    <button id="restart-btn" class="disabled:bg-sky-700 bg-sky-500 hover:bg-sky-700 active:bg-sky-900 text-white py-2 px-5 rounded-l-full font-bold text-md transition duration-300">
-                        Restart
-                    </button>
-                    <button id="shutdown-btn" class="disabled:bg-sky-700 bg-sky-500 hover:bg-sky-700 active:bg-sky-900 text-white py-2 px-5 font-bold text-md transition duration-300">
-                        Shutdown
-                    </button>
-                    <button id="start-btn" class="disabled:bg-sky-700 bg-sky-500 hover:bg-sky-700 active:bg-sky-900 text-white py-2 px-5 rounded-r-full font-bold text-md transition duration-300">
-                        Start
-                    </button>
-                </div>
+    <div class="flex justify-center max-w-md w-full pt-6 pb-6 mx-auto">
+        <h2 class="text-3xl text-center font-bold">{{ subdomain }}.{{ domain }}</h2>
+    </div>
+    <div class="grid md:grid-cols-2 sm:grid-cols-1 md:w-3/4 lg:w-1/2 mx-auto gap-6 justify-center mb-4">
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg h-full">
+            <h2 class="text-3xl font-bold mb-6 text-center">Status</h2>
+            <div class="flex justify-center align-center">
+                <h1 id="status-tag"></h1>
             </div>
         </div>
-        <div class="flex flex-row bg-cover bg-gray-900 space-x-3 justify-center">
-            <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full m-6 mb-auto">
-                <h2 class="text-3xl font-bold mb-6 text-center">Server Properties</h2>
-                <form class="space-y-3" action="" method="POST">
-                    {{ form.hidden_tag() }}
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg h-full">
+            <h2 class="text-3xl font-bold mb-6 text-center">Actions</h2>
+            <div class="flex justify-center">
+                <button id="restart-btn" class="disabled:bg-sky-700 bg-sky-500 hover:bg-sky-700 active:bg-sky-900 text-white py-2 px-5 rounded-l-full font-bold text-md transition duration-300">
+                    Restart
+                </button>
+                <button id="shutdown-btn" class="disabled:bg-sky-700 bg-sky-500 hover:bg-sky-700 active:bg-sky-900 text-white py-2 px-5 font-bold text-md transition duration-300">
+                    Shutdown
+                </button>
+                <button id="start-btn" class="disabled:bg-sky-700 bg-sky-500 hover:bg-sky-700 active:bg-sky-900 text-white py-2 px-5 rounded-r-full font-bold text-md transition duration-300">
+                    Start
+                </button>
+            </div>
+        </div>
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg h-full">
+            <h2 class="text-3xl font-bold mb-6 text-center">Server Properties</h2>
+            <form class="space-y-3" action="" method="POST">
+                {{ form.hidden_tag() }}
+            
+                <div>{{ form.allow_flight.label }} = {{ form.allow_flight }}</div>
+                <div>{{ form.allow_nether.label }} = {{ form.allow_nether }}</div>
+                <div>{{ form.difficulty.label }} = {{ form.difficulty }}</div>
+                <div>{{ form.enforce_whitelist.label }} = {{ form.enforce_whitelist }}</div>
+                <div>{{ form.gamemode.label }} = {{ form.gamemode }}</div>
+                <div>{{ form.hardcore.label }} = {{ form.hardcore }}</div>
+                <div>{{ form.max_players.label }} = {{ form.max_players }}</div>
+                <div>{{ form.motd.label }} = {{ form.motd }}</div>
+                <div>{{ form.pvp.label }} = {{ form.pvp }}</div>
+                <div>{{ form.simulation_distance.label }} = {{ form.simulation_distance }}</div>
+                <div>{{ form.view_distance.label }} = {{ form.view_distance }}</div>
+                <div>{{ form.white_list.label }} = {{ form.white_list }}</div>
                 
-                    <div>{{ form.allow_flight.label }} = {{ form.allow_flight }}</div>
-                    <div>{{ form.allow_nether.label }} = {{ form.allow_nether }}</div>
-                    <div>{{ form.difficulty.label }} = {{ form.difficulty }}</div>
-                    <div>{{ form.enforce_whitelist.label }} = {{ form.enforce_whitelist }}</div>
-                    <div>{{ form.gamemode.label }} = {{ form.gamemode }}</div>
-                    <div>{{ form.hardcore.label }} = {{ form.hardcore }}</div>
-                    <div>{{ form.max_players.label }} = {{ form.max_players }}</div>
-                    <div>{{ form.motd.label }} = {{ form.motd }}</div>
-                    <div>{{ form.pvp.label }} = {{ form.pvp }}</div>
-                    <div>{{ form.simulation_distance.label }} = {{ form.simulation_distance }}</div>
-                    <div>{{ form.view_distance.label }} = {{ form.view_distance }}</div>
-                    <div>{{ form.white_list.label }} = {{ form.white_list }}</div>
-                    
-                    <div class="pt-3">{{ form.submit() }}</div>
+                <div class="pt-3">{{ form.submit() }}</div>
+            </form>
+        </div>
+        <div class="flex flex-col space-y-10 rounded-lg shadow-lg bg-gray-800 p-8 rounded-lg shadow-lg h-full" id="commands-container">
+            <div class="flex flex-col">
+                <h2 class="text-3xl font-bold mb-6 text-center">Commands</h2>
+                <form action="" id="command-select" method="POST" name="">
+                    {{ command_select_form.hidden_tag() }}
+                    <div class="flex justify-center">
+                        {{command_select_form.command}}
+                        {{command_select_form.input}}
+                        <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-full font-bold text-md transition duration-300">Send</button>
+                    </div>
+                    <div id="response-div"></div>
                 </form>
             </div>
-            <div class="flex flex-col space-y-10 bg-gray-800 p-8 rounded-lg shadow-lg max-w-lg w-full m-6" id="commands-container">
-                <div class="flex flex-col">
-                    <h2 class="text-3xl font-bold mb-6 text-center">Commands</h2>
-                    <form action="" id="command-select" method="POST" name="">
-                        {{ command_select_form.hidden_tag() }}
-                        <div class="flex justify-center">
-                            {{command_select_form.command}}
-                            {{command_select_form.input}}
-                            <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-r-full font-bold text-md transition duration-300">Send</button>
-                        </div>
-                        <div id="response-div"></div>
-                    </form>
-                </div>
 
-                <div class="flex flex-col">
-                    <h2 class="text-3xl font-bold mb-6 text-center">World</h2>
-                    <form action="" id="download-world" method="POST" name="">
-                        <div class="flex justify-center">
-                            <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300">Download World</button>
-                        </div> 
-                        <div id="response-div"></div>
-                    </form>
-                </div>
-
-                <div class="flex flex-col">
-                    <h2 class="text-3xl font-bold mb-6 text-center">Other</h2>
+            <div class="flex flex-col">
+                <h2 class="text-3xl font-bold mb-6 text-center">World</h2>
+                <form action="" id="download-world" method="POST" name="">
                     <div class="flex justify-center">
-                        <button class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300" id="open-del-modal">Delete Server</button>
+                        <button type="submit" class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300">Download World</button>
                     </div> 
-                </div>
+                    <div id="response-div"></div>
+                </form>
+            </div>
+
+            <div class="flex flex-col">
+                <h2 class="text-3xl font-bold mb-6 text-center">Other</h2>
+                <div class="flex justify-center">
+                    <button class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300" id="open-del-modal">Delete Server</button>
+                </div> 
             </div>
         </div>
     </div>
@@ -184,12 +180,11 @@
                 const response = fetch(`{{url_for('restart', subdomain=subdomain)}}`).then(response => response.json()).then(data => {
                     set_status(data)
                 })
-
-                console.log("clicked restart")
             }
             catch (error) {
                 console.log("Error", error)
             }
+            get_status()
         });
 
         shutdown_btn.addEventListener("click", function(event) {
@@ -246,7 +241,7 @@
         }
 
         // Hard coded, woops...
-        var socket = io.connect('http://rocky-ship:5005');
+        var socket = io.connect('http://rocky-ship:1100');
 
         socket.on('container_status', function(data) {
             console.log("Container status:", data.status);

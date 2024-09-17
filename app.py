@@ -76,8 +76,6 @@ def monitor():
     socketio.start_background_task(monitor_events, current_user.id)
     return jsonify({"status": True})
 
-#executor.submit(monitor_events)
-
 def user_can_access(id: int, subdomain: str) -> bool:
     results = Users.query.filter_by(id=id).first().containers
 
@@ -110,6 +108,9 @@ def get_container_status(subdomain: str):
                 {"status": "restarting", "show": "Restarting", "color": "bg-orange-500"}]
 
     container = get_container(subdomain)
+    if not container:
+        return False
+
     status = deploy.get_status(container.id)
 
     for state in states:
@@ -206,6 +207,8 @@ def home():
     if results:
         containers = results.containers
         for item in containers:
+            x = deploy.get_status(str(item.id))
+            print(x)
             servers.append(item)
 
     if form.validate_on_submit():
@@ -256,7 +259,7 @@ def edit(subdomain):
                 pass
 
         properties.write_server_properties(results.uuid, props)
-        get_container(subdomain=subdomain).restart()
+        executor.submit(async_restart, subdomain)
 
     return render_template("edit.html", form=form, command_form=command_form, 
                            delete_form=delete_form, subdomain=subdomain, command_select_form=command_select_form, domain=os.getenv("DOMAIN"))
@@ -292,25 +295,6 @@ def delete(subdomain):
 
     return render_template("edit.html", form=form, command_form=command_form, 
                            delete_form=delete_form, subdomain=subdomain, domain=os.getenv("DOMAIN"))
-
-# @app.route("/create", methods=['GET', 'POST'])
-# @login_required
-# def create():
-#     if reached_creation_limit(id=current_user.id):
-#         flash("Sorry, you have reached the maximum number of servers you can create", "danger")
-#         return redirect(url_for('home'))        
-
-#     form = ServerCreateForm()
-#     if form.validate_on_submit():
-#         try:
-#             deploy.create_container(user_id=current_user.id, subdomain=form.subdomain.data)
-#             flash("Successfully created server", "success")
-#             return redirect(url_for('home'))
-#         except Exception as e:
-#             flash(f"Exception occured when creating server: {e}","danger")
-#             return redirect(url_for('home'))
-    
-#     return render_template("create.html", title="Create", form=form)
 
 
 @app.route("/get_status/<subdomain>", methods=['GET', 'POST'])
@@ -397,4 +381,4 @@ def index():
 
 if __name__ == '__main__':
     # app.run(debug=True, host="0.0.0.0", port=5005)
-    socketio.run(app, debug=True, host="0.0.0.0", port=5005)
+    socketio.run(app, debug=True, host="0.0.0.0", port=1100)

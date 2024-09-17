@@ -835,3 +835,45 @@ AttributeError: 'NoneType' object has no attribute 'srv_id'
 2024-09-17 00:53:42,550 - deploy - DEBUG - Deleted successfully: 04d8f78aba846d192761a2c2b3af4c51
 2024-09-17 00:54:36,045 - deploy - DEBUG - (1027, 1028)
 2024-09-17 00:54:36,045 - deploy - DEBUG - Using port: 1027, Rcon port: 1028
+2024-09-17 01:57:30,600 - __main__ - INFO - Deleting container attached to subdomain: goopus
+2024-09-17 01:57:30,973 - deploy - DEBUG - Deleted successfully: 694b5928e8eccf75fc575e34355a77cf
+2024-09-17 01:57:36,348 - deploy - DEBUG - (1027, 1028)
+2024-09-17 01:57:36,348 - deploy - DEBUG - Using port: 1027, Rcon port: 1028
+2024-09-17 02:00:41,462 - __main__ - DEBUG - Container imgonna restarted.
+2024-09-17 03:42:31,857 - __main__ - INFO - Deleting container attached to subdomain: imgonna
+2024-09-17 03:43:11,276 - deploy - DEBUG - (1029, 1030)
+2024-09-17 03:43:11,276 - deploy - DEBUG - Using port: 1029, Rcon port: 1030
+2024-09-17 04:08:38,187 - __main__ - INFO - Sent command: op Granther21, got response: Made Granther21 a server operator
+2024-09-17 04:08:38,188 - __main__ - DEBUG - op
+2024-09-17 04:08:50,441 - __main__ - INFO - Deleting container attached to subdomain: whosthere
+2024-09-17 04:08:51,088 - deploy - DEBUG - Deleted successfully: 624434a64f9515c78850f0c701bb244d
+2024-09-17 04:08:59,984 - deploy - DEBUG - (1029, 1030)
+2024-09-17 04:08:59,984 - deploy - DEBUG - Using port: 1029, Rcon port: 1030
+2024-09-17 04:12:31,735 - __main__ - INFO - Deleting container attached to subdomain: grunt
+2024-09-17 04:12:32,276 - deploy - DEBUG - Deleted successfully: cac2986390fff06e8cd56e507d42d228
+2024-09-17 04:12:39,666 - deploy - DEBUG - (1029, 1030)
+2024-09-17 04:12:39,666 - deploy - DEBUG - Using port: 1029, Rcon port: 1030
+2024-09-17 04:14:13,790 - __main__ - INFO - Sent command: whitelist add Granther21, got response: Added Granther21 to the whitelist
+2024-09-17 04:14:13,791 - __main__ - DEBUG - whitelist add
+2024-09-17 04:15:13,345 - __main__ - INFO - Sent command: whitlist remove Granther21, got response: Unknown or incomplete command, see below for errorwhitlist remove Granther21<--[HERE]
+2024-09-17 04:15:13,345 - __main__ - DEBUG - whitlist remove
+2024-09-17 11:06:31,967 - __main__ - INFO - Deleting container attached to subdomain: imgonna
+2024-09-17 11:06:46,668 - __main__ - INFO - Deleting container attached to subdomain: imgonna
+2024-09-17 11:10:50,119 - __main__ - INFO - Deleting container attached to subdomain: imgonna
+2024-09-17 11:10:50,121 - deploy - WARNING - Exception occured while removing container for subdomain: imgonna, skipping: 'bool' object has no attribute 'remove'
+2024-09-17 11:10:50,569 - deploy - DEBUG - Deleted successfully: 674be17d305bf7c2151bd2368d07f8f8
+2024-09-17 11:12:19,910 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 11:12:57,043 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 11:17:02,881 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 11:17:33,700 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 11:20:00,873 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 11:52:50,279 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 11:54:44,942 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 11:55:19,247 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 13:45:55,941 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 13:46:20,966 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 13:46:48,613 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 13:47:51,735 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 13:48:34,846 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 13:48:34,847 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 13:49:16,296 - __main__ - DEBUG - Container goose restarted.
