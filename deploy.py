@@ -151,7 +151,7 @@ class Deploy:
         self.logger.debug(ports)
 
         if ports:
-            port = ports.port
+            port = ports.port 
             rcon_port = ports.rcon_port
         else:
             port = 1025
@@ -159,7 +159,7 @@ class Deploy:
         
         self.logger.debug(f"Using port: {port}, Rcon port: {rcon_port}")
 
-        return port+1, rcon_port+1
+        return port+2, rcon_port+2
 
     def get_events(self, cid):
         return self.client.events(filters={'container': cid}, decode=True)
