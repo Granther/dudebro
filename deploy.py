@@ -68,10 +68,18 @@ class Deploy:
             self.logger.critical(error)
             raise RuntimeError(error) from e
 
+    def monitor_events(self):
+        for event in self.client.events(decode=True):
+            if event.get('Type') == 'container':
+                container_id = event.get('id')
+                action = event.get('Action')
+                if action in ['start', 'stop', 'die', 'restart']:
+                    print(f"Container {container_id} changed state: {action}")
 
     def create_container(self, user_id: int, subdomain: str):
+        uuid = str(uuid4())
+
         try:
-            uuid = str(uuid4())
             path = self._create_instance_dir(uuid)
 
             port, rcon_port = self._get_port()
@@ -82,24 +90,28 @@ class Deploy:
 
             self._set_server_properties(uuid=uuid, port=port, rcon_port=rcon_port)
 
-            name = f"dude_{subdomain}-{uuid}"
-            container = self.client.containers.run(
-                self.image,
-                detach=True,
-                tty=True,
-                ports={f"{port}/tcp":port, f"{rcon_port}/tcp":rcon_port},
-                volumes={path: {"bind": "/minecraft", "mode": "rw"}},
-                name=name,
-                labels={"user_id": str(user_id), "subdomain": subdomain, "uuid": uuid},
-                network=self.network_name
-            )
-
             srv_id = self._create_srv_entry(subdomain, self.domain, self.target_fqdn, port)
-
             if not srv_id:
                 error = "Error occured while creating SRV DNS Record"
                 self.logger.critical(error)
                 raise RuntimeError(error)
+            
+            try:
+                name = f"dude_{subdomain}-{uuid}"
+                container = self.client.containers.run(
+                    self.image,
+                    detach=True,
+                    tty=True,
+                    ports={f"{port}/tcp":port, f"{rcon_port}/tcp":rcon_port},
+                    volumes={path: {"bind": "/minecraft", "mode": "rw"}},
+                    name=name,
+                    labels={"user_id": str(user_id), "subdomain": subdomain, "uuid": uuid},
+                    network=self.network_name
+                )
+            except Exception as e:
+                self._delete_srv_entry(srv_id)
+                self.delete_container(subdomain)
+                raise RuntimeError from e
 
             new_container = self.Containers(uuid=uuid, subdomain=subdomain, domain=self.domain, port=port, rcon_port=rcon_port, weight=0, priority=0, name=name, user_id=user_id, srv_id=srv_id)
             self.db.session.add(new_container)
@@ -109,6 +121,7 @@ class Deploy:
 
         except RuntimeError as e:
             self.logger.critical(str(e), exc_info=True)
+            self._delete_instance_dir(uuid)
             raise
 
         except Exception as e:

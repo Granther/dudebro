@@ -133,6 +133,8 @@
 
         var download_world = document.getElementById("download-world")
 
+        fetch(`{{url_for('monitor')}}`)
+
         document.addEventListener('DOMContentLoaded', () => {
             const modal = document.getElementById('del-modal');
             const open_delete_modal = document.getElementById("open-del-modal")
@@ -243,6 +245,21 @@
             }
         }
 
+        // Hard coded, woops...
+        var socket = io.connect('http://rocky-ship:5005');
+
+        socket.on('container_status', function(data) {
+            console.log("Container status:", data.status);
+            set_status_ui(data.status)
+            status_tag.innerHTML = data.show;
+            status_tag.classList = "text-white py-2 px-5 rounded-full font-bold text-md transition duration-300 w-1/2 text-center"
+            status_tag.classList.add(data.color);
+        });
+
+        socket.on('message', function(event) {
+            console.log(event)
+        })
+
         function set_status(status) {
             status_tag.innerHTML = status.show;
             status_tag.classList = "text-white py-2 px-5 rounded-full font-bold text-md transition duration-300 w-1/2 text-center"
@@ -250,6 +267,5 @@
         }
 
         get_status()
-        setInterval(get_status, 3000)
     </script>
 {% endblock %}

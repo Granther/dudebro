@@ -77,3 +77,20 @@
 
 # properties = read_server_properties('server.properties')
 # print(properties)
+
+
+import docker
+
+client = docker.from_env()
+
+# Listen to container events
+def monitor_events():
+    for event in client.events(decode=True):
+        if event.get('Type') == 'container':
+            container_id = event.get('id')
+            action = event.get('Action')
+            if action in ['start', 'stop', 'die', 'restart']:
+                print(f"Container {container_id} changed state: {action}")
+
+# Start listening for container events
+monitor_events()

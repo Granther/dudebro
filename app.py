@@ -3,13 +3,13 @@ from io import BytesIO
 from multiprocessing import Process, Queue
 from concurrent.futures import ThreadPoolExecutor
 from functools import wraps
-from zipfile import ZipFile
 import shutil
 
-from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, send_file
+from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, send_file, copy_current_request_context
 from flask_bcrypt import Bcrypt
+from flask_socketio import SocketIO, join_room
+from flask_cors import CORS
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
-from mcrcon import MCRcon
 
 from db_factory import db
 from models import Users, Containers
@@ -26,6 +26,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URI", "sqlite:///dud
 
 db.init_app(app)
 bcrypt = Bcrypt(app)
+CORS(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message = None
@@ -38,12 +39,44 @@ properties = Properties()
 deploy = Deploy(image=os.getenv("IMAGE_NAME"), db=db, Containers=Containers)
 rcon = DudeRcon()
 executor = ThreadPoolExecutor(max_workers=2)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 logger = create_logger(__name__)
+vanity = {"start": "Running", "stop": "Stopping", "die": "Off", "restart": "Running"}
+
+states = [{"status": "start", "show": "Running", "color": "bg-green-500"},
+            {"status": "die", "show": "Stopped", "color": "bg-red-500"},
+            {"status": "restart", "show": "Running", "color": "bg-green-500"},
+            {"status": "stop", "show": "Stopping", "color": "bg-orange-500"}]
 
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(int(user_id))
+
+@socketio.on('connect')
+def handle_connect():
+    print("Client connected")
+    room = current_user.id
+    join_room(room)
+
+    socketio.emit('message', 'connected to room', room=room)
+
+@app.route("/monitor")
+def monitor():
+    @copy_current_request_context
+    def monitor_events(uid):
+        for event in deploy.client.events(decode=True):
+            if event.get('Type') == 'container':
+                action = event.get('Action')
+                if action in ['start', 'stop', 'die', 'restart']:
+                    for state in states:
+                        if state['status'] == action:
+                            socketio.emit('container_status', state, room=uid)
+    
+    socketio.start_background_task(monitor_events, current_user.id)
+    return jsonify({"status": True})
+
+#executor.submit(monitor_events)
 
 def user_can_access(id: int, subdomain: str) -> bool:
     results = Users.query.filter_by(id=id).first().containers
@@ -279,6 +312,7 @@ def delete(subdomain):
     
 #     return render_template("create.html", title="Create", form=form)
 
+
 @app.route("/get_status/<subdomain>", methods=['GET', 'POST'])
 @authorized
 def get_status(subdomain):
@@ -362,4 +396,5 @@ def index():
     return render_template("index.html")
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=5005)
+    # app.run(debug=True, host="0.0.0.0", port=5005)
+    socketio.run(app, debug=True, host="0.0.0.0", port=5005)

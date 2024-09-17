@@ -59,7 +59,4 @@
 - I'm just gonna assume that I can change files while the server is running without issues
 
 ### To Do
-- Asyn restart since it holds up
-- If a create fails, clean up what its already done
-- Check fo DNS
-- Dont create dir
+- Future ones interfere
