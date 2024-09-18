@@ -120,8 +120,15 @@ class Deploy:
                     network=self.network_name
                 )
             except Exception as e:
-                self._delete_srv_entry(srv_id)
-                self.delete_container(subdomain)
+                try:
+                    self._delete_srv_entry(srv_id)
+                except:
+                    pass
+                try:
+                    self.delete_container(subdomain)
+                except:
+                    pass        
+
                 raise RuntimeError from e
 
             new_container = self.Containers(uuid=uuid, subdomain=subdomain, domain=self.domain, port=port, rcon_port=rcon_port, weight=0, priority=0, name=name, user_id=user_id, srv_id=srv_id)
@@ -130,14 +137,15 @@ class Deploy:
 
             return container
 
-        except RuntimeError as e:
-            self.logger.critical(str(e), exc_info=True)
-            self._delete_instance_dir(uuid)
-            raise
-
         except Exception as e:
+            self.logger.critical(str(e), exc_info=True)
+            try:
+                self._delete_instance_dir(uuid)
+            except:
+                pass
+
             self.logger.error(f"Unexpected error in create_container: {e}", exc_info=True)
-            raise RuntimeError("An unexpected error occurred while creating the container.")
+            raise RuntimeError("An unexpected error occurred while creating the container.") from e
  
     def _create_instance_dir(self, uuid: str):
         try:

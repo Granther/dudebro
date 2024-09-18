@@ -1,5 +1,4 @@
 import os
-from io import BytesIO
 from multiprocessing import Process, Queue
 from concurrent.futures import ThreadPoolExecutor
 from functools import wraps
@@ -99,6 +98,14 @@ def get_container(subdomain: str):
     containers = deploy.get_user_containers(subdomain=subdomain)
     if containers:
         return containers[0]
+    
+    return False
+
+def subdomain_taken(subdomain: str):
+    results = Containers.query.filter_by(subdomain=subdomain).first()
+
+    if results:
+        return True
     
     return False
 
@@ -207,14 +214,29 @@ def home():
     if results:
         containers = results.containers
         for item in containers:
-            x = deploy.get_status(str(item.id))
-            print(x)
+            # x = deploy.get_status(str(item.id))
+            # print(x)
             servers.append(item)
 
     if form.validate_on_submit():
         if reached_creation_limit(id=current_user.id):
             flash("Sorry, you have reached the maximum number of servers you can create", "danger")
-            return redirect(url_for('home'))  
+            return redirect(url_for('home')) 
+        
+        if subdomain_taken(form.subdomain.data):
+            flash("Subdomain is already taken, please try a different one", "danger")
+            return redirect(url_for('home'))
+
+        # 63 Is the largest a subdomain can be
+        if len(form.subdomain.data) > 63:
+            flash("Subdomain must be 63 characters or less", "danger")
+            return redirect(url_for('home'))
+
+        # import re
+        # pattern = r'^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z0-9-]{1,63})*$'
+        # if not re.match(form.subdomain.data, pattern):
+        #     flash("Subdomain must be 63 characters or less", "danger")
+        #     return redirect(url_for('home'))
 
         try:
             deploy.create_container(user_id=current_user.id, subdomain=form.subdomain.data)

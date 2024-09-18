@@ -877,3 +877,1799 @@ AttributeError: 'NoneType' object has no attribute 'srv_id'
 2024-09-17 13:48:34,846 - __main__ - DEBUG - Container goose restarted.
 2024-09-17 13:48:34,847 - __main__ - DEBUG - Container goose restarted.
 2024-09-17 13:49:16,296 - __main__ - DEBUG - Container goose restarted.
+2024-09-17 22:04:47,638 - deploy - DEBUG - (1031, 1032)
+2024-09-17 22:04:47,639 - deploy - DEBUG - Using port: 1031, Rcon port: 1032
+2024-09-17 22:06:33,657 - deploy - DEBUG - (1033, 1034)
+2024-09-17 22:06:33,659 - deploy - DEBUG - Using port: 1033, Rcon port: 1034
+2024-09-17 22:11:00,919 - __main__ - DEBUG - Container gayboi restarted.
+2024-09-17 22:12:56,091 - __main__ - INFO - Sent command: op axver, got response: Made Axver a server operator
+2024-09-17 22:12:56,092 - __main__ - DEBUG - op
+2024-09-17 22:19:56,734 - deploy - DEBUG - (1035, 1036)
+2024-09-17 22:19:56,735 - deploy - DEBUG - Using port: 1035, Rcon port: 1036
+2024-09-17 22:21:07,678 - __main__ - DEBUG - Container CUMCUK.ORG restarted.
+2024-09-17 22:23:26,553 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:23:26,554 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:23:26,901 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 9000, 'message': 'DNS name is invalid.'}], 'messages': []}
+2024-09-17 22:23:26,939 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:23:26,940 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:23:27,150 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:23:27,150 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:23:27,382 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 9000, 'message': 'DNS name is invalid.'}], 'messages': []}
+2024-09-17 22:23:27,384 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:23:27,384 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:24:23,953 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:24:23,956 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:24:24,249 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 9000, 'message': 'DNS name is invalid.'}], 'messages': []}
+2024-09-17 22:24:24,251 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:24:24,252 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:24:56,412 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:24:56,413 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:24:57,016 - deploy - DEBUG - Deleted successfully: f355a981b95261e833ff111f9e70b34e
+2024-09-17 22:24:57,020 - deploy - WARNING - Exception occured while removing container for subdomain: gAY<username>, skipping: 'bool' object has no attribute 'remove'
+2024-09-17 22:24:57,023 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: gAY<username>, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:24:57,025 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: gAY<username>, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:24:57,027 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.47/containers/create?name=dude_gAY%3Cusername%3E-0786664f-552c-4fdb-aaea-f2aabe1962cf
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 876, in run
+    container = self.create(image=image, command=command,
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 935, in create
+    resp = self.client.api.create_container(**create_kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 440, in create_container
+    return self.create_container_from_config(config, name, platform)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 457, in create_container_from_config
+    return self._result(res, True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 281, in _result
+    self._raise_for_status(response)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.47/containers/create?name=dude_gAY%3Cusername%3E-0786664f-552c-4fdb-aaea-f2aabe1962cf: Bad Request ("Invalid container name (dude_gAY<username>-0786664f-552c-4fdb-aaea-f2aabe1962cf), only [a-zA-Z0-9][a-zA-Z0-9_.-] are allowed")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:25:20,269 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:25:20,273 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:25:20,821 - deploy - DEBUG - Deleted successfully: 3429581272e4e9ab2dca48f8664e7e79
+2024-09-17 22:25:20,825 - deploy - WARNING - Exception occured while removing container for subdomain: %DD, skipping: 'bool' object has no attribute 'remove'
+2024-09-17 22:25:20,827 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: %DD, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:25:20,829 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: %DD, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:25:20,831 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.47/containers/create?name=dude_%25DD-c2263363-4929-40e5-b5c6-aba24457b6bc
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 876, in run
+    container = self.create(image=image, command=command,
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 935, in create
+    resp = self.client.api.create_container(**create_kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 440, in create_container
+    return self.create_container_from_config(config, name, platform)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 457, in create_container_from_config
+    return self._result(res, True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 281, in _result
+    self._raise_for_status(response)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.47/containers/create?name=dude_%25DD-c2263363-4929-40e5-b5c6-aba24457b6bc: Bad Request ("Invalid container name (dude_%DD-c2263363-4929-40e5-b5c6-aba24457b6bc), only [a-zA-Z0-9][a-zA-Z0-9_.-] are allowed")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:25:37,645 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:25:37,650 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:25:38,321 - deploy - DEBUG - Deleted successfully: 4012d8d6fcf0f2f681ec7099c2a13bc0
+2024-09-17 22:25:38,325 - deploy - WARNING - Exception occured while removing container for subdomain: !SSS, skipping: 'bool' object has no attribute 'remove'
+2024-09-17 22:25:38,328 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: !SSS, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:25:38,331 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: !SSS, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:25:38,334 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.47/containers/create?name=dude_%21SSS-41f13f44-a3cd-44f1-83f5-37c8a087dbd5
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 876, in run
+    container = self.create(image=image, command=command,
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 935, in create
+    resp = self.client.api.create_container(**create_kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 440, in create_container
+    return self.create_container_from_config(config, name, platform)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 457, in create_container_from_config
+    return self._result(res, True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 281, in _result
+    self._raise_for_status(response)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.47/containers/create?name=dude_%21SSS-41f13f44-a3cd-44f1-83f5-37c8a087dbd5: Bad Request ("Invalid container name (dude_!SSS-41f13f44-a3cd-44f1-83f5-37c8a087dbd5), only [a-zA-Z0-9][a-zA-Z0-9_.-] are allowed")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:25:58,753 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:25:58,756 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:25:59,076 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 1004, 'message': 'DNS Validation Error', 'error_chain': [{'code': 9000, 'message': 'DNS name is invalid.'}]}], 'messages': []}
+2024-09-17 22:25:59,079 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:25:59,081 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:26:04,990 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:26:04,991 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:26:05,205 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 1004, 'message': 'DNS Validation Error', 'error_chain': [{'code': 9000, 'message': 'DNS name is invalid.'}]}], 'messages': []}
+2024-09-17 22:26:05,208 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:26:05,209 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:26:09,690 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:26:09,693 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:26:09,992 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 1004, 'message': 'DNS Validation Error', 'error_chain': [{'code': 9000, 'message': 'DNS name is invalid.'}]}], 'messages': []}
+2024-09-17 22:26:09,993 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:26:09,994 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:26:16,418 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:26:16,421 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:26:16,903 - deploy - DEBUG - Deleted successfully: beb0207478e5f2915789655545854456
+2024-09-17 22:26:16,906 - deploy - WARNING - Exception occured while removing container for subdomain: ,, skipping: 'bool' object has no attribute 'remove'
+2024-09-17 22:26:16,908 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: ,, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:26:16,911 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: ,, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:26:16,913 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.47/containers/create?name=dude_%2C-9a102056-3f63-4430-a49b-5f0ca897bb03
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 876, in run
+    container = self.create(image=image, command=command,
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 935, in create
+    resp = self.client.api.create_container(**create_kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 440, in create_container
+    return self.create_container_from_config(config, name, platform)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 457, in create_container_from_config
+    return self._result(res, True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 281, in _result
+    self._raise_for_status(response)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.47/containers/create?name=dude_%2C-9a102056-3f63-4430-a49b-5f0ca897bb03: Bad Request ("Invalid container name (dude_,-9a102056-3f63-4430-a49b-5f0ca897bb03), only [a-zA-Z0-9][a-zA-Z0-9_.-] are allowed")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:26:30,240 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:26:30,242 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:27:36,168 - __main__ - DEBUG - Container O.O.O.O.O.O.O.O.O.O restarted.
+2024-09-17 22:28:23,512 - __main__ - INFO - Sent command: op AXVER, got response: Made Axver a server operator
+2024-09-17 22:28:23,513 - __main__ - DEBUG - op
+2024-09-17 22:30:38,880 - __main__ - INFO - Deleting container attached to subdomain: O.O.O.O.O.O.O.O.O.O
+2024-09-17 22:30:39,505 - deploy - DEBUG - Deleted successfully: 8a558689b633844157af0997f41e0d4d
+2024-09-17 22:31:02,807 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:31:02,809 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:31:24,800 - __main__ - INFO - Deleting container attached to subdomain: e
+2024-09-17 22:31:25,357 - deploy - DEBUG - Deleted successfully: 6b0250c20c611eb09fda5010e5a840ee
+2024-09-17 22:32:02,142 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:32:02,144 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:32:02,906 - deploy - ERROR - Unexpected error in create_container: (sqlite3.IntegrityError) UNIQUE constraint failed: containers.subdomain
+[SQL: INSERT INTO containers (uuid, subdomain, srv_id, domain, port, rcon_port, priority, weight, name, type, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('1bf48cee-bd24-4175-a045-c24c2f89900f', 'CUMCUK.ORG', '2895d6e5aacbec8e75eba53dbd003c28', 'doesnickwork.com', 1039, 1040, 0, 0, 'dude_CUMCUK.ORG-1bf48cee-bd24-4175-a045-c24c2f89900f', None, 7)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: containers.subdomain
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 129, in create_container
+    self.db.session.commit()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
+    return self._proxied.commit()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 2028, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 4352, in flush
+    self._flush(objects)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 4448, in _flush
+    flush_context.execute()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: containers.subdomain
+[SQL: INSERT INTO containers (uuid, subdomain, srv_id, domain, port, rcon_port, priority, weight, name, type, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('1bf48cee-bd24-4175-a045-c24c2f89900f', 'CUMCUK.ORG', '2895d6e5aacbec8e75eba53dbd003c28', 'doesnickwork.com', 1039, 1040, 0, 0, 'dude_CUMCUK.ORG-1bf48cee-bd24-4175-a045-c24c2f89900f', None, 7)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-09-17 22:32:51,550 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:32:51,553 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:32:52,585 - deploy - DEBUG - Deleted successfully: c4723bd8de29d3e26b21a2aba1e17418
+2024-09-17 22:32:52,604 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: 0.0.0.0.1, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:32:52,606 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: 0.0.0.0.1, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:32:52,609 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.47/containers/2dda58fd33825492e0ea5fadf38208bae331bf1932a9332f6aa686ff1a9497bc/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.47/containers/2dda58fd33825492e0ea5fadf38208bae331bf1932a9332f6aa686ff1a9497bc/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_0.0.0.0.1-e5b7ec8f-f019-4387-924c-2cb2ef90ee72 (983c43bdd77b72f91e524ccf6c39cfd1d81826af1d18aedcfca7d612274f7328): Bind for 0.0.0.0:1039 failed: port is already allocated")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:35:19,188 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:35:19,192 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:35:20,225 - deploy - DEBUG - Deleted successfully: 149f1503c6137fe7f499d4f3c6d01486
+2024-09-17 22:35:20,244 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: Grant.Edges-likAcuck, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:35:20,247 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: Grant.Edges-likAcuck, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:35:20,248 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.47/containers/ca377d4819d9621b1e70f647a5d974d2b3116eb049d99b2ddd3324bd2d2ba53f/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.47/containers/ca377d4819d9621b1e70f647a5d974d2b3116eb049d99b2ddd3324bd2d2ba53f/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_Grant.Edges-likAcuck-de923268-78f1-4094-b32a-98b535d629fa (66892ac0cdf88f7f8f4a91c3cf336e187bd5951e9693a852609584f29648b052): Bind for 0.0.0.0:1039 failed: port is already allocated")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:35:56,921 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:35:56,923 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:35:57,773 - deploy - DEBUG - Deleted successfully: c50062744caa458f2c10c11e4068dd85
+2024-09-17 22:35:57,794 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: d.dd-ddd, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:35:57,796 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: d.dd-ddd, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:35:57,798 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.47/containers/28e39e1743694c7e61ddccac07b3ccef51fb15073a195a99c699a85477f055a9/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.47/containers/28e39e1743694c7e61ddccac07b3ccef51fb15073a195a99c699a85477f055a9/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_d.dd-ddd-280ae463-ac48-45d0-a144-e1fc9218df88 (d3c9d221e095c2bdd68430e407577fabfc59f9c35eeef61a07332ee8bd85e8e0): Bind for 0.0.0.0:1039 failed: port is already allocated")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:36:42,228 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:36:42,230 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:36:43,168 - deploy - DEBUG - Deleted successfully: 0bfd28d1b5db286c01f48b265713d4ca
+2024-09-17 22:36:43,188 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: Grant.EdgeslikeAcuck, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:36:43,190 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: Grant.EdgeslikeAcuck, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:36:43,193 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.47/containers/20edf844a14c873399ea8838222d9e72068d9dd33a4fa88b77f95216235c7021/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.47/containers/20edf844a14c873399ea8838222d9e72068d9dd33a4fa88b77f95216235c7021/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_Grant.EdgeslikeAcuck-38d27a18-3204-4798-99d1-6a1a15ca6dd0 (f438dda23ab71c5c2e4bc693935c19312937df6288c8cc534d6a4d383fcf47a2): Bind for 0.0.0.0:1039 failed: port is already allocated")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:37:00,949 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:37:00,952 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:37:01,826 - deploy - DEBUG - Deleted successfully: 14087fb46490fa12361506d23de12fd5
+2024-09-17 22:37:01,845 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: GrantrEdgeslikeAcuck, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:37:01,847 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: GrantrEdgeslikeAcuck, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:37:01,850 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.47/containers/b2f94b8efe4e5642c0eaf9ce90b7cff1d3e0451dd752e3d65df5b013537c9074/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.47/containers/b2f94b8efe4e5642c0eaf9ce90b7cff1d3e0451dd752e3d65df5b013537c9074/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_GrantrEdgeslikeAcuck-deefd245-27c2-4860-9fd4-e09897bc1512 (880c87abe7e51a72039bbb437ea396e1451fab560af6e0a0b18c9ef6823d5b66): Bind for 0.0.0.0:1039 failed: port is already allocated")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:37:26,785 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:37:26,788 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:37:28,518 - deploy - DEBUG - Deleted successfully: 210c5f8f83720f4676a6c614bb779b2b
+2024-09-17 22:37:28,536 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: grant, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:37:28,538 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: grant, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:37:28,541 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.47/containers/376e4bdcc71c0e55dea1867094df8c5b9d4b300e9f10a25bb9590b5a1cd3fe80/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.47/containers/376e4bdcc71c0e55dea1867094df8c5b9d4b300e9f10a25bb9590b5a1cd3fe80/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_grant-18bdad1e-a85e-4def-b1d6-116442b0b0ec (ef03c32d3290bf47c07923813dfef04e615fa502967b42435cb4846df59c3651): Bind for 0.0.0.0:1039 failed: port is already allocated")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:38:14,618 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:38:14,619 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:32,897 - __main__ - INFO - Deleting container attached to subdomain: Grant.EdgeslikeAcuck
+2024-09-17 22:41:33,476 - deploy - DEBUG - Deleted successfully: 75e8be808be20033f1caaae78f5edb0a
+2024-09-17 22:41:49,665 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:49,687 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:50,420 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:50,422 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:50,506 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:50,507 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:50,608 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:50,611 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:50,847 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:50,849 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:50,850 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:50,978 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:50,981 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:50,983 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:51,121 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:51,124 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:51,125 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:52,184 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:52,186 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:52,281 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:52,283 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:52,505 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:52,508 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:52,509 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:52,655 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:52,660 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:52,663 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:52,710 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:52,711 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:52,747 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:52,752 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:52,825 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:52,827 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:53,102 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:53,107 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:53,109 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:53,287 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:53,295 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:53,408 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:53,410 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:53,412 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:53,483 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:53,486 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:53,487 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:53,839 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:53,841 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:53,842 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:54,136 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:54,138 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:54,300 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:54,305 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:54,507 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:54,509 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:54,720 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:54,724 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:54,806 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:54,808 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:54,810 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:54,850 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:54,857 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:54,858 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:54,969 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:54,971 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:54,972 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:55,020 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:55,022 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:55,030 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:55,033 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:55,036 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:55,477 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:55,480 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:55,481 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:55,642 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:55,647 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:56,136 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:56,144 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:56,145 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:57,976 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:57,978 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:58,380 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:58,384 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:58,464 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:58,492 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:58,655 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:58,686 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:58,707 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:58,715 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:58,719 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:58,730 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:58,733 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:58,736 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:58,849 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:58,855 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:58,859 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:58,865 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:58,868 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:58,878 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:58,891 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:59,134 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:59,138 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:59,447 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:59,450 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:59,451 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:59,478 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:59,480 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:59,480 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:59,514 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:59,522 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:59,523 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:59,525 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:59,527 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:59,536 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:59,540 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:59,544 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:41:59,725 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:59,727 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:59,788 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:59,789 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:59,858 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:41:59,859 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:41:59,924 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:41:59,926 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:41:59,928 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:00,022 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:00,027 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:00,028 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:00,080 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:00,081 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:00,279 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:00,283 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:00,283 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:00,285 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:00,288 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:00,378 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:00,462 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:00,588 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:01,837 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:01,837 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:01,838 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:02,311 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:02,319 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:02,838 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:02,848 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:02,878 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:02,881 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:02,973 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:02,975 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:02,976 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:03,241 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:03,243 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:03,244 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:03,471 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:03,473 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:03,474 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:03,950 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:03,951 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:03,970 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:03,971 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:04,770 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:04,980 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:05,023 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:05,024 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:05,075 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:05,077 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:05,078 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:05,091 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:05,094 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:05,095 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:05,284 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:05,285 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:05,320 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:05,321 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:05,334 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:05,336 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:05,337 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:05,579 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:05,581 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:05,582 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:05,619 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:05,620 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:05,795 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:05,803 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:05,806 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:05,810 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:05,813 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:05,879 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:05,881 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:05,882 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:06,036 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:06,038 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:06,039 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:06,043 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:07,298 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:07,300 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:07,389 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:07,390 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:07,544 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:07,548 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:08,342 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:08,354 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:08,355 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:08,373 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:08,376 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:08,378 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:08,624 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:08,654 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:08,910 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:08,912 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:09,061 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:09,070 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:09,074 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:09,085 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:09,086 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:09,248 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:09,256 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:09,258 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:09,391 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:09,392 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:09,479 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:09,480 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:09,534 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:09,539 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:09,540 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:09,591 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:09,592 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:09,696 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:09,698 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:09,751 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:09,753 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:09,754 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:09,911 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:09,913 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:09,914 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:10,048 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:10,049 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:10,077 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:10,079 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:10,080 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:10,227 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:10,228 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:10,270 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:10,271 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:10,436 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:10,443 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:10,508 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:10,511 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:10,511 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:10,641 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:10,643 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:10,644 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:10,774 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:10,776 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:10,777 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:15,635 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:15,637 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:15,863 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:15,865 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:15,931 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:15,932 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:16,057 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:16,060 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:16,061 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:16,363 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:16,372 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:16,385 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:16,386 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:16,391 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:16,413 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:16,419 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:16,514 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:16,542 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:16,544 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:16,549 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:16,550 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:16,555 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:16,553 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:17,094 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:17,095 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:17,432 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:17,440 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:17,455 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:17,456 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:17,594 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:17,603 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:17,604 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:17,615 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:17,619 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:17,602 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:17,630 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:17,639 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:17,643 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:17,641 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:17,642 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:17,639 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:17,653 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:17,661 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:17,665 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:17,670 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:17,796 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:17,799 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:17,800 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:17,806 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:17,807 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:17,801 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:18,007 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:18,009 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:18,020 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:18,063 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:18,066 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:18,067 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:18,831 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:18,834 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:18,935 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:18,944 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:19,160 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:19,163 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:19,164 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:19,279 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:19,281 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:19,282 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:22,933 - deploy - DEBUG - (1037, 1038)
+2024-09-17 22:42:22,943 - deploy - DEBUG - Using port: 1037, Rcon port: 1038
+2024-09-17 22:42:26,731 - deploy - DEBUG - (1039, 1040)
+2024-09-17 22:42:26,740 - deploy - DEBUG - Using port: 1039, Rcon port: 1040
+2024-09-17 22:42:26,752 - deploy - DEBUG - (1039, 1040)
+2024-09-17 22:42:26,766 - deploy - DEBUG - Using port: 1039, Rcon port: 1040
+2024-09-17 22:42:26,764 - deploy - DEBUG - (1039, 1040)
+2024-09-17 22:42:26,764 - deploy - DEBUG - (1039, 1040)
+2024-09-17 22:42:26,771 - deploy - DEBUG - (1039, 1040)
+2024-09-17 22:42:26,772 - deploy - DEBUG - (1039, 1040)
+2024-09-17 22:42:26,772 - deploy - DEBUG - Using port: 1039, Rcon port: 1040
+2024-09-17 22:42:26,777 - deploy - DEBUG - (1039, 1040)
+2024-09-17 22:42:26,793 - deploy - DEBUG - Using port: 1039, Rcon port: 1040
+2024-09-17 22:42:26,779 - deploy - DEBUG - (1039, 1040)
+2024-09-17 22:42:26,799 - deploy - DEBUG - Using port: 1039, Rcon port: 1040
+2024-09-17 22:42:26,787 - deploy - DEBUG - Using port: 1039, Rcon port: 1040
+2024-09-17 22:42:26,787 - deploy - DEBUG - Using port: 1039, Rcon port: 1040
+2024-09-17 22:42:26,777 - deploy - DEBUG - (1039, 1040)
+2024-09-17 22:42:26,787 - deploy - DEBUG - Using port: 1039, Rcon port: 1040
+2024-09-17 22:42:26,822 - deploy - DEBUG - Using port: 1039, Rcon port: 1040
+2024-09-17 22:42:27,235 - deploy - DEBUG - Deleted successfully: 11274e8198206bd9001738c64dab3ba9
+2024-09-17 22:42:27,256 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:27,267 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:27,263 - deploy - DEBUG - Deleted successfully: 1ebba83b416059ee2082626bc0402d1a
+2024-09-17 22:42:27,265 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:27,265 - deploy - DEBUG - Deleted successfully: a8cabf20c317b6b279ede91e52ea4e39
+2024-09-17 22:42:27,304 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:27,316 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:27,274 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: Grant.EdgeslikeA, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:42:27,319 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: Grant.EdgeslikeA, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:42:27,320 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.47/containers/40f024dd1bd9b9ef7bfb8dbaaf60c4f55110496bfb985f7e0176c1de65763a20/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.47/containers/40f024dd1bd9b9ef7bfb8dbaaf60c4f55110496bfb985f7e0176c1de65763a20/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_Grant.EdgeslikeA-5d6294d7-cb7a-4716-a9a2-d21da35dddbf (8aae4950dfdb0b7e06a6aede209348b6575ba59457eb2cffc7ea563540b16292): Bind for 0.0.0.0:1039 failed: port is already allocated")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:42:27,301 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:27,266 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:27,317 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:27,261 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:27,295 - deploy - CRITICAL - Failed to create record: {'result': None, 'success': False, 'errors': [{'code': 81058, 'message': 'A record with the same settings already exists.'}], 'messages': []}
+2024-09-17 22:42:27,522 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:27,388 - deploy - DEBUG - Deleted successfully: 76d0fa07befdea63ac5e33e3373aa485
+2024-09-17 22:42:27,429 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: Grant.EdgeslikeAcuc, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:42:27,492 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: Grant.Edgesli, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:42:27,506 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:27,510 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:27,519 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+2024-09-17 22:42:27,544 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:27,534 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:27,536 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: Grant.EdgeslikeAcuc, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:42:27,536 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: Grant.Edgesli, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:42:27,569 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.47/containers/101ef99f0d0cdfe76c1a28a0a749cb6e85130649ed399ea96691d506cf61f6dc/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.47/containers/101ef99f0d0cdfe76c1a28a0a749cb6e85130649ed399ea96691d506cf61f6dc/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_Grant.Edgesli-bb8f7d99-e210-405d-8974-bb96c357e30a (ea73efb7e1267aead4d0c424d38de3f455804df11cdbe362213de45228634cce): Bind for 0.0.0.0:1039 failed: port is already allocated")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:42:27,295 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:27,567 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.47/containers/66c5a3cd9fe0a14de7a6a5917038a6aef04bfaf74f969a79a747aeb284a39e95/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.47/containers/66c5a3cd9fe0a14de7a6a5917038a6aef04bfaf74f969a79a747aeb284a39e95/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_Grant.EdgeslikeAcuc-e09721c7-bb34-462e-a534-18a165fa37e9 (4f5bab2b75590fd4b0ce240b1bafdda076848fc6c315ed641a0010cc81374915): Bind for 0.0.0.0:1039 failed: port is already allocated")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:42:27,544 - deploy - CRITICAL - Error occured while creating SRV DNS Record
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 108, in create_container
+    raise RuntimeError(error)
+RuntimeError: Error occured while creating SRV DNS Record
+2024-09-17 22:42:27,885 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: Grant.Edge, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:42:27,942 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: Grant.Edge, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:42:27,944 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.47/containers/171750089d5fba5dacae13fac4dbf97c60a8eac405bcfcba064f79ac95e5c689/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.47/containers/171750089d5fba5dacae13fac4dbf97c60a8eac405bcfcba064f79ac95e5c689/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_Grant.Edge-f28ba9ac-e0ba-49bd-99e3-1392ed6ca359 (224beb76224c119b9b4779ebf98e1d188314e5ab97dbd756464c75fd57c37768): Bind for 0.0.0.0:1039 failed: port is already allocated")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:42:28,048 - deploy - DEBUG - Deleted successfully: 8acdd0bbed4f50772cf4b5bca2080001
+2024-09-17 22:42:28,060 - deploy - DEBUG - Deleted successfully: c2c6e426edcffbafadd6a53bbfe6ae8d
+2024-09-17 22:42:28,088 - deploy - WARNING - Exception occured while attempting to delete the SRV entry for subdomain: Grant.Edge, skipping: 'NoneType' object has no attribute 'srv_id'
+2024-09-17 22:42:28,090 - deploy - WARNING - Exception occured while attempting to delete the instance directory for: Grant.Edge, skipping: 'NoneType' object has no attribute 'uuid'
+2024-09-17 22:42:28,094 - deploy - ERROR - Unexpected error in create_container: Class 'builtins.NoneType' is not mapped
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.47/containers/86519d276ee143c3c0cec76764b705d2a328e21bf60816484ff79122f093fb3f/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.47/containers/86519d276ee143c3c0cec76764b705d2a328e21bf60816484ff79122f093fb3f/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_Grant.Edge-d2cee784-a29a-4636-b5a4-0f65f99c8171 (21787ff2600be67815c8fbe02a0566d3126a7bc74ccb47dd68c186167e7cd2a6): Bind for 0.0.0.0:1041 failed: port is already allocated")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3534, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 124, in create_container
+    self.delete_container(subdomain)
+  File "/home/grant/dudebro/deploy.py", line 57, in delete_container
+    self.db.session.delete(container_row)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 672, in delete
+    return self._proxied.delete(instance)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 3536, in delete
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2024-09-17 22:42:28,349 - deploy - DEBUG - Deleted successfully: 4ea496957aaa0154842cb24be0acb59a
+2024-09-17 22:42:28,389 - deploy - CRITICAL - 
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http+docker://localhost/v1.47/containers/5d36870130272a7c6d845637ffbc33b6f0775c051ccb1e9fa4164511c6391e8b/start
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 112, in create_container
+    container = self.client.containers.run(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 883, in run
+    container.start()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/models/containers.py", line 420, in start
+    return self.client.api.start(self.id, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/utils/decorators.py", line 19, in wrapped
+    return f(self, resource_id, *args, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/container.py", line 1136, in start
+    self._raise_for_status(res)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.47/containers/5d36870130272a7c6d845637ffbc33b6f0775c051ccb1e9fa4164511c6391e8b/start: Internal Server Error ("driver failed programming external connectivity on endpoint dude_Grant.EdgeslikeAcuck-ca6066da-3bbb-4e5b-b59f-0cde8eb2d8b6 (466ab1bb9cc5f5466fbca87a85ddda30212e7e70e2672cf4425bb4a8de68b504): Bind for 0.0.0.0:1041 failed: port is already allocated")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 125, in create_container
+    raise RuntimeError from e
+RuntimeError
+2024-09-17 22:58:05,716 - deploy - ERROR - Unexpected error in create_container: ('Connection aborted.', TimeoutError(110, 'Connection timed out'))
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py", line 789, in urlopen
+    response = self._make_request(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py", line 490, in _make_request
+    raise new_e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py", line 466, in _make_request
+    self._validate_conn(conn)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py", line 1095, in _validate_conn
+    conn.connect()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/connection.py", line 652, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/connection.py", line 805, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/util/ssl_.py", line 465, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/util/ssl_.py", line 509, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "/usr/lib64/python3.9/ssl.py", line 501, in wrap_socket
+    return self.sslsocket_class._create(
+  File "/usr/lib64/python3.9/ssl.py", line 1074, in _create
+    self.do_handshake()
+  File "/usr/lib64/python3.9/ssl.py", line 1343, in do_handshake
+    self._sslobj.do_handshake()
+TimeoutError: [Errno 110] Connection timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py", line 843, in urlopen
+    retries = retries.increment(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/util/retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/util/util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py", line 789, in urlopen
+    response = self._make_request(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py", line 490, in _make_request
+    raise new_e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py", line 466, in _make_request
+    self._validate_conn(conn)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py", line 1095, in _validate_conn
+    conn.connect()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/connection.py", line 652, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/connection.py", line 805, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/util/ssl_.py", line 465, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/urllib3/util/ssl_.py", line 509, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "/usr/lib64/python3.9/ssl.py", line 501, in wrap_socket
+    return self.sslsocket_class._create(
+  File "/usr/lib64/python3.9/ssl.py", line 1074, in _create
+    self.do_handshake()
+  File "/usr/lib64/python3.9/ssl.py", line 1343, in do_handshake
+    self._sslobj.do_handshake()
+urllib3.exceptions.ProtocolError: ('Connection aborted.', TimeoutError(110, 'Connection timed out'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 104, in create_container
+    srv_id = self._create_srv_entry(subdomain, self.domain, self.target_fqdn, port)
+  File "/home/grant/dudebro/deploy.py", line 210, in _create_srv_entry
+    create_response = requests.post(url, headers=headers, json=data)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/requests/adapters.py", line 682, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', TimeoutError(110, 'Connection timed out'))
+2024-09-17 23:51:58,849 - __main__ - INFO - Deleting container attached to subdomain: goose
+2024-09-17 23:51:59,616 - deploy - DEBUG - Deleted successfully: 9301e90523436b4d7ae09bc19499e7bf
+2024-09-18 00:31:56,755 - deploy - DEBUG - (1041, 1042)
+2024-09-18 00:31:56,755 - deploy - DEBUG - Using port: 1041, Rcon port: 1042
+2024-09-18 00:32:46,092 - deploy - DEBUG - (1043, 1044)
+2024-09-18 00:32:46,093 - deploy - DEBUG - Using port: 1043, Rcon port: 1044
+2024-09-18 00:32:46,668 - deploy - CRITICAL - (sqlite3.IntegrityError) UNIQUE constraint failed: containers.subdomain
+[SQL: INSERT INTO containers (uuid, subdomain, srv_id, domain, port, rcon_port, priority, weight, name, type, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('3edca751-8279-4c79-833f-280418a881ad', 'rizzler', 'd1273a247b03a99f741ead11a67c0e24', 'doesnickwork.com', 1045, 1046, 0, 0, 'dude_rizzler-3edca751-8279-4c79-833f-280418a881ad', None, 8)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: containers.subdomain
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 136, in create_container
+    self.db.session.commit()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
+    return self._proxied.commit()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 2028, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 4352, in flush
+    self._flush(objects)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 4448, in _flush
+    flush_context.execute()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: containers.subdomain
+[SQL: INSERT INTO containers (uuid, subdomain, srv_id, domain, port, rcon_port, priority, weight, name, type, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('3edca751-8279-4c79-833f-280418a881ad', 'rizzler', 'd1273a247b03a99f741ead11a67c0e24', 'doesnickwork.com', 1045, 1046, 0, 0, 'dude_rizzler-3edca751-8279-4c79-833f-280418a881ad', None, 8)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-09-18 00:32:46,706 - deploy - ERROR - Unexpected error in create_container: (sqlite3.IntegrityError) UNIQUE constraint failed: containers.subdomain
+[SQL: INSERT INTO containers (uuid, subdomain, srv_id, domain, port, rcon_port, priority, weight, name, type, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('3edca751-8279-4c79-833f-280418a881ad', 'rizzler', 'd1273a247b03a99f741ead11a67c0e24', 'doesnickwork.com', 1045, 1046, 0, 0, 'dude_rizzler-3edca751-8279-4c79-833f-280418a881ad', None, 8)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: containers.subdomain
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/grant/dudebro/deploy.py", line 136, in create_container
+    self.db.session.commit()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
+    return self._proxied.commit()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 2028, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 4352, in flush
+    self._flush(objects)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/session.py", line 4448, in _flush
+    flush_context.execute()
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/grant/dudebro/.venv/lib64/python3.9/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: containers.subdomain
+[SQL: INSERT INTO containers (uuid, subdomain, srv_id, domain, port, rcon_port, priority, weight, name, type, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('3edca751-8279-4c79-833f-280418a881ad', 'rizzler', 'd1273a247b03a99f741ead11a67c0e24', 'doesnickwork.com', 1045, 1046, 0, 0, 'dude_rizzler-3edca751-8279-4c79-833f-280418a881ad', None, 8)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)

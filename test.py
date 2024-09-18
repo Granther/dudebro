@@ -79,18 +79,23 @@
 # print(properties)
 
 
-import docker
+# import docker
 
-client = docker.from_env()
+# client = docker.from_env()
 
-# Listen to container events
-def monitor_events():
-    for event in client.events(decode=True):
-        if event.get('Type') == 'container':
-            container_id = event.get('id')
-            action = event.get('Action')
-            if action in ['start', 'stop', 'die', 'restart']:
-                print(f"Container {container_id} changed state: {action}")
+# # Listen to container events
+# def monitor_events():
+#     for event in client.events(decode=True):
+#         if event.get('Type') == 'container':
+#             container_id = event.get('id')
+#             action = event.get('Action')
+#             if action in ['start', 'stop', 'die', 'restart']:
+#                 print(f"Container {container_id} changed state: {action}")
 
-# Start listening for container events
-monitor_events()
+# # Start listening for container events
+# monitor_events()
+
+import re
+pattern = r'^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z0-9-]{1,63})*$'
+if re.match("rizzdd]q[w][wdwdw]d[]][2][]3[4]322]3[y", pattern):
+    print("huh")
