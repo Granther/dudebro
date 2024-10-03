@@ -4,7 +4,14 @@ from flask import Blueprint, abort, render_template, session, jsonify, redirect,
 
 main = Blueprint('main', __name__)
 
-@main.route("/create", methods=['POST', 'GET'])
-def create():
+# @main.route("/create", methods=['POST', 'GET'])
+# def create():
+#     pass
+
+@main.route("/get-games", methods=['GET'])
+def get_games():
     pass
 
+@main.route("/get-game-init-conf/<int:gameId>", methods=['GET'])
+def get_game_init_conf(gameId):
+    

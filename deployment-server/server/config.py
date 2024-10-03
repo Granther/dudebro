@@ -13,6 +13,7 @@ class Config:
     PUBLIC_IP = os.environ.get('PUBLIC_IP')
     EMAIL = os.environ.get('EMAIL')
     TARGET_FQDN = os.environ.get('TARGET_FQDN')
+    DEFAULT_NAMESPACE = os.environ.get('DEFAULT_NAMESPACE', 'default')
 
 class DevelopmentConfig(Config):
     DEBUG = True

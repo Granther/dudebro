@@ -2,6 +2,7 @@
 - Deploys, deletes, configures, restarts, ... deployments
 - Does so when signaled from web server
 - Can run without web server, just handles requests
+- Complete abstraction over server deployment, web server doesnt care about ports
 
 ### Data
 - Has its own database of userid and containerid
