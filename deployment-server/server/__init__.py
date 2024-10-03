@@ -10,7 +10,7 @@ from server.logger import create_logger
 # Create a single SQLAlchemy instance
 db = SQLAlchemy()
 
-def create_app(config=DevelopmentConfig):
+def create_server(config=DevelopmentConfig):
     app = Flask(__name__)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = config.DATABASE_URI
@@ -25,7 +25,7 @@ def create_app(config=DevelopmentConfig):
     # Create all tables if not already created
     db.init_app(app)
     with app.app_context():
-        from server.models import Story, Comment, User, Reporter, QueuedStory, QueuedComment
+        from server.models import GameTypes
         db.create_all()
 
     # Imported later to prevent circular import

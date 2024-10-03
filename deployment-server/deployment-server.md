@@ -34,3 +34,8 @@
 
 ### Ports
 - Have a config that describes the port config (ie n, n+400)
+
+### Fields Required
+- Version
+- Num players
+- subdoman

@@ -10,8 +10,9 @@ main = Blueprint('main', __name__)
 
 @main.route("/get-games", methods=['GET'])
 def get_games():
-    pass
+    return jsonify({"status":True})
+    
 
-@main.route("/get-game-init-conf/<int:gameId>", methods=['GET'])
-def get_game_init_conf(gameId):
+# @main.route("/get-game-init-conf/<int:gameId>", methods=['GET'])
+# def get_game_init_conf(gameId):
     
