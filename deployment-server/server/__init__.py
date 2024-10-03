@@ -29,7 +29,7 @@ def create_server(config=DevelopmentConfig):
         db.create_all()
 
     # Imported later to prevent circular import
-    from server.routes.main import main
-    app.register_blueprint(main)
+    from server.routes.main import deploy
+    app.register_blueprint(deploy)
 
     return app

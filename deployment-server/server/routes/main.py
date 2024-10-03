@@ -2,13 +2,13 @@ import os
 
 from flask import Blueprint, abort, render_template, session, jsonify, redirect, url_for, current_app, flash, request
 
-main = Blueprint('main', __name__)
+deploy = Blueprint('deploy', __name__)
 
 # @main.route("/create", methods=['POST', 'GET'])
 # def create():
 #     pass
 
-@main.route("/get-games", methods=['GET'])
+@deploy.route("/get-games", methods=['GET'])
 def get_games():
     return jsonify({"status":True})
     
