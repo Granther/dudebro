@@ -1,6 +1,7 @@
-from db_factory import db
-from flask_login import UserMixin
 import uuid
+from flask_login import UserMixin
+
+from app import db
 
 def generate_uuid():
     return str(uuid.uuid4())

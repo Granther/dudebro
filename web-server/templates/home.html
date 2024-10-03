@@ -11,7 +11,7 @@
             <h3 class="text-4xl font-bold mb-8">Your Servers</h3>
             <div class="grid grid-cols-1 md:grid-cols-3">
                 {% for server in servers %}
-                <a href="{{ url_for('edit', subdomain=server.subdomain) }}" class="text-black flex items-center justify-center">
+                <a href="{{ url_for('main.edit', subdomain=server.subdomain) }}" class="text-black flex items-center justify-center">
                     <div class="grid grid-rows-2 grid-cols-2 py-3 rounded-xl shadow-md bg-gray-600 hover:bg-sky-500 flex items-center justify-center aspect-w-1 aspect-h-1 w-1/2">
                         <span class="text-xl font-medium text-left px-5">{{ server.subdomain }}</span>
                     </div>
@@ -36,7 +36,7 @@
           </button>
         </div>
     
-        <form method="POST" action="{{url_for('home')}}">
+        <form method="POST" action="{{url_for('main.home')}}">
           {{ form.hidden_tag() }}
         
           <div class="mt-8">
@@ -110,17 +110,4 @@
       </div>
     </div>
   </section> -->
-
-  <!-- // status_tag = document.getElementById('status-tag')
-
-  // function get_status() {
-  //       fetch(`{{url_for('get_status', subdomain=subdomain)}}`, {
-  //       }).then(response => response.json()).then(data => {
-  //           status_tag.innerHTML = data.show;
-  //           status_tag.classList = "text-lg font-medium text-right px-5 text-white py-2 px-5 rounded-full font-bold bg-green-500 ml-auto mr-3 text-md transition duration-300"
-  //           status_tag.classList.add(data.color);
-  //       }).catch(error => console.error('Error', error));
-  //   }
-  
-  // get_status() -->
 {% endblock %}
