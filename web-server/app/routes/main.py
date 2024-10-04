@@ -53,7 +53,7 @@ def index():
 def debug():
     game = Games(name="Minecraft")
     db.session.add(game)
-    db.session.commit(game)
+    db.session.commit()
 
     return "Done"
    
@@ -101,16 +101,12 @@ def about():
 @login_required
 def home():
     form = ServerCreateForm()
-    form.game = Games.query.all()
-
     servers = []
     results = Users.query.filter_by(email=current_user.email).first()
 
     if results:
         containers = results.containers
         for item in containers:
-            # x = deploy.get_status(str(item.id))
-            # print(x)
             servers.append(item)
 
     if form.validate_on_submit():
@@ -118,24 +114,14 @@ def home():
             flash("Sorry, you have reached the maximum number of servers you can create", "danger")
             return redirect(url_for('main.home')) 
         
-        if subdomain_taken(form.subdomain.data):
-            flash("Subdomain is already taken, please try a different one", "danger")
-            return redirect(url_for('main.home'))
-
-        # 63 Is the largest a subdomain can be
-        if len(form.subdomain.data) > 63:
-            flash("Subdomain must be 63 characters or less", "danger")
-            return redirect(url_for('main.home'))
-
         try:
-            # deploy.create_container(user_id=current_user.id, subdomain=form.subdomain.data)
+            deploy.create_container(user_id=current_user.id, subdomain=form.subdomain.data)
             flash("Successfully created server", "success")
             return redirect(url_for('main.home'))
         except Exception as e:
             flash(f"Exception occured when creating server: {e}","danger")
             return redirect(url_for('main.home'))
         
-        # return render_template("home.html", servers=servers, form=form)
     return render_template("home.html", servers=servers, form=form, domain=os.getenv("DOMAIN"))
 
 @main.route("/home/<subdomain>")

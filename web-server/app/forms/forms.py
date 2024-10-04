@@ -3,6 +3,8 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, Selec
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from wtforms_sqlalchemy.fields import QuerySelectField
 
+from app.models import Games
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
     email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
@@ -29,7 +31,7 @@ class DeleteForm(FlaskForm):
 
 class ServerCreateForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
-    game = QuerySelectField("Game", render_kw={"class": "bg-gray-900 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
+    game = QuerySelectField("Game", query_factory=lambda: Games.query.filter_by(available=True), get_label='name')
     # subdomain = StringField('Subdomain', validators=[DataRequired(), Length(min=1, max=20)], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-1/3 text-md", "autocomplete":"off"})
     
 class CommandSelectForm(FlaskForm):

@@ -41,7 +41,7 @@
 
           <div class="mt-8">
             {{ form.name.label }} {{ form.name }}
-            {{ form.game.lebel }} {{ form.game }}
+            {{ form.game.label }} {{ form.game }}
           </div>
     
           <div class="mt-6 flex justify-end">
@@ -49,20 +49,6 @@
               class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300">Create</button>
           </div>
         </form>
-
-        <!-- <form method="POST" action="{{url_for('main.home')}}">
-          {{ form.hidden_tag() }}
-        
-          <div class="mt-8">
-            {{ form.subdomain.label }}
-            {{ form.subdomain }}<strong>.{{ domain }}</strong>
-          </div>
-    
-          <div class="mt-6 flex justify-end">
-            <button type="submit"
-              class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300">Create</button>
-          </div>
-        </form> -->
       </div>
     </div>
     <script>
