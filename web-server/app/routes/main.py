@@ -114,8 +114,8 @@ def home():
             flash("Sorry, you have reached the maximum number of servers you can create", "danger")
             return redirect(url_for('main.home')) 
         
-        game_name = form.game.lower()
-        return render_template("game-create/minecraft-create.html", game_name=game_name)    
+        # game_name = form.game.lower()
+        return redirect(url_for('main.create_minecraft'))
     
     return render_template("home.html", servers=servers, form=form, domain=os.getenv("DOMAIN"))
 
@@ -123,6 +123,11 @@ def home():
 @authorized
 def server(subdomain):
     return render_template("server.html", subdomain=subdomain)
+
+@main.route("/create-minecraft")
+@login_required
+def create_minecraft():
+    return render_template("game-create/minecraft-create.html")    
 
 @main.route("/edit/<subdomain>", methods=['POST', 'GET'])
 @authorized
