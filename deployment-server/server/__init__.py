@@ -5,10 +5,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 
 from server.config import DevelopmentConfig, ProductionConfig
+from server.deploy import create_client
 from server.logger import create_logger
 
 # Create a single SQLAlchemy instance
 db = SQLAlchemy()
+kube_client = create_client()
 
 def create_server(config=DevelopmentConfig):
     app = Flask(__name__)
@@ -21,6 +23,10 @@ def create_server(config=DevelopmentConfig):
         logger = create_logger(__name__, config)
         current_app.logger = logger
         current_app.bcrypt = Bcrypt(app)
+
+    if not kube_client:
+        current_app.logger.fatal("Error creating kubernetes client")
+        return None
 
     # Create all tables if not already created
     db.init_app(app)

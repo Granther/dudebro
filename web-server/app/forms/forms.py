@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms_sqlalchemy.fields import QuerySelectField
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
@@ -27,7 +28,9 @@ class DeleteForm(FlaskForm):
     submit = SubmitField('Delete', render_kw={"class": "bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
 
 class ServerCreateForm(FlaskForm):
-    subdomain = StringField('Subdomain', validators=[DataRequired(), Length(min=1, max=20)], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-1/3 text-md", "autocomplete":"off"})
+    name = StringField('Name', validators=[DataRequired()], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-full text-lg", "autocomplete":"off"})
+    game = QuerySelectField("Game", render_kw={"class": "bg-gray-900 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300"})
+    # subdomain = StringField('Subdomain', validators=[DataRequired(), Length(min=1, max=20)], render_kw={"class": "border border-black rounded-lg text-black px-2 py-1 focus:outline-none w-1/3 text-md", "autocomplete":"off"})
     
 class CommandSelectForm(FlaskForm):
     command = SelectField('Command', choices=[("ban", "ban"), ("unban", "unban"), ("op", "op"), ("deop", "deop"), ("whitelist add", "whitelist add"), ("whitelist remove", "whitelist remove"), ], render_kw={"class": "border border-black rounded-l-lg bg-white text-black px-2 py-2 focus:outline-none w-1/3 text-md font-bold", "autocomplete":"off"})

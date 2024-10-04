@@ -1,0 +1,1 @@
+from .manifest import list_games, list_game_versions

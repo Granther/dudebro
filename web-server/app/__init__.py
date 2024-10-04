@@ -30,7 +30,7 @@ def create_app(config=DevelopmentConfig):
     # Create all tables if not already created
     db.init_app(app)
     with app.app_context():
-        from app.models import Containers, Users
+        from app.models import Containers, Users, Games
         db.create_all()
 
         login_manager.login_view = 'main.login'

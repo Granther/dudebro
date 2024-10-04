@@ -6,6 +6,15 @@ from app import db
 def generate_uuid():
     return str(uuid.uuid4())
 
+class Games(db.Model):
+    id = db.Column(db.UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    created = db.Column(db.TIMESTAMP, nullable=False, server_default=db.func.now())
+    name = db.Column(db.String, unique=True, nullable=False)
+    available  = db.Column(db.Boolean, unique=False, nullable=True, server_default=True)
+
+    def __str__(self):
+        return self.name
+
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.TIMESTAMP, nullable=False, server_default=db.func.now())

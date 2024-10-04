@@ -7,7 +7,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request,
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 
 from app import db, login_manager
-from app.models import Users, Containers
+from app.models import Users, Containers, Games
 # from deploy import Deploy
 # from properties import Properties
 from app.logger import create_logger
@@ -48,6 +48,14 @@ def authorized(f):
 @main.route("/")
 def index():
     return render_template("index.html")
+
+@main.route("/debug")
+def debug():
+    game = Games(name="Minecraft")
+    db.session.add(game)
+    db.session.commit(game)
+
+    return "Done"
    
 @main.route("/register", methods=['GET', 'POST'])
 def register():
@@ -93,6 +101,8 @@ def about():
 @login_required
 def home():
     form = ServerCreateForm()
+    form.game = Games.query.all()
+
     servers = []
     results = Users.query.filter_by(email=current_user.email).first()
 
