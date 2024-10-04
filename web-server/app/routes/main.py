@@ -114,14 +114,9 @@ def home():
             flash("Sorry, you have reached the maximum number of servers you can create", "danger")
             return redirect(url_for('main.home')) 
         
-        try:
-            deploy.create_container(user_id=current_user.id, subdomain=form.subdomain.data)
-            flash("Successfully created server", "success")
-            return redirect(url_for('main.home'))
-        except Exception as e:
-            flash(f"Exception occured when creating server: {e}","danger")
-            return redirect(url_for('main.home'))
-        
+        game_name = form.game.lower()
+        return render_template("game-create/minecraft-create.html", game_name=game_name)    
+    
     return render_template("home.html", servers=servers, form=form, domain=os.getenv("DOMAIN"))
 
 @main.route("/home/<subdomain>")
