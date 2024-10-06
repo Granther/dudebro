@@ -29,9 +29,9 @@ def new_game():
 @deploy.route("/get-game-versions/<game_name>", methods=['GET', 'POST'])
 def get_game_versions(game_name):
     # req = request.args.get('gamename')
-    print(list_game_versions(game_name.lower()))
+    ver = list_game_versions(game_name.lower())
 
-    return jsonify({"status":True})
+    return jsonify(ver)
 
 # @main.route("/get-game-init-conf/<int:gameId>", methods=['GET'])
 # def get_game_init_conf(gameId):

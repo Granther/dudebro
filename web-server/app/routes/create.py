@@ -19,7 +19,7 @@ logger = create_logger(__name__)
 def create_minecraft_form():
     form = MinecraftCreateServerInitForm()
     versions = requests.get(f'http://localhost:10000/get-game-versions/minecraft')
-    form.version = versions
+    form.version = versions.content
 
     if form.validate_on_submit():
         return render_template("game-create/minecraft-create.html", form=form)
