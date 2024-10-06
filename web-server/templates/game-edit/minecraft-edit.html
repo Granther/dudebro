@@ -1,0 +1,33 @@
+{% extends 'game-create/base-create.html' %}
+
+{% block title %}Minecraft Create{% endblock %}
+
+{% block list %}
+{% endblock %}
+
+{% block content %}
+<div class="bg-gray-600 rounded-lg shadow-lg w-1/3 p-6">
+<div class="flex justify-between items-center">
+    <h2 class="text-2xl font-bold">Create Server</h2>
+    <button id="close-modal" class="text-white hover:text-blue-700 focus:outline-none">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+    </button>
+</div>
+
+<form method="POST" action="{{url_for('create.create_minecraft_init')}}">
+    {{ form.hidden_tag() }}
+
+    <div class="mt-8">
+    {{ form.subdomain.label }} {{ form.subdomain }}
+    {{ form.num_players.label }} {{ form.num_players }}
+    </div>
+
+    <div class="mt-6 flex justify-end">
+    <button type="submit"
+        class="bg-sky-500 hover:bg-sky-700 text-white py-2 px-5 rounded-full font-bold text-md transition duration-300">Create</button>
+    </div>
+</form>
+</div>
+{% endblock %}

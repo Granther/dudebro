@@ -1,6 +1,6 @@
-{% extends 'game-create/base-create.html' %}
+{% extends 'game-edit/base-edit.html' %}
 
-{% block title %}Minecraft Create{% endblock %}
+{% block title %}Minecraft PreConfig{% endblock %}
 
 {% block list %}
 {% endblock %}
@@ -22,7 +22,6 @@
     <div class="mt-8">
     {{ form.subdomain.label }} {{ form.subdomain }}
     {{ form.num_players.label }} {{ form.num_players }}
-    {{ form.version.label }} {{ form.version }}
     </div>
 
     <div class="mt-6 flex justify-end">

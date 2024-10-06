@@ -30,7 +30,7 @@ def create_app(config=DevelopmentConfig):
     # Create all tables if not already created
     db.init_app(app)
     with app.app_context():
-        from app.models import Containers, Users, Games
+        from app.models import Users, Games, GameServers, GameServerConfigs, MinecraftConfigs
         db.create_all()
 
         login_manager.login_view = 'main.login'
@@ -40,6 +40,8 @@ def create_app(config=DevelopmentConfig):
 
     # Imported later to prevent circular import
     from app.routes.main import main
+    from app.routes.create import create
     app.register_blueprint(main)
+    app.register_blueprint(create)
 
     return app

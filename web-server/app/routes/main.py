@@ -7,16 +7,12 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request,
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 
 from app import db, login_manager
-from app.models import Users, Containers, Games
-# from deploy import Deploy
-# from properties import Properties
+from app.models import Users, Games, GameServers, GameServerConfigs, MinecraftConfigs
 from app.logger import create_logger
-# from rcon import DudeRcon
 from app.forms import RegistrationForm, LoginForm, CommandForm, DeleteForm, \
                     ServerCreateForm, ServerPropertiesForm, CommandSelectForm
 
 main = Blueprint('main', __name__, template_folder='../../templates')
-# executor = ThreadPoolExecutor(max_workers=2)
 logger = create_logger(__name__)
 
 @login_manager.user_loader
@@ -51,7 +47,7 @@ def index():
 
 @main.route("/debug")
 def debug():
-    game = Games(name="Minecraft")
+    game = Games(name="Minecraft", game_type='minecraft')
     db.session.add(game)
     db.session.commit()
 
@@ -105,8 +101,8 @@ def home():
     results = Users.query.filter_by(email=current_user.email).first()
 
     if results:
-        containers = results.containers
-        for item in containers:
+        game_servers = results.game_servers
+        for item in game_servers:
             servers.append(item)
 
     if form.validate_on_submit():
@@ -114,8 +110,9 @@ def home():
             flash("Sorry, you have reached the maximum number of servers you can create", "danger")
             return redirect(url_for('main.home')) 
         
-        # game_name = form.game.lower()
-        return redirect(url_for('main.create_minecraft'))
+        # game_name = form.game
+        # print(game_name)
+        return redirect(url_for('create.create_minecraft_form'))
     
     return render_template("home.html", servers=servers, form=form, domain=os.getenv("DOMAIN"))
 
@@ -123,11 +120,6 @@ def home():
 @authorized
 def server(subdomain):
     return render_template("server.html", subdomain=subdomain)
-
-@main.route("/create-minecraft")
-@login_required
-def create_minecraft():
-    return render_template("game-create/minecraft-create.html")    
 
 @main.route("/edit/<subdomain>", methods=['POST', 'GET'])
 @authorized
@@ -162,7 +154,7 @@ def edit(subdomain):
     #form=form, command_form=command_form, delete_form=delete_form, subdomain=subdomain, command_select_form=command_select_form, domain=os.getenv("DOMAIN"))
 
 def user_can_access(id: int, subdomain: str) -> bool:
-    results = Users.query.filter_by(id=id).first().containers
+    results = Users.query.filter_by(id=id).first().game_servers
 
     if results:
         for container in results:
@@ -175,18 +167,18 @@ def reached_creation_limit(id: int):
     results = Users.query.filter_by(id=id).first()
 
     if results:  
-        if len(results.containers) >= results.container_limit:
+        if len(results.game_servers) >= results.game_server_limit:
             return True
     
     return False
 
-def subdomain_taken(subdomain: str):
-    results = Containers.query.filter_by(subdomain=subdomain).first()
+# def subdomain_taken(subdomain: str):
+#     results = Mine.query.filter_by(subdomain=subdomain).first()
 
-    if results:
-        return True
+#     if results:
+#         return True
     
-    return False
+#     return False
 
 # @current_app.socketio.on('connect')
 # def handle_connect():
